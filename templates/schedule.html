@@ -3,12 +3,12 @@
  
 <div class="page">
  
-  <!-- HEADER -->
+  
   <div class="page-header">
     <h1>Schema</h1>
   </div>
  
-  <!-- WEEK NAVIGATOR -->
+  
    <div class="week-card">
     <div class="week-header">
         <span class="week-label">This week</span>
@@ -18,7 +18,7 @@
      </div>
      </div>
  
-  <!-- TIJDLIJN SCHEMA -->
+  
   <div class="schema-tijdlijn">
     {% if schema %}
       {% for dag, taken in schema.items() %}
@@ -52,14 +52,14 @@
     {% endif %}
   </div>
  
-  <!-- POMODORO TIMER BALK -->
+  
   <div class="timer-balk" id="timerBalk">
     <span class="timer-icon">⏱</span>
     <span class="timer-display" id="timerDisplay">25:00</span>
     <button class="timer-pause" id="timerBtn" onclick="toggleTimer()">⏸</button>
   </div>
  
-    <!-- NAVBAR -->
+    
   <nav class="navbar">
     <a href="{{ url_for('dashboard') }}" class="nav-item active">
         <img src="{{ url_for('static', filename='media/home.png') }}" alt="Home">

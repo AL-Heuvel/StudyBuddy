@@ -3,31 +3,31 @@
  
 <div class="page">
  
-  <!-- HEADER -->
+  
   <div class="page-header">
     <h1>Home</h1>
     <a href="{{ url_for('logout') }}" class="logout-btn">↩</a>
   </div>
  
-  <!-- QUOTE BANNER -->
+  
   <div class="quote-banner">
     <p>{{ quote }}</p>
   </div>
  
-  <!-- TAKEN SECTIE -->
+  
   <div class="section-header">
     <h2>taken</h2>
     <a href="{{ url_for('taken') }}" class="see-all">see all</a>
   </div>
  
-  <!-- DAG TABS -->
+
   <div class="day-tabs">
     <button class="day-tab" onclick="filterTaken('yesterday')">yesterday</button>
     <button class="day-tab active" onclick="filterTaken('today')">today</button>
     <button class="day-tab" onclick="filterTaken('tomorrow')">tomorrow</button>
   </div>
  
-  <!-- TIJDLIJN TAKEN -->
+  
   <div class="tijdlijn">
     {% if taken %}
       {% for taak in taken %}
@@ -53,10 +53,10 @@
     {% endif %}
   </div>
  
-  <!-- FAB -->
+  
   <a href="{{ url_for('taak_nieuw') }}" class="fab">+</a>
  
-  <!-- NAVBAR -->
+  
   <nav class="navbar">
     <a href="{{ url_for('dashboard') }}" class="nav-item active">
         <img src="{{ url_for('static', filename='media/home.png') }}" alt="Home">
