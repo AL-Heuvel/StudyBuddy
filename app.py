@@ -16,7 +16,7 @@ def ingelogd():
 def index():
     return redirect(url_for("login"))
 
-app.route("/register", methods=["GET", "POST"])
+@app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
         username = request.form["username"]
