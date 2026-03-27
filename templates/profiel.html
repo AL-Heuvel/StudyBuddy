@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block content %}
+ 
+<div class="page profiel-page">
+ 
+  <!-- ROZE HEADER -->
+  <div class="profiel-header">
+    <h1>wijzig profiel</h1>
+    <div class="profiel-avatar">
+      {% if user and user['foto'] %}
+        <img src="{{ url_for('static', filename='uploads/' + user['foto']) }}"
+             class="avatar-foto" alt="Profielfoto">
+      {% else %}
+        <div class="avatar-cirkel">👤</div>
+      {% endif %}
+    </div>
+  </div>
+ 
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+ 
+  <!-- FORMULIER -->
+  <div class="profiel-form-wrapper">
+    <form method="POST" enctype="multipart/form-data" class="profiel-form">
+ 
+      <!-- FOTO UPLOAD -->
+      <div class="form-groep">
+        <label>Profielfoto</label>
+        <label class="foto-upload-label">
+          📷 Kies foto
+          <input type="file" name="foto" accept="image/*" onchange="previewFoto(this)">
+        </label>
+        <img id="fotoPreview" src="" alt="" class="foto-preview" style="display:none">
+      </div>
+ 
+      <div class="form-groep">
+        <label>Gebruikersnaam</label>
+        <input type="text" name="username"
+               value="{{ user['username'] if user else '' }}" required>
+      </div>
+ 
+      <div class="form-groep">
+        <label>E-mail</label>
+        <input type="email" name="email"
+               value="{{ user['email'] if user and user['email'] else '' }}">
+      </div>
+ 
+      <div class="form-groep">
+        <label>Telefoonnummer</label>
+        <input type="tel" name="telefoonnummer"
+               value="{{ user['telefoonnummer'] if user and user['telefoonnummer'] else '' }}">
+      </div>
+ 
+      <div class="form-groep">
+        <label>Wachtwoord</label>
+        <input type="password" name="password"
+               placeholder="Laat leeg om niet te wijzigen">
+      </div>
+ 
+      <button type="submit" class="btn-opslaan-profiel">Opslaan</button>
+ 
+    </form>
+  </div>
+ 
+  <!-- NAVBAR -->
+  <nav class="navbar">
+   <a href="{{ url_for('dashboard') }}" class="nav-item active">
+        <img src="{{ url_for('static', filename='media/home.png') }}" alt="Home">
+    </a>
+    <a href="{{ url_for('schema') }}" class="nav-item">
+        <img src="{{ url_for('static', filename='media/calendar.png') }}" alt="Schema">
+    </a>
+    <a href="{{ url_for('taken') }}" class="nav-item">
+        <img src="{{ url_for('static', filename='media/books.png') }}" alt="Taken">
+    </a>
+    <a href="{{ url_for('instellingen') }}" class="nav-item">
+        <img src="{{ url_for('static', filename='media/settings.png') }}" alt="Instellingen">
+    </a>
+  </nav>
+ 
+</div>
+ 
+<script src="/static/js/pf.js"></script>
+ 
+{% endblock %}

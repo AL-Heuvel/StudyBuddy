@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBuddy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+ 
+    {% block content %}{% endblock %}
+    <script src="{{ url_for('static', filename='js/timer.js') }}"></script>
+ 
+    <script>
+  // Automatisch actieve nav-item bepalen op basis van huidige URL
+  const path = window.location.pathname;
+  const navItems = document.querySelectorAll('.nav-item');
+ 
+  navItems.forEach(item => {
+    item.classList.remove('active');
+    const href = item.getAttribute('href');
+    if (
+      (path === '/' && href.includes('dashboard')) ||
+      (path.includes('dashboard') && href.includes('dashboard')) ||
+      (path.includes('schema') && href.includes('schema')) ||
+      (path.includes('taken') && href.includes('taken')) ||
+      (path.includes('instellingen') && href.includes('instellingen'))
+    ) {
+      item.classList.add('active');
+    }
+  });
+</script>
+</body>
+</html>
