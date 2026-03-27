@@ -16,7 +16,7 @@ def ingelogd():
 def index():
     return redirect(url_for("login"))
 
-@app.route("/register", methods=["GET", "POST"])
+app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
         username = request.form["username"]
@@ -29,6 +29,26 @@ def register():
                 (username, hashed)
             )
             db.commit()
+ 
+            # Haal de nieuwe user op
+            user = db.execute(
+                "SELECT id FROM users WHERE username = ?",
+                (username,)
+            ).fetchone()
+ 
+            # Standaard vakken toevoegen
+            standaard_vakken = [
+                "Wiskunde", "Nederlands", "Engels", "Biologie",
+                "Scheikunde", "Natuurkunde", "Geschiedenis",
+                "Aardrijkskunde", "Economie", "Duits"
+            ]
+            for vak in standaard_vakken:
+                db.execute(
+                    "INSERT INTO vakken (user_id, naam) VALUES (?, ?)",
+                    (user["id"], vak)
+                )
+            db.commit()
+ 
             flash("Account aangemaakt! Je kunt nu inloggen.", "success")
             return redirect(url_for("login"))
         except:
