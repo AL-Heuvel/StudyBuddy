@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block content %}
+ 
+<div class="page">
+ 
+  
+  <div class="page-header">
+    <a href="{{ url_for('taken') }}" class="terug-btn">← terug</a>
+  </div>
+ 
+  <h1 class="form-titel">
+    {% if taak %}Taak bewerken{% else %}Nieuwe taak{% endif %}
+  </h1>
+ 
+  <form method="POST" class="taak-form">
+ 
+    <div class="form-groep">
+      <label>Titel</label>
+      <input type="text" name="titel" placeholder="Titel"
+             value="{{ taak['titel'] if taak else '' }}" required>
+    </div>
+ 
+    <div class="form-groep">
+      <label>Beschrijving</label>
+      <input type="text" name="beschrijving" placeholder="Beschrijving"
+             value="{{ taak['beschrijving'] if taak else '' }}">
+    </div>
+ 
+    <div class="form-groep">
+      <label>Vak-koppeling</label>
+      <select name="vak_id">
+        <option value="">Kies een vak</option>
+        {% for vak in vakken %}
+          <option value="{{ vak['id'] }}"
+            {% if taak and taak['vak_id'] == vak['id'] %}selected{% endif %}>
+            {{ vak['naam'] }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+ 
+    <div class="form-groep">
+      <label>Deadline</label>
+      <input type="date" name="deadline"
+             value="{{ taak['deadline'] if taak else '' }}">
+    </div>
+ 
+    <div class="form-groep">
+      <label>Moeilijkheid</label>
+      <div class="keuze-btns" id="moeilijkheidBtns">
+        {% for optie in ['laag', 'gemiddeld', 'hoog'] %}
+        <button type="button" class="keuze-btn
+          {% if taak and taak['moeilijkheid'] == optie %}actief{% endif %}"
+          onclick="kiesOptie('moeilijkheid', this, '{{ optie }}')">
+          {{ optie|capitalize }}
+        </button>
+        {% endfor %}
+      </div>
+      <input type="hidden" name="moeilijkheid" id="moeilijkheidInput"
+             value="{{ taak['moeilijkheid'] if taak else 'gemiddeld' }}">
+    </div>
+ 
+    <div class="form-groep">
+      <label>Prioriteit</label>
+      <div class="keuze-btns" id="prioriteitBtns">
+        {% for i in [1,2,3,4,5] %}
+        <button type="button" class="keuze-btn keuze-rond
+          {% if taak and taak['prioriteit'] == i %}actief{% endif %}"
+          onclick="kiesOptie('prioriteit', this, '{{ i }}')">
+          {{ i }}
+        </button>
+        {% endfor %}
+      </div>
+      <input type="hidden" name="prioriteit" id="prioriteitInput"
+             value="{{ taak['prioriteit'] if taak else '3' }}">
+    </div>
+ 
+    <button type="submit" class="btn-primary">
+      {% if taak %}Opslaan{% else %}Taak aanmaken{% endif %}
+    </button>
+ 
+    <a href="{{ url_for('taken') }}" class="btn-secondary">Annuleren</a>
+ 
+  </form>
+ 
+  
+  <nav class="navbar">
+    <a href="{{ url_for('dashboard') }}" class="nav-item active">
+        <img src="{{ url_for('static', filename='media/home.png') }}" alt="Home">
+    </a>
+    <a href="{{ url_for('schema') }}" class="nav-item">
+        <img src="{{ url_for('static', filename='media/calendar.png') }}" alt="Schema">
+    </a>
+    <a href="{{ url_for('taken') }}" class="nav-item">
+        <img src="{{ url_for('static', filename='media/books.png') }}" alt="Taken">
+    </a>
+    <a href="{{ url_for('instellingen') }}" class="nav-item">
+        <img src="{{ url_for('static', filename='media/settings.png') }}" alt="Instellingen">
+    </a>
+  </nav>
+ 
+</div>
+ 
+<script src="/static/js/tf.js"></script>
+ 
+{% endblock %}

@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% block content %}
+ 
+<div class="page">
+ 
+  
+  <div class="page-header">
+    <h1>Mijn taken</h1>
+  </div>
+ 
+  
+  <div class="taken-sectie">
+    <h2 class="sectie-titel">Openstaand ({{ open_taken|length }})</h2>
+ 
+    {% if open_taken %}
+      {% for taak in open_taken %}
+      <div class="taak-kaart">
+        <div class="taak-kaart-top">
+          <span class="taak-kaart-titel">{{ taak['titel'] }}</span>
+          <span class="badge badge-{{ taak['moeilijkheid'] }}">{{ taak['moeilijkheid']|capitalize }}</span>
+        </div>
+        <div class="taak-kaart-meta">
+          {% if taak['vak_naam'] %}
+            <span class="vak-tag">{{ taak['vak_naam'] }}</span>
+          {% endif %}
+          {% if taak['deadline'] %}
+            <span class="deadline-tag">🗓 {{ taak['deadline'] }}</span>
+          {% endif %}
+          {% if taak['prioriteit'] %}
+            <span class="prio-dots">
+              {% for i in range(5) %}
+                <span class="dot {% if i < taak['prioriteit'] %}dot-actief{% endif %}"></span>
+              {% endfor %}
+            </span>
+          {% endif %}
+        </div>
+        {% if taak['beschrijving'] %}
+          <p class="taak-kaart-desc">{{ taak['beschrijving'] }}</p>
+        {% endif %}
+        <div class="taak-kaart-acties">
+          <a href="{{ url_for('taak_voltooien', taak_id=taak['id']) }}" class="actie-btn actie-voltooid">
+            <span>✓</span> Voltooid
+          </a>
+          <a href="{{ url_for('taak_bewerken', taak_id=taak['id']) }}" class="actie-btn actie-bewerken">
+            <span>✏️</span> Bewerken
+          </a>
+          <a href="{{ url_for('taak_verwijderen', taak_id=taak['id']) }}" class="actie-btn actie-verwijderen"
+             onclick="return confirm('Weet je het zeker?')">
+            <span>✕</span> Verwijderen
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    {% else %}
+      <div class="geen-taken">
+         <img src="{{ url_for('static', filename='media/award.gif') }}" alt="beker">
+        <p>Geen openstaande taken!</p>
+      </div>
+    {% endif %}
+  </div>
+ 
+  
+  <div class="taken-sectie">
+    <h2 class="sectie-titel">Voltooid ({{ afgerond|length }})</h2>
+ 
+    {% if afgerond %}
+      {% for taak in afgerond %}
+      <div class="taak-kaart taak-voltooid">
+        <div class="taak-kaart-top">
+          <span class="taak-kaart-titel doorgestreept">{{ taak['titel'] }}</span>
+          <span class="badge badge-{{ taak['moeilijkheid'] }}">{{ taak['moeilijkheid']|capitalize }}</span>
+        </div>
+        <div class="taak-kaart-meta">
+          {% if taak['vak_naam'] %}
+            <span class="vak-tag">{{ taak['vak_naam'] }}</span>
+          {% endif %}
+          {% if taak['deadline'] %}
+            <span class="deadline-tag">🗓 {{ taak['deadline'] }}</span>
+          {% endif %}
+          {% if taak['prioriteit'] %}
+            <span class="prio-dots">
+              {% for i in range(5) %}
+                <span class="dot {% if i < taak['prioriteit'] %}dot-actief{% endif %}"></span>
+              {% endfor %}
+            </span>
+          {% endif %}
+        </div>
+        {% if taak['beschrijving'] %}
+          <p class="taak-kaart-desc doorgestreept">{{ taak['beschrijving'] }}</p>
+        {% endif %}
+        <div class="taak-kaart-acties">
+          <a href="{{ url_for('taak_heropenen', taak_id=taak['id']) }}" class="actie-btn actie-heropenen">
+            <span>→</span> Heropenen
+          </a>
+          <a href="{{ url_for('taak_bewerken', taak_id=taak['id']) }}" class="actie-btn actie-bewerken">
+            <span>✏️</span> Bewerken
+          </a>
+          <a href="{{ url_for('taak_verwijderen', taak_id=taak['id']) }}" class="actie-btn actie-verwijderen"
+             onclick="return confirm('Weet je het zeker?')">
+            <span>✕</span> Verwijderen
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    {% else %}
+      <p class="geen-taken-klein">Nog niets voltooid.</p>
+    {% endif %}
+  </div>
+ 
+  
+  <a href="{{ url_for('taak_nieuw') }}" class="fab">+</a>
+ 
+  
+  <nav class="navbar">
+    <a href="{{ url_for('dashboard') }}" class="nav-item active">
+        <img src="{{ url_for('static', filename='media/home.png') }}" alt="Home">
+    </a>
+    <a href="{{ url_for('schema') }}" class="nav-item">
+        <img src="{{ url_for('static', filename='media/calendar.png') }}" alt="Schema">
+    </a>
+    <a href="{{ url_for('taken') }}" class="nav-item">
+        <img src="{{ url_for('static', filename='media/books.png') }}" alt="Taken">
+    </a>
+    <a href="{{ url_for('instellingen') }}" class="nav-item">
+        <img src="{{ url_for('static', filename='media/settings.png') }}" alt="Instellingen">
+    </a>
+  </nav>
+ 
+</div>
+ 
+{% endblock %}

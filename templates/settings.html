@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% block content %}
+ 
+<div class="page">
+ 
+  <!-- HEADER -->
+  <div class="page-header">
+    <h1>Instellingen</h1>
+     <img src="{{ url_for('static', filename='media/settings.png') }}" alt="Instellingen">
+  </div>
+ 
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+ 
+  <!-- VAKKEN -->
+<div class="instellingen-sectie">
+  <div class="sectie-header-row">
+    <h2>Vakken</h2>
+     <img src="{{ url_for('static', filename='media/classes.png') }}" alt="Instellingen">
+  </div>
+  <p class="sectie-subtitel">Edit vakken</p>
+ 
+  {% if vakken %}
+  <div class="vakken-grid">
+    {% set kleuren = ['groen', 'groen', 'groen', 'groen', 'oranje', 'oranje', 'oranje', 'oranje'] %}
+    {% for vak in vakken %}
+    <div class="vak-chip">
+      <span class="vak-dot {{ kleuren[loop.index0 % 8] }}"></span>
+      <span>{{ vak['naam'] }}</span>
+      <a href="{{ url_for('vak_verwijderen', vak_id=vak['id']) }}"
+         class="vak-delete" onclick="return confirm('Vak verwijderen?')">✕</a>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+ 
+  <form method="POST" class="vak-form">
+    <input type="text" name="vak_naam" placeholder="Nieuw vak toevoegen..." required>
+    <button type="submit">+</button>
+  </form>
+</div>
+ 
+  <!-- LOG UIT -->
+  <div class="instellingen-rij-kaart">
+    <a href="{{ url_for('logout') }}" class="instellingen-rij">
+      <span>log uit</span>
+      <span class="rij-icon">↩</span>
+    </a>
+  </div>
+ 
+  <!-- ACCOUNT & PROFIEL -->
+   <div class="instellingen-sectie profiel-sectie">
+  <div class="sectie-header-row">
+    <h2>account & Profiel</h2>
+     <img src="{{ url_for('static', filename='media/account.png') }}" alt="Instellingen">
+  </div>
+ 
+  <a href="{{ url_for('profiel') }}" class="profiel-edit-rij">
+  <span class="profiel-edit-tekst">Edit profiel</span>
+  {% if user and user['foto'] %}
+    <img src="{{ url_for('static', filename='uploads/' + user['foto']) }}"
+         class="avatar-foto-klein" alt="Profielfoto">
+  {% else %}
+    <div class="profiel-avatar-groot">👤</div>
+  {% endif %}
+</a>
+ 
+  <div class="profiel-info-rijen">
+    <div class="profiel-info-rij">
+      <span class="profiel-label">Naam</span>
+      <span class="profiel-waarde">{{ session['username'] }}</span>
+    </div>
+    {% if user and user['email'] %}
+    <div class="profiel-info-rij">
+      <span class="profiel-label">E-mail</span>
+      <span class="profiel-waarde blauw">{{ user['email'] }}</span>
+    </div>
+    {% endif %}
+  </div>
+</div>
+ 
+  <!-- TIMER -->
+  <div class="instellingen-sectie timer-sectie">
+    <div class="sectie-header-row">
+      <h2>Timer</h2>
+       <img src="{{ url_for('static', filename='media/timer.png') }}" alt="Instellingen">
+    </div>
+    <div class="timer-instellingen">
+      <div class="timer-rij">
+        <span>Werkintervalduur (standaard: 25 min)</span>
+        <input type="number" id="werkTijdInput" min="1" max="60" value="25"
+               onchange="updateTimer('werk', this.value)">
+      </div>
+      <div class="timer-rij">
+        <span>Pauzeduur (standaard: 5 min)</span>
+        <input type="number" id="pauzeInput" min="1" max="30" value="5"
+               onchange="updateTimer('pauze', this.value)">
+      </div>
+    </div>
+  </div>
+ 
+  <!-- STUDIE-UREN -->
+  <div class="instellingen-sectie">
+    <div class="sectie-header-row">
+      <h2>Beschikbare uren per dag</h2>
+       <img src="{{ url_for('static', filename='media/calendar.png') }}" alt="Instellingen">
+    </div>
+    <form method="POST">
+      <div class="uren-row">
+        <input type="number" name="uren_per_dag" min="1" max="12"
+               value="{{ instellingen['uren_per_dag'] if instellingen else 4 }}">
+        <span>uur per dag</span>
+        <button type="submit" class="btn-opslaan">Opslaan</button>
+      </div>
+    </form>
+  </div>
+ 
+  <!-- VERWIJDER ACCOUNT -->
+  <div class="instellingen-sectie verwijder-sectie">
+    <div class="sectie-header-row">
+      <h2>Verwijder account</h2>
+       <img src="{{ url_for('static', filename='media/delete.png') }}" alt="Instellingen">
+    </div>
+    <a href="#" class="verwijder-rij" onclick="return confirm('Weet je zeker dat je je account wilt verwijderen?')">
+      <span>Verwijder account</span>
+      <span class="verwijder-waarde">ja</span>
+    </a>
+  </div>
+ 
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="{{ url_for('dashboard') }}" class="nav-item active">
+        <img src="{{ url_for('static', filename='media/home.png') }}" alt="Home">
+    </a>
+    <a href="{{ url_for('schema') }}" class="nav-item">
+        <img src="{{ url_for('static', filename='media/calendar.png') }}" alt="Schema">
+    </a>
+    <a href="{{ url_for('taken') }}" class="nav-item">
+        <img src="{{ url_for('static', filename='media/books.png') }}" alt="Taken">
+    </a>
+    <a href="{{ url_for('instellingen') }}" class="nav-item">
+        <img src="{{ url_for('static', filename='media/settings.png') }}" alt="Instellingen">
+    </a>
+  </nav>
+ 
+</div>
+ 
+{% endblock %}
