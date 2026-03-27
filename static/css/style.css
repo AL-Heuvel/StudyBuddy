@@ -336,6 +336,10 @@ body {
     font-size: 24px;
 }
 
+.nav-item:hover {
+    opacity: 0.6;
+}
+
 .nav-item.active { opacity: 1; }
 
 .nav-item img {
@@ -344,6 +348,10 @@ body {
     object-fit: contain;
     filter: grayscale(100%) opacity(70%);
     transition: filter 0.2s;
+}
+
+.nav-item:hover img {
+    filter: grayscale(50%) opacity(90%);
 }
 
 .nav-item.active img {
