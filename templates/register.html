@@ -1,0 +1,40 @@
+{%extends "base.html"%}
+{%block content%}
+
+<div class="auth-wrapper">
+    <div class="auth-card">
+
+
+        <div class="auth-logo">
+            <div class="logo-icon"></div>
+            <h1>StuddyBuddy</h1>
+        </div>
+
+        <h2>registreer</h2>
+
+
+        {% with messages = get_flashed_messages(with_categories=treu) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="flash{{category}}">{{ message }}</div>
+        {%endfor%}
+        {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <div class="input-group">
+                <span class="input-icon"></span>
+                <input type="text" name="username" placeholder="Gebruikersnaam" required>
+            </div>
+            <div class="input-group">
+                <span class="input-icon"></span>
+                <input type="password" name="password" placeholder="Wachtwoord" required>
+            </div>
+            <button type="submit" class="btn-primary">Account aanmaken</button>
+        </form>
+
+        <p class="auth-link">Al een account? <a href="{{ url_for('login') }}">Login hier</a></p>
+    </div>
+</div>
+
+{% endblock %}
