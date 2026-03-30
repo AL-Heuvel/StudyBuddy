@@ -3,7 +3,7 @@
  
 <div class="page">
  
-  <!-- HEADER -->
+  
   <div class="page-header">
     <h1>Instellingen</h1>
      <img src="{{ url_for('static', filename='media/settings.png') }}" alt="Instellingen">
@@ -17,7 +17,7 @@
     {% endif %}
   {% endwith %}
  
-  <!-- VAKKEN -->
+  
 <div class="instellingen-sectie">
   <div class="sectie-header-row">
     <h2>Vakken</h2>
@@ -45,7 +45,7 @@
   </form>
 </div>
  
-  <!-- LOG UIT -->
+
   <div class="instellingen-rij-kaart">
     <a href="{{ url_for('logout') }}" class="instellingen-rij">
       <span>log uit</span>
@@ -53,7 +53,7 @@
     </a>
   </div>
  
-  <!-- ACCOUNT & PROFIEL -->
+  
    <div class="instellingen-sectie profiel-sectie">
   <div class="sectie-header-row">
     <h2>account & Profiel</h2>
@@ -84,7 +84,7 @@
   </div>
 </div>
  
-  <!-- TIMER -->
+  
   <div class="instellingen-sectie timer-sectie">
     <div class="sectie-header-row">
       <h2>Timer</h2>
@@ -104,7 +104,7 @@
     </div>
   </div>
  
-  <!-- STUDIE-UREN -->
+  
   <div class="instellingen-sectie">
     <div class="sectie-header-row">
       <h2>Beschikbare uren per dag</h2>
@@ -120,7 +120,7 @@
     </form>
   </div>
  
-  <!-- VERWIJDER ACCOUNT -->
+  
   <div class="instellingen-sectie verwijder-sectie">
     <div class="sectie-header-row">
       <h2>Verwijder account</h2>
@@ -132,7 +132,7 @@
     </a>
   </div>
  
-  <!-- NAVBAR -->
+  
   <nav class="navbar">
     <a href="{{ url_for('dashboard') }}" class="nav-item active">
         <img src="{{ url_for('static', filename='media/home.png') }}" alt="Home">
