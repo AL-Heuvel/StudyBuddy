@@ -55,6 +55,8 @@ def init_db():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             user_id INTEGER NOT NULL UNIQUE,
             uren_per_dag INTEGER DEFAULT 4,
+            werk_tijd INTEGER DEFAULT 25,
+            pauze_tijd INTEGER DEFAULT 5,
             FOREIGN KEY (user_id) REFERENCES users(id)
         )
     """)

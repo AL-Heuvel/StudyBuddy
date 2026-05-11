@@ -44,3 +44,22 @@
 [2026-05-11 12:15:31] INFO - Quote opgehaald voor gebruiker 4
 [2026-05-11 12:15:32] INFO - Quote opgehaald voor gebruiker 4
 [2026-05-11 12:15:34] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:23:11] ERROR - Fout bij registreren van 'alz': UNIQUE constraint failed: users.username
+[2026-05-11 12:23:17] INFO - Gebruiker 'alz' is ingelogd
+[2026-05-11 12:23:18] INFO - Gebruiker 'alz' is ingelogd
+[2026-05-11 12:23:20] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:23:21] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:23:27] ERROR - Fout bij opslaan instellingen: table instellingen has no column named werk_tijd
+[2026-05-11 12:23:30] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:23:39] ERROR - Fout bij opslaan instellingen: table instellingen has no column named werk_tijd
+[2026-05-11 12:23:43] ERROR - Fout bij opslaan instellingen: table instellingen has no column named werk_tijd
+[2026-05-11 12:25:38] ERROR - Fout bij registreren van 'alz': UNIQUE constraint failed: users.username
+[2026-05-11 12:25:45] INFO - Gebruiker 'alz' is ingelogd
+[2026-05-11 12:25:48] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7396c19c8050>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-05-11 12:25:59] ERROR - Fout bij opslaan instellingen: database is locked
+[2026-05-11 12:27:46] INFO - Gebruiker 'alz' is ingelogd
+[2026-05-11 12:27:48] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:27:55] INFO - Instellingen bijgewerkt voor gebruiker 4
+[2026-05-11 12:28:00] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:28:14] INFO - Instellingen bijgewerkt voor gebruiker 4
+[2026-05-11 12:28:19] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Read timed out. (read timeout=3)

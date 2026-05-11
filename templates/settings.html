@@ -96,16 +96,19 @@
       <h2>Timer</h2>
       <img src="{{ url_for('static', filename='media/timer.png') }}" alt="Instellingen">
     </div>
-    <div class="timer-instellingen">
+    <form method="POST" class="timer-instellingen">
       <div class="timer-rij">
-        <span>Werkintervalduur (standaard: 25 min)</span>
-        <input type="number" id="werkTijdInput" min="1" max="60" value="25" onchange="updateTimer('werk', this.value)">
+        <span>Werkintervalduur (minuten)</span>
+        <input type="number" id="werkTijdInput" name="werk_tijd" min="1" max="60" value="{{ instellingen['werk_tijd'] if instellingen and instellingen['werk_tijd'] else 25 }}" onchange="updateTimer('werk', this.value)">
       </div>
       <div class="timer-rij">
-        <span>Pauzeduur (standaard: 5 min)</span>
-        <input type="number" id="pauzeInput" min="1" max="30" value="5" onchange="updateTimer('pauze', this.value)">
+        <span>Pauzeduur (minuten)</span>
+        <input type="number" id="pauzeInput" name="pauze_tijd" min="1" max="30" value="{{ instellingen['pauze_tijd'] if instellingen and instellingen['pauze_tijd'] else 5 }}" onchange="updateTimer('pauze', this.value)">
       </div>
-    </div>
+      <div style="margin-top:8px">
+        <button type="submit" class="btn-opslaan">Opslaan</button>
+      </div>
+    </form>
   </div>
 
 

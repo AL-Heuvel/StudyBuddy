@@ -579,8 +579,10 @@ def instellingen():
                 logger.info(f"Vak '{vak_naam}' toegevoegd door gebruiker {session['user_id']}")
 
             uren = request.form.get("uren_per_dag")
+            werk = request.form.get("werk_tijd")
+            pauze = request.form.get("pauze_tijd")
 
-            if uren:
+            if uren or werk or pauze:
 
                 bestaand = db.execute(
 
@@ -592,25 +594,39 @@ def instellingen():
 
                 if bestaand:
 
-                    db.execute(
-
-                        "UPDATE instellingen SET uren_per_dag = ? WHERE user_id = ?",
-
-                        (uren, session["user_id"])
-
-                    )
+                    # update uren_per_dag and optionally timer values
+                    if werk or pauze:
+                        cur = db.execute("SELECT werk_tijd, pauze_tijd FROM instellingen WHERE user_id = ?", (session['user_id'],)).fetchone()
+                        cur_werk = cur['werk_tijd'] if cur and cur['werk_tijd'] is not None else 25
+                        cur_pauze = cur['pauze_tijd'] if cur and cur['pauze_tijd'] is not None else 5
+                        new_werk = int(werk) if werk else cur_werk
+                        new_pauze = int(pauze) if pauze else cur_pauze
+                        # update all three values
+                        db.execute(
+                            "UPDATE instellingen SET uren_per_dag = ?, werk_tijd = ?, pauze_tijd = ? WHERE user_id = ?",
+                            (uren if uren else bestaand['uren_per_dag'], new_werk, new_pauze, session["user_id"]) 
+                        )
+                    else:
+                        db.execute(
+                            "UPDATE instellingen SET uren_per_dag = ? WHERE user_id = ?",
+                            (uren, session["user_id"]) 
+                        )
 
                 else:
 
+                    # insert with optional timer values
+                    vals = (
+                        session["user_id"],
+                        uren if uren else 4,
+                        int(werk) if werk else 25,
+                        int(pauze) if pauze else 5
+                    )
                     db.execute(
-
-                        "INSERT INTO instellingen (user_id, uren_per_dag) VALUES (?, ?)",
-
-                        (session["user_id"], uren)
-
+                        "INSERT INTO instellingen (user_id, uren_per_dag, werk_tijd, pauze_tijd) VALUES (?, ?, ?, ?)",
+                        vals
                     )
 
-                logger.info(f"Studie-uren bijgewerkt naar {uren} voor gebruiker {session['user_id']}")
+                logger.info(f"Instellingen bijgewerkt voor gebruiker {session['user_id']}")
 
             db.commit()
 
@@ -649,6 +665,22 @@ def instellingen():
     ).fetchone()
 
     return render_template("settings.html", vakken=vakken, instellingen=instelling, user=user)
+
+
+# Inject timer settings into all templates
+@app.context_processor
+def inject_timer_settings():
+    try:
+        if 'user_id' in session:
+            db = get_db()
+            inst = db.execute("SELECT werk_tijd, pauze_tijd FROM instellingen WHERE user_id = ?", (session['user_id'],)).fetchone()
+            werk = inst['werk_tijd'] if inst and inst['werk_tijd'] is not None else 25
+            pauze = inst['pauze_tijd'] if inst and inst['pauze_tijd'] is not None else 5
+            # expose in minutes
+            return dict(TIMER_WERK_MIN=werk, TIMER_PAUZE_MIN=pauze)
+    except Exception:
+        pass
+    return dict(TIMER_WERK_MIN=25, TIMER_PAUZE_MIN=5)
  
 @app.route("/vak/verwijderen/<int:vak_id>")
 

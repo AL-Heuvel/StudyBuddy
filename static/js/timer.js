@@ -1,5 +1,6 @@
-let werkTijd = 25 * 60;
-let pauzetijd = 5 * 60;
+// allow overriding from server-injected globals (minutes -> seconds)
+let werkTijd = (typeof USER_WERK_MIN !== 'undefined' ? USER_WERK_MIN * 60 : 25 * 60);
+let pauzetijd = (typeof USER_PAUZE_MIN !== 'undefined' ? USER_PAUZE_MIN * 60 : 5 * 60);
 let huidigeTijd = werkTijd;
 let bezig = false;
 let interval = null;
@@ -81,5 +82,9 @@ function stuurNotificatie(tekst = 'Timer is klaar!') {
 document.addEventListener('DOMContentLoaded', () => {
   if ('Notification' in window && Notification.permission === 'default') {
     Notification.requestPermission();
+  }
+  // initialize display if timer elements exist
+  if (document.getElementById('timerDisplay')) {
+    updateDisplay();
   }
 });

@@ -9,6 +9,13 @@
 <body>
  
     {% block content %}{% endblock %}
+    <script>
+      // server-injected timer values (minutes)
+      {% if TIMER_WERK_MIN is defined and TIMER_PAUZE_MIN is defined %}
+      var USER_WERK_MIN = {{ TIMER_WERK_MIN }};
+      var USER_PAUZE_MIN = {{ TIMER_PAUZE_MIN }};
+      {% endif %}
+    </script>
     <script src="{{ url_for('static', filename='js/timer.js') }}"></script>
  
     <script>
