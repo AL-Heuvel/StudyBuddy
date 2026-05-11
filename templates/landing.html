@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBuddy – Plan slimmer, studeer beter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+</head>
+<body>
+<div class="hero">
+    <div class="blob blob-yellow"></div>
+    <div class="blob blob-teal"></div>
+    <div class="blob blob-purple"></div>
+
+    <div class="floating-cards">
+        <div class="float-card card-toets">
+            <div>
+                <span class="card-toets-label">Toets voltooid</span>
+                <span class="card-toets-subject">Wiskunde H4</span>
+            </div>
+            <div class="check-icon">✓</div>
+        </div>
+        <div class="float-card card-timer">
+            <div class="card-timer-label">Timer</div>
+            <div class="card-timer-time">25:00 min</div>
+        </div>
+        <div class="float-card card-motivatie">
+            <div class="card-motivatie-label">Motivatie</div>
+            <div class="card-motivatie-quote">"You've got this!"</div>
+        </div>
+    </div>
+
+    <div class="hero-content">
+        <div class="hero-logo">Study<span>Buddy</span></div>
+        <p class="hero-tagline">Plan slimmer, studeer beter. Jouw persoonlijke studieassistent met taken, timer en motivatie.</p>
+        <div class="hero-btns">
+            <a href="#meer" class="btn-begin">Begin nu</a>
+            <a href="#features" class="btn-meer">Meer info</a>
+        </div>
+    </div>
+
+    <div class="cta-wrapper" id="meer">
+        <a href="{{ url_for('register') }}" class="btn-account">Maak hier een account om te beginnen</a>
+    </div>
+</div>
+
+<section class="section-wie">
+    <h2 class="section-title">Wie zijn wij?</h2>
+    <p>Wij zijn vier studenten die zelf weten hoe lastig plannen kan zijn. Daarom bouwen we StudyBuddy – een app die echt helpt.</p>
+    <div class="team-avatars">
+        <div class="avatar av-a">A</div>
+        <div class="avatar av-e">E</div>
+        <div class="avatar av-k">K</div>
+        <div class="avatar av-n">N</div>
+    </div>
+</section>
+
+<section class="section-features" id="features">
+    <h2 class="features-title">Alles wat je nodig hebt</h2>
+
+    <div class="feature-item">
+        <div class="feature-icon-wrap">
+            <img src="{{ url_for('static', filename='media/books.png') }}" alt="Taken">
+        </div>
+        <div class="feature-text">
+            <h3>Taken beheren</h3>
+            <p>Maak taken aan per vak met deadline, prioriteit en moeilijkheidsgraad.</p>
+        </div>
+    </div>
+
+    <div class="feature-item">
+        <div class="feature-icon-wrap">
+            <img src="{{ url_for('static', filename='media/timer.png') }}" alt="Timer">
+        </div>
+        <div class="feature-text">
+            <h3>Studietimer</h3>
+            <p>Ingebouwde timer met instelbare werk- en pauzetijden.</p>
+        </div>
+    </div>
+
+    <div class="feature-item">
+        <div class="feature-icon-wrap">
+            <img src="{{ url_for('static', filename='media/calendar.png') }}" alt="Rooster">
+        </div>
+        <div class="feature-text">
+            <h3>Slim rooster</h3>
+            <p>Ons algoritme maakt automatisch een dagelijks studieschema voor jou.</p>
+        </div>
+    </div>
+
+    <div class="feature-item">
+        <div class="feature-icon-wrap">
+            <img src="{{ url_for('static', filename='media/award.gif') }}" alt="Motivatie">
+        </div>
+        <div class="feature-text">
+            <h3>Motivatie</h3>
+            <p>Dagelijkse motivatiequotes die jou helpen gefocust te blijven.</p>
+        </div>
+    </div>
+
+    <a href="{{ url_for('register') }}" class="btn-account">Maak hier een account om te beginnen</a>
+</section>
+
+<footer class="footer">
+    <div class="footer-logo">Study<span>Buddy</span></div>
+    <p>© 2026 StudyBuddy · Gemaakt door studenten, voor studenten.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,282 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background: #f5f0ff;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ── HERO ── */
+.hero {
+    position: relative;
+    max-width: 420px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: white;
+    overflow: hidden;
+}
+
+/* ── BLOBS ── */
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.45;
+    pointer-events: none;
+}
+.blob-yellow { width: 160px; height: 160px; background: #fde68a; top: -40px; right: 20px; }
+.blob-teal   { width: 110px; height: 110px; background: #99f6e4; top: 10px;  right: 140px; }
+.blob-purple { width: 100px; height: 100px; background: #e9d5ff; top: -20px; left: -30px; }
+
+/* ── FLOATING CARDS ── */
+.floating-cards {
+    position: relative;
+    height: 220px;
+    margin-top: 20px;
+    padding: 0 20px;
+}
+
+.float-card {
+    position: absolute;
+    background: white;
+    border-radius: 16px;
+    padding: 12px 18px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+}
+
+.card-toets { right: 20px; top: 30px; display: flex; align-items: center; gap: 10px; }
+.card-timer { left: 20px; top: 90px; }
+.card-motivatie { right: 20px; top: 130px; }
+
+.card-toets-label,
+.card-timer-label,
+.card-motivatie-label {
+    display: block;
+    font-size: 11px;
+    color: #9b6bb5;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin-bottom: 2px;
+}
+
+.card-toets-subject { font-size: 15px; font-weight: 700; color: #1a1a2e; }
+.card-timer-time    { font-size: 18px; font-weight: 800; color: #1a1a2e; }
+.card-motivatie-quote { font-size: 13px; font-weight: 700; color: #1a1a2e; font-style: italic; }
+
+.check-icon {
+    width: 32px;
+    height: 32px;
+    background: #1a1a2e;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+    font-weight: 900;
+    flex-shrink: 0;
+}
+
+/* ── HERO CONTENT ── */
+.hero-content {
+    padding: 0 32px;
+    text-align: center;
+    margin-top: 16px;
+}
+
+.hero-logo {
+    font-size: 36px;
+    font-weight: 900;
+    color: #1a1a2e;
+    letter-spacing: -0.5px;
+    line-height: 1;
+    margin-bottom: 16px;
+}
+.hero-logo span { color: #9b6bb5; }
+
+.hero-tagline {
+    font-size: 14px;
+    color: #9b6bb5;
+    line-height: 1.6;
+    font-weight: 600;
+    margin-bottom: 28px;
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ── KNOPPEN ── */
+.hero-btns {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.btn-begin {
+    padding: 12px 22px;
+    background: #1a1a2e;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: 'Nunito', sans-serif;
+    transition: background 0.2s, transform 0.15s;
+}
+.btn-begin:hover { background: #2d2d4e; transform: translateY(-1px); }
+
+.btn-meer {
+    padding: 12px 22px;
+    background: transparent;
+    color: #1a1a2e;
+    border: 1.5px solid #d4b8e0;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: 'Nunito', sans-serif;
+    transition: background 0.2s;
+}
+.btn-meer:hover { background: #f5f0ff; }
+
+.cta-wrapper {
+    padding: 0 32px;
+    margin-bottom: 8px;
+}
+
+.btn-account {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #d4b8e0, #c09fd4);
+    color: #1a1a2e;
+    border: none;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    transition: transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(155, 107, 181, 0.3);
+}
+.btn-account:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(155, 107, 181, 0.4);
+}
+
+/* ── WIE ZIJN WIJ ── */
+.section-wie {
+    background: #f0d4fe;
+    padding: 40px 24px;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: 900;
+    color: #1a1a2e;
+    margin-bottom: 12px;
+}
+
+.section-wie p {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.7;
+    max-width: 300px;
+    margin: 0 auto 24px;
+    font-weight: 600;
+}
+
+.team-avatars {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 18px;
+    color: white;
+}
+.av-a { background: #9b6bb5; }
+.av-e { background: #6cc17a; }
+.av-k { background: #f5a623; }
+.av-n { background: #e05a77; }
+
+/* ── FEATURES ── */
+.section-features {
+    background: white;
+    padding: 40px 24px;
+}
+
+.features-title {
+    font-size: 20px;
+    font-weight: 900;
+    color: #1a1a2e;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.feature-icon-wrap {
+    width: 44px;
+    height: 44px;
+    background: #f5f0ff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.feature-icon-wrap img { width: 24px; height: 24px; object-fit: contain; }
+
+.feature-text h3 { font-size: 15px; font-weight: 800; color: #1a1a2e; margin-bottom: 4px; }
+.feature-text p  { font-size: 13px; color: #888; line-height: 1.5; font-weight: 600; }
+
+/* ── FOOTER ── */
+.footer {
+    background: #1a1a2e;
+    padding: 32px 24px;
+    text-align: center;
+}
+.footer-logo { font-size: 22px; font-weight: 900; color: white; margin-bottom: 8px; }
+.footer-logo span { color: #d4b8e0; }
+.footer p { font-size: 12px; color: #888; font-weight: 600; }
+
+/* ── SCROLL ANKER ── */
+#meer { scroll-margin-top: 20px; }
+
+/* ── ANIMATIES ── */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-logo    { animation: fadeUp 0.6s ease both; }
+.hero-tagline { animation: fadeUp 0.6s ease both; animation-delay: 0.1s; }
+.hero-btns    { animation: fadeUp 0.6s ease both; animation-delay: 0.2s; }
+.cta-wrapper  { animation: fadeUp 0.6s ease both; animation-delay: 0.3s; }
+
+.float-card     { animation: fadeUp 0.5s ease both; }
+.card-toets     { animation-delay: 0.05s; }
+.card-timer     { animation-delay: 0.15s; }
+.card-motivatie { animation-delay: 0.25s; }
