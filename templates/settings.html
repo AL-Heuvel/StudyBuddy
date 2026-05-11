@@ -81,6 +81,12 @@
       <span class="profiel-waarde blauw">{{ user['email'] }}</span>
     </div>
     {% endif %}
+    {% if user and user['telefoonnummer'] %}
+    <div class="profiel-info-rij">
+      <span class="profiel-label">Telefoonnummer</span>
+      <span class="profiel-waarde">{{ user['telefoonnummer'] }}</span>
+    </div>
+    {% endif %}
   </div>
 </div>
  

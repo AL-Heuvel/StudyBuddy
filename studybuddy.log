@@ -6,3 +6,17 @@
 [2026-04-14 09:01:43] INFO - Nieuw account aangemaakt: 'queen'
 [2026-04-14 09:01:52] INFO - Gebruiker 'queen' is ingelogd
 [2026-04-14 09:01:52] INFO - Quote opgehaald voor gebruiker 3
+[2026-05-11 11:51:30] WARNING - Mislukte inlogpoging voor gebruiker 'alz'
+[2026-05-11 11:51:35] WARNING - Mislukte inlogpoging voor gebruiker 'test'
+[2026-05-11 11:51:42] INFO - Nieuw account aangemaakt: 'test'
+[2026-05-11 11:51:49] INFO - Gebruiker 'test' is ingelogd
+[2026-05-11 11:51:51] INFO - Quote opgehaald voor gebruiker 2
+[2026-05-11 11:52:08] INFO - Profiel bijgewerkt door gebruiker 2
+[2026-05-11 11:53:34] INFO - Profiel bijgewerkt door gebruiker 2
+[2026-05-11 11:53:43] INFO - Profiel bijgewerkt door gebruiker 2
+[2026-05-11 11:55:26] INFO - Quote opgehaald voor gebruiker 2
+[2026-05-11 11:55:28] INFO - Quote opgehaald voor gebruiker 2
+[2026-05-11 11:55:29] INFO - Gebruiker 'test1' is uitgelogd
+[2026-05-11 11:55:34] WARNING - Mislukte inlogpoging voor gebruiker 'test'
+[2026-05-11 11:55:40] WARNING - Mislukte inlogpoging voor gebruiker 'test'
+[2026-05-11 11:55:49] WARNING - Mislukte inlogpoging voor gebruiker 'test'
