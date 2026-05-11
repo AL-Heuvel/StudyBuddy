@@ -17,7 +17,8 @@ def init_db():
             password TEXT NOT NULL,
             email TEXT,
             telefoonnummer TEXT,
-            foto TEXT
+            foto TEXT,
+            is_admin INTEGER DEFAULT 0
         )
     """)
  

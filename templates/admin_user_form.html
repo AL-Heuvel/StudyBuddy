@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="max-width: 500px; margin: 40px auto;">
+    <h2 style="font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; margin-bottom: 30px;">
+        {% if user %}Gebruiker bewerken{% else %}Nieuwe gebruiker{% endif %}
+    </h2>
+
+    <form method="POST" style="background: white; padding: 30px; border-radius: 16px; border: 1.5px solid #FAE6FE;">
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-size: 13px; font-weight: 600; color: #9b6ab8; margin-bottom: 8px; text-transform: uppercase;">Gebruikersnaam</label>
+            <input type="text" name="username" value="{{ user.username if user else '' }}" required style="width: 100%; padding: 10px 14px; border: 1.5px solid #FAE6FE; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 13px;">
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-size: 13px; font-weight: 600; color: #9b6ab8; margin-bottom: 8px; text-transform: uppercase;">Email</label>
+            <input type="email" name="email" value="{{ user.email if user else '' }}" style="width: 100%; padding: 10px 14px; border: 1.5px solid #FAE6FE; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 13px;">
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-size: 13px; font-weight: 600; color: #9b6ab8; margin-bottom: 8px; text-transform: uppercase;">Wachtwoord {% if user %}<span style="color: #999;">(leeg laten om ongewijzigd)</span>{% endif %}</label>
+            <input type="password" name="password" {% if not user %}required{% endif %} style="width: 100%; padding: 10px 14px; border: 1.5px solid #FAE6FE; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 13px;">
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                <input type="checkbox" name="is_admin" value="1" {% if user and user.is_admin %}checked{% endif %} style="width: 18px; height: 18px; cursor: pointer;">
+                <span style="font-size: 13px; font-weight: 600; color: #2a1040;">Admin privileges geven</span>
+            </label>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 30px;">
+            <button type="submit" style="flex: 1; padding: 11px 20px; background: #9b3de8; color: white; border: none; border-radius: 99px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer;">
+                {% if user %}Opslaan{% else %}Gebruiker aanmaken{% endif %}
+            </button>
+            <a href="{{ url_for('admin_dashboard') }}" style="flex: 1; padding: 11px 20px; background: transparent; color: #7c3aad; border: 1.5px solid #FAE6FE; border-radius: 99px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; text-decoration: none; text-align: center; cursor: pointer;">
+                Annuleren
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

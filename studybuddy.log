@@ -20,6 +20,7 @@
 [2026-05-11 11:55:34] WARNING - Mislukte inlogpoging voor gebruiker 'test'
 [2026-05-11 11:55:40] WARNING - Mislukte inlogpoging voor gebruiker 'test'
 [2026-05-11 11:55:49] WARNING - Mislukte inlogpoging voor gebruiker 'test'
+<<<<<<< HEAD
 [2026-05-11 12:04:32] WARNING - Mislukte inlogpoging voor gebruiker 'test'
 [2026-05-11 12:04:38] INFO - Nieuw account aangemaakt: 'test'
 [2026-05-11 12:04:42] INFO - Gebruiker 'test' is ingelogd
@@ -63,3 +64,21 @@
 [2026-05-11 12:28:00] INFO - Quote opgehaald voor gebruiker 4
 [2026-05-11 12:28:14] INFO - Instellingen bijgewerkt voor gebruiker 4
 [2026-05-11 12:28:19] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Read timed out. (read timeout=3)
+=======
+[2026-05-11 12:05:00] INFO - Admin dashboard geopend door gebruiker 1
+[2026-05-11 12:05:00] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-05-11 12:05:33] INFO - Admin dashboard geopend door gebruiker 1
+[2026-05-11 12:05:34] INFO - Admin dashboard geopend door gebruiker 1
+[2026-05-11 12:05:35] INFO - Admin dashboard geopend door gebruiker 1
+[2026-05-11 12:07:55] INFO - Admin dashboard geopend door gebruiker 1
+[2026-05-11 12:07:55] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-05-11 12:10:40] INFO - Admin dashboard geopend door gebruiker 1
+[2026-05-11 12:10:40] INFO - Nieuwe gebruiker 'anlie' aangemaakt door admin 1 (is_admin: True)
+[2026-05-11 12:11:01] INFO - Admin dashboard geopend door gebruiker 1
+[2026-05-11 12:11:29] INFO - Admin dashboard geopend door gebruiker 1
+[2026-05-11 12:11:29] INFO - Nieuwe gebruiker 'frederieke' aangemaakt door admin 1 (is_admin: False)
+[2026-05-11 12:11:37] INFO - Admin dashboard geopend door gebruiker 1
+[2026-05-11 12:11:41] INFO - Gebruiker 'admin' is uitgelogd
+[2026-05-11 12:11:49] INFO - Gebruiker 'frederieke' is ingelogd (admin: False)
+[2026-05-11 12:11:52] INFO - Quote opgehaald voor gebruiker 4
+>>>>>>> f9b957d (admin pagina)
