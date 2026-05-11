@@ -162,7 +162,13 @@ def login():
 
             session["username"] = user["username"]
 
-            logger.info(f"Gebruiker '{username}' is ingelogd")
+            session["is_admin"] = user["is_admin"]
+
+            logger.info(f"Gebruiker '{username}' is ingelogd (admin: {bool(user['is_admin'])})")
+
+            if user["is_admin"]:
+
+                return redirect(url_for("admin_dashboard"))
 
             return redirect(url_for("dashboard"))
 
@@ -185,6 +191,255 @@ def logout():
     session.clear()
 
     return redirect(url_for("login"))
+
+# ── ADMIN ──────────────────────────────────────────────────
+
+def is_admin():
+    return session.get("is_admin") == 1
+
+def admin_required(f):
+    from functools import wraps
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not ingelogd() or not is_admin():
+            flash("U hebt geen toegang tot deze pagina.", "error")
+            return redirect(url_for("dashboard"))
+        return f(*args, **kwargs)
+    return decorated_function
+
+@app.route("/admin")
+
+@admin_required
+
+def admin_dashboard():
+
+    db = get_db()
+
+    # Statistieken
+
+    totaal_users = db.execute("SELECT COUNT(*) FROM users").fetchone()[0]
+
+    totaal_taken = db.execute("SELECT COUNT(*) FROM taken").fetchone()[0]
+
+    voltooide_taken = db.execute("SELECT COUNT(*) FROM taken WHERE voltooid = 1").fetchone()[0]
+
+    admin_users = db.execute("SELECT COUNT(*) FROM users WHERE is_admin = 1").fetchone()[0]
+
+    # Gebruikers
+
+    users = db.execute("""
+
+        SELECT u.id, u.username, u.email, u.is_admin, 
+
+               (SELECT COUNT(*) FROM taken WHERE user_id = u.id) as taken_count
+
+        FROM users u
+
+        ORDER BY u.is_admin DESC, u.id DESC
+
+    """).fetchall()
+
+    logger.info(f"Admin dashboard geopend door gebruiker {session['user_id']}")
+
+    return render_template("admin.html",
+
+        totaal_users=totaal_users,
+
+        totaal_taken=totaal_taken,
+
+        voltooide_taken=voltooide_taken,
+
+        admin_users=admin_users,
+
+        users=users
+
+    )
+
+@app.route("/admin/gebruiker/maken", methods=["GET", "POST"])
+
+@admin_required
+
+def admin_user_create():
+
+    if request.method == "POST":
+
+        username = request.form.get("username")
+
+        password = request.form.get("password")
+
+        email = request.form.get("email", "")
+
+        is_admin = int(request.form.get("is_admin", 0))
+
+        db = get_db()
+
+        try:
+
+            hashed = generate_password_hash(password)
+
+            db.execute(
+
+                "INSERT INTO users (username, password, email, is_admin) VALUES (?, ?, ?, ?)",
+
+                (username, hashed, email, is_admin)
+
+            )
+
+            db.commit()
+
+            user = db.execute(
+
+                "SELECT id FROM users WHERE username = ?",
+
+                (username,)
+
+            ).fetchone()
+
+            # Standaard vakken
+
+            standaard_vakken = [
+
+                "Wiskunde", "Nederlands", "Engels", "Biologie",
+
+                "Scheikunde", "Natuurkunde", "Geschiedenis",
+
+                "Aardrijkskunde", "Economie", "Duits"
+
+            ]
+
+            for vak in standaard_vakken:
+
+                db.execute(
+
+                    "INSERT INTO vakken (user_id, naam) VALUES (?, ?)",
+
+                    (user["id"], vak)
+
+                )
+
+            db.commit()
+
+            logger.info(f"Nieuwe gebruiker '{username}' aangemaakt door admin {session['user_id']} (is_admin: {bool(is_admin)})")
+
+            flash(f"Gebruiker '{username}' aangemaakt!", "success")
+
+            return redirect(url_for("admin_dashboard"))
+
+        except Exception as e:
+
+            logger.error(f"Fout bij aanmaken gebruiker: {e}")
+
+            flash("Gebruikersnaam bestaat al.", "error")
+
+    return render_template("admin_user_form.html", user=None)
+
+@app.route("/admin/gebruiker/<int:user_id>/bewerken", methods=["GET", "POST"])
+
+@admin_required
+
+def admin_user_edit(user_id):
+
+    db = get_db()
+
+    user = db.execute("SELECT * FROM users WHERE id = ?", (user_id,)).fetchone()
+
+    if not user:
+
+        flash("Gebruiker niet gevonden.", "error")
+
+        return redirect(url_for("admin_dashboard"))
+
+    if request.method == "POST":
+
+        try:
+
+            username = request.form.get("username")
+
+            email = request.form.get("email", "")
+
+            is_admin = int(request.form.get("is_admin", 0))
+
+            password = request.form.get("password")
+
+            if password:
+
+                hashed = generate_password_hash(password)
+
+                db.execute(
+
+                    "UPDATE users SET username=?, email=?, is_admin=?, password=? WHERE id=?",
+
+                    (username, email, is_admin, hashed, user_id)
+
+                )
+
+            else:
+
+                db.execute(
+
+                    "UPDATE users SET username=?, email=?, is_admin=? WHERE id=?",
+
+                    (username, email, is_admin, user_id)
+
+                )
+
+            db.commit()
+
+            logger.info(f"Gebruiker {user_id} bijgewerkt door admin {session['user_id']}")
+
+            flash("Gebruiker bijgewerkt!", "success")
+
+            return redirect(url_for("admin_dashboard"))
+
+        except Exception as e:
+
+            logger.error(f"Fout bij bewerken gebruiker {user_id}: {e}")
+
+            flash("Er ging iets mis bij het bijwerken.", "error")
+
+    return render_template("admin_user_form.html", user=user)
+
+@app.route("/admin/gebruiker/<int:user_id>/verwijderen", methods=["POST"])
+
+@admin_required
+
+def admin_user_delete(user_id):
+
+    if user_id == session["user_id"]:
+
+        flash("U kunt uw eigen account niet verwijderen.", "error")
+
+        return redirect(url_for("admin_dashboard"))
+
+    db = get_db()
+
+    try:
+
+        # Verwijder gerelateerde gegevens
+
+        db.execute("DELETE FROM taken WHERE user_id = ?", (user_id,))
+
+        db.execute("DELETE FROM vakken WHERE user_id = ?", (user_id,))
+
+        db.execute("DELETE FROM instellingen WHERE user_id = ?", (user_id,))
+
+        db.execute("DELETE FROM favorieten WHERE user_id = ?", (user_id,))
+
+        db.execute("DELETE FROM users WHERE id = ?", (user_id,))
+
+        db.commit()
+
+        logger.info(f"Gebruiker {user_id} verwijderd door admin {session['user_id']}")
+
+        flash("Gebruiker verwijderd!", "success")
+
+    except Exception as e:
+
+        logger.error(f"Fout bij verwijderen gebruiker {user_id}: {e}")
+
+        flash("Er ging iets mis bij het verwijderen.", "error")
+
+    return redirect(url_for("admin_dashboard"))
  
 # ── DASHBOARD ─────────────────────────────────────────────
 
