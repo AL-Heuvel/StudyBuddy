@@ -20,3 +20,27 @@
 [2026-05-11 11:55:34] WARNING - Mislukte inlogpoging voor gebruiker 'test'
 [2026-05-11 11:55:40] WARNING - Mislukte inlogpoging voor gebruiker 'test'
 [2026-05-11 11:55:49] WARNING - Mislukte inlogpoging voor gebruiker 'test'
+[2026-05-11 12:04:32] WARNING - Mislukte inlogpoging voor gebruiker 'test'
+[2026-05-11 12:04:38] INFO - Nieuw account aangemaakt: 'test'
+[2026-05-11 12:04:42] INFO - Gebruiker 'test' is ingelogd
+[2026-05-11 12:04:44] INFO - Quote opgehaald voor gebruiker 3
+[2026-05-11 12:05:00] INFO - Profiel bijgewerkt door gebruiker 3
+[2026-05-11 12:06:48] INFO - Quote opgehaald voor gebruiker 3
+[2026-05-11 12:10:48] INFO - Nieuw account aangemaakt: 'alz'
+[2026-05-11 12:10:52] INFO - Gebruiker 'alz' is ingelogd
+[2026-05-11 12:10:54] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:10:57] INFO - Schema gegenereerd voor gebruiker 4
+[2026-05-11 12:10:58] INFO - Takenoverzicht bekeken door gebruiker 4
+[2026-05-11 12:12:05] INFO - Gebruiker 'alz' is ingelogd
+[2026-05-11 12:12:07] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:14:40] ERROR - Fout bij registreren van 'alz': UNIQUE constraint failed: users.username
+[2026-05-11 12:14:56] ERROR - Fout bij registreren van 'test': database is locked
+[2026-05-11 12:15:06] INFO - Gebruiker 'alz' is ingelogd
+[2026-05-11 12:15:09] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:15:13] INFO - Takenoverzicht bekeken door gebruiker 4
+[2026-05-11 12:15:14] INFO - Schema gegenereerd voor gebruiker 4
+[2026-05-11 12:15:16] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:15:17] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:15:31] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:15:32] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:15:34] INFO - Quote opgehaald voor gebruiker 4
