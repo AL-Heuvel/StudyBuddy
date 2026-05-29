@@ -76,6 +76,12 @@ def init_db():
             FOREIGN KEY (user_id) REFERENCES users(id)
         )
     """)
+
+    cursor.execute("PRAGMA table_info(users)")
+    column_names = [column[1] for column in cursor.fetchall()]
+
+    if "is_admin" not in column_names:
+        cursor.execute("ALTER TABLE users ADD COLUMN is_admin INTEGER DEFAULT 0")
  
     conn.commit()
 

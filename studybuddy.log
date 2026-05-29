@@ -84,3 +84,4 @@
 >>>>>>> f9b957d (admin pagina)
 [2026-05-29 07:45:26] INFO - Nieuw account aangemaakt: 'hoi'
 [2026-05-29 07:46:03] ERROR - Fout bij registreren van 'hoi': UNIQUE constraint failed: users.username
+[2026-05-29 07:54:54] ERROR - Fout bij registreren van 'admin': UNIQUE constraint failed: users.username
