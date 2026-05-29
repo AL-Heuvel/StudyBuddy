@@ -84,4 +84,9 @@
 >>>>>>> f9b957d (admin pagina)
 [2026-05-29 07:45:26] INFO - Nieuw account aangemaakt: 'hoi'
 [2026-05-29 07:46:03] ERROR - Fout bij registreren van 'hoi': UNIQUE constraint failed: users.username
+<<<<<<< HEAD
 [2026-05-29 07:54:54] ERROR - Fout bij registreren van 'admin': UNIQUE constraint failed: users.username
+=======
+[2026-05-29 07:47:30] INFO - Nieuw account aangemaakt: 'hoi@hoi.nl'
+[2026-05-29 07:53:28] ERROR - Fout bij registreren van 'hoi@hoi.nl': UNIQUE constraint failed: users.username
+>>>>>>> 35fb9ea (Update log to reflect new account creation attempts and unique constraint errors)
