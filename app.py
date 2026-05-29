@@ -162,11 +162,11 @@ def login():
 
             session["username"] = user["username"]
 
-            session["is_admin"] = user["is_admin"]
+            session["is_admin"] = 1 if user["is_admin"] else 0
 
             logger.info(f"Gebruiker '{username}' is ingelogd (admin: {bool(user['is_admin'])})")
 
-            if user["is_admin"]:
+            if is_admin():
 
                 return redirect(url_for("admin_dashboard"))
 
@@ -195,7 +195,7 @@ def logout():
 # ── ADMIN ──────────────────────────────────────────────────
 
 def is_admin():
-    return session.get("is_admin") == 1
+    return bool(session.get("is_admin"))
 
 def admin_required(f):
     from functools import wraps
@@ -260,7 +260,6 @@ def admin_dashboard():
 @admin_required
 
 def admin_user_create():
-
     if request.method == "POST":
 
         username = request.form.get("username")
@@ -269,7 +268,7 @@ def admin_user_create():
 
         email = request.form.get("email", "")
 
-        is_admin = int(request.form.get("is_admin", 0))
+        is_admin_flag = int(request.form.get("is_admin", 0))
 
         db = get_db()
 
@@ -281,7 +280,7 @@ def admin_user_create():
 
                 "INSERT INTO users (username, password, email, is_admin) VALUES (?, ?, ?, ?)",
 
-                (username, hashed, email, is_admin)
+                (username, hashed, email, is_admin_flag)
 
             )
 
@@ -294,8 +293,6 @@ def admin_user_create():
                 (username,)
 
             ).fetchone()
-
-            # Standaard vakken
 
             standaard_vakken = [
 
@@ -319,7 +316,7 @@ def admin_user_create():
 
             db.commit()
 
-            logger.info(f"Nieuwe gebruiker '{username}' aangemaakt door admin {session['user_id']} (is_admin: {bool(is_admin)})")
+            logger.info(f"Nieuwe gebruiker '{username}' aangemaakt door admin {session['user_id']} (is_admin: {bool(is_admin_flag)})")
 
             flash(f"Gebruiker '{username}' aangemaakt!", "success")
 
@@ -1073,10 +1070,10 @@ def profiel():
 
     return render_template("profiel.html", user=user)
  
+init_db()
+
 # ── START ─────────────────────────────────────────────────
 
 if __name__ == "__main__":
-
-    init_db()
 
     app.run(host="0.0.0.0", port=5000, debug=False)

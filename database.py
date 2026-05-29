@@ -1,4 +1,7 @@
+import os
 import sqlite3
+
+from werkzeug.security import generate_password_hash
  
 def get_db():
     conn = sqlite3.connect("studybuddy.db")
@@ -74,5 +77,25 @@ def init_db():
         )
     """)
  
+    conn.commit()
+
+    admin_username = os.getenv("STUDYBUDDY_ADMIN_USERNAME", "admin")
+    admin_password = os.getenv("STUDYBUDDY_ADMIN_PASSWORD", "admin123")
+    admin_email = os.getenv("STUDYBUDDY_ADMIN_EMAIL", "admin@studybuddy.local")
+
+    cursor.execute("SELECT id FROM users WHERE username = ?", (admin_username,))
+    admin_user = cursor.fetchone()
+
+    if admin_user is None:
+        cursor.execute(
+            "INSERT INTO users (username, password, email, is_admin) VALUES (?, ?, ?, 1)",
+            (admin_username, generate_password_hash(admin_password), admin_email),
+        )
+    else:
+        cursor.execute(
+            "UPDATE users SET is_admin = 1 WHERE username = ?",
+            (admin_username,),
+        )
+
     conn.commit()
     conn.close()
