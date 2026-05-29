@@ -82,3 +82,5 @@
 [2026-05-11 12:11:49] INFO - Gebruiker 'frederieke' is ingelogd (admin: False)
 [2026-05-11 12:11:52] INFO - Quote opgehaald voor gebruiker 4
 >>>>>>> f9b957d (admin pagina)
+[2026-05-29 07:45:26] INFO - Nieuw account aangemaakt: 'hoi'
+[2026-05-29 07:46:03] ERROR - Fout bij registreren van 'hoi': UNIQUE constraint failed: users.username
