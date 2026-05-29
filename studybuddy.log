@@ -90,3 +90,22 @@
 [2026-05-29 07:47:30] INFO - Nieuw account aangemaakt: 'hoi@hoi.nl'
 [2026-05-29 07:53:28] ERROR - Fout bij registreren van 'hoi@hoi.nl': UNIQUE constraint failed: users.username
 >>>>>>> 35fb9ea (Update log to reflect new account creation attempts and unique constraint errors)
+[2026-05-29 08:07:40] INFO - Nieuw account aangemaakt: 'kaviesje'
+[2026-05-29 08:07:49] INFO - Gebruiker 'kaviesje' is ingelogd (admin: False)
+[2026-05-29 08:07:52] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<HTTPSConnection(host='zenquotes.io', port=443) at 0x7b33385135f0>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-05-29 08:08:05] INFO - Gebruiker 'kaviesje' is uitgelogd
+[2026-05-29 08:08:20] INFO - Gebruiker 'kaviesje' is ingelogd (admin: False)
+[2026-05-29 08:08:23] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<HTTPSConnection(host='zenquotes.io', port=443) at 0x7b3335b25430>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-05-29 08:08:31] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Read timed out. (read timeout=3)
+[2026-05-29 08:10:27] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-05-29 08:10:27] INFO - Admin dashboard geopend door gebruiker 6
+[2026-05-29 08:10:44] INFO - Admin dashboard geopend door gebruiker 6
+[2026-05-29 08:10:45] INFO - Admin dashboard geopend door gebruiker 6
+[2026-05-29 08:10:46] INFO - Admin dashboard geopend door gebruiker 6
+[2026-05-29 08:10:47] INFO - Admin dashboard geopend door gebruiker 6
+[2026-05-29 08:10:48] INFO - Admin dashboard geopend door gebruiker 6
+[2026-05-29 08:10:48] INFO - Admin dashboard geopend door gebruiker 6
+[2026-05-29 08:10:48] INFO - Admin dashboard geopend door gebruiker 6
+[2026-05-29 08:10:49] INFO - Admin dashboard geopend door gebruiker 6
+[2026-05-29 08:10:49] INFO - Admin dashboard geopend door gebruiker 6
+[2026-05-29 08:10:49] INFO - Admin dashboard geopend door gebruiker 6
