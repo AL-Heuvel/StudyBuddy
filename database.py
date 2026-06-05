@@ -77,11 +77,167 @@ def init_db():
         )
     """)
 
+    # Advertenties / advertentieplatform tabelstructuur
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS bedrijven (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            naam TEXT NOT NULL,
+            email TEXT NOT NULL,
+            telefoon TEXT,
+            adres TEXT,
+            aangemaakt_op DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS advertenties (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            bedrijf_id INTEGER NOT NULL,
+            titel TEXT NOT NULL,
+            beschrijving TEXT,
+            afbeelding TEXT NOT NULL,
+            doel_url TEXT NOT NULL,
+            actief INTEGER DEFAULT 1,
+            FOREIGN KEY (bedrijf_id) REFERENCES bedrijven(id)
+        )
+    """)
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS tarieven (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            naam TEXT NOT NULL,
+            aantal_views INTEGER NOT NULL,
+            prijs DECIMAL(10,2) NOT NULL
+        )
+    """)
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS campagnes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            advertentie_id INTEGER NOT NULL,
+            tarief_id INTEGER NOT NULL,
+            start_datum DATE,
+            eind_datum DATE,
+            resterende_views INTEGER NOT NULL,
+            status TEXT DEFAULT 'actief',
+            FOREIGN KEY (advertentie_id) REFERENCES advertenties(id),
+            FOREIGN KEY (tarief_id) REFERENCES tarieven(id)
+        )
+    """)
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS advertentie_views (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            campagne_id INTEGER NOT NULL,
+            bekeken_op DATETIME DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (campagne_id) REFERENCES campagnes(id)
+        )
+    """)
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS advertentie_clicks (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            campagne_id INTEGER NOT NULL,
+            geklikt_op DATETIME DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (campagne_id) REFERENCES campagnes(id)
+        )
+    """)
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS facturen (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            bedrijf_id INTEGER NOT NULL,
+            campagne_id INTEGER NOT NULL,
+            factuurdatum DATETIME DEFAULT CURRENT_TIMESTAMP,
+            bedrag DECIMAL(10,2) NOT NULL,
+            betaald INTEGER DEFAULT 0,
+            FOREIGN KEY (bedrijf_id) REFERENCES bedrijven(id),
+            FOREIGN KEY (campagne_id) REFERENCES campagnes(id)
+        )
+    """)
+
+    # Advertentie aanvragen tabel
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS advertentie_aanvragen (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            bedrijf_naam TEXT NOT NULL,
+            voornaam TEXT NOT NULL,
+            achternaam TEXT NOT NULL,
+            email TEXT NOT NULL,
+            telefoon TEXT NOT NULL,
+            doel_advertentie TEXT NOT NULL,
+            tarieven TEXT NOT NULL,
+            views_pakket TEXT NOT NULL CHECK(views_pakket IN ('starter', 'basis', 'premium')),
+            startdatum TEXT NOT NULL,
+            aangemaakt_op TEXT DEFAULT (datetime('now'))
+        )
+    """)
+
     cursor.execute("PRAGMA table_info(users)")
     column_names = [column[1] for column in cursor.fetchall()]
 
     if "is_admin" not in column_names:
         cursor.execute("ALTER TABLE users ADD COLUMN is_admin INTEGER DEFAULT 0")
+
+    cursor.execute("SELECT COUNT(*) FROM bedrijven")
+    has_bedrijven = cursor.fetchone()[0] > 0
+
+    if not has_bedrijven:
+        cursor.execute(
+            "INSERT INTO tarieven (naam, aantal_views, prijs) VALUES (?, ?, ?)",
+            ("Starter", 100, 10.00),
+        )
+        starter_tarief_id = cursor.lastrowid
+
+        cursor.execute(
+            "INSERT INTO tarieven (naam, aantal_views, prijs) VALUES (?, ?, ?)",
+            ("Basic", 500, 40.00),
+        )
+        cursor.execute(
+            "INSERT INTO tarieven (naam, aantal_views, prijs) VALUES (?, ?, ?)",
+            ("Premium", 1000, 70.00),
+        )
+
+        cursor.execute(
+            """
+            INSERT INTO bedrijven (naam, email, telefoon, adres)
+            VALUES (?, ?, ?, ?)
+            """,
+            ("Fietswinkel Rotterdam", "info@fietswinkel.nl", "0101234567", "Coolsingel 1 Rotterdam"),
+        )
+        bedrijf_id = cursor.lastrowid
+
+        cursor.execute(
+            """
+            INSERT INTO advertenties (bedrijf_id, titel, beschrijving, afbeelding, doel_url)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (
+                bedrijf_id,
+                "Nieuwe E-Bikes Binnen",
+                "Bekijk onze nieuwste collectie elektrische fietsen",
+                "ebikes.jpg",
+                "https://www.fietswinkel.nl",
+            ),
+        )
+        advertentie_id = cursor.lastrowid
+
+        cursor.execute(
+            """
+            INSERT INTO campagnes (advertentie_id, tarief_id, start_datum, eind_datum, resterende_views)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (advertentie_id, starter_tarief_id, "2026-06-05", "2026-07-05", 100),
+        )
+        campagne_id = cursor.lastrowid
+
+        cursor.execute(
+            """
+            INSERT INTO facturen (bedrijf_id, campagne_id, bedrag)
+            VALUES (?, ?, ?)
+            """,
+            (bedrijf_id, campagne_id, 10.00),
+        )
  
     conn.commit()
 

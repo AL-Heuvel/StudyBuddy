@@ -65,6 +65,74 @@ def toegestaan_bestand(filename):
 def index():
 
     return render_template("landing.html")  # ← AANGEPAST
+
+@app.route("/landing.html")
+def landing_html():
+    return redirect(url_for("index"))
+
+@app.route("/adverteren", methods=["GET", "POST"])
+def adverteren():
+    if request.method == "POST":
+        bedrijf_naam = request.form.get("bedrijf_naam", "").strip()
+        voornaam = request.form.get("voornaam", "").strip()
+        achternaam = request.form.get("achternaam", "").strip()
+        email = request.form.get("email", "").strip()
+        telefoon = request.form.get("telefoon", "").strip()
+        doel_advertentie = request.form.get("doel_advertentie", "").strip()
+        tarieven = request.form.get("tarieven", "").strip()
+        views_pakket = request.form.get("views_pakket", "").strip().lower()
+        startdatum = request.form.get("startdatum", "").strip()
+
+        verplichte_velden = [
+            bedrijf_naam,
+            voornaam,
+            achternaam,
+            email,
+            telefoon,
+            doel_advertentie,
+            tarieven,
+            views_pakket,
+            startdatum,
+        ]
+
+        if not all(verplichte_velden):
+            flash("Vul alle velden in.", "error")
+            return render_template("advertentie_form.html")
+
+        if views_pakket not in {"starter", "basis", "premium"}:
+            flash("Kies een geldig views-pakket.", "error")
+            return render_template("advertentie_form.html")
+
+        try:
+            db = get_db()
+            db.execute(
+                """
+                INSERT INTO advertentie_aanvragen (
+                    bedrijf_naam, voornaam, achternaam, email, telefoon,
+                    doel_advertentie, tarieven, views_pakket, startdatum
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    bedrijf_naam,
+                    voornaam,
+                    achternaam,
+                    email,
+                    telefoon,
+                    doel_advertentie,
+                    tarieven,
+                    views_pakket,
+                    startdatum,
+                ),
+            )
+            db.commit()
+            logger.info("Nieuwe advertentieaanvraag ontvangen van %s (%s)", bedrijf_naam, email)
+            flash("Bedankt! Je advertentieaanvraag is ontvangen.", "success")
+            return redirect(url_for("index"))
+        except Exception as e:
+            logger.error(f"Fout bij opslaan advertentieaanvraag: {e}")
+            flash("Er ging iets mis bij het verzenden. Probeer opnieuw.", "error")
+
+    return render_template("advertentie_form.html")
  
 @app.route("/register", methods=["GET", "POST"])
 
