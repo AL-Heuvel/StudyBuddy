@@ -1,4 +1,4 @@
-/* ── RESET ── */
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -7,7 +7,7 @@ body {
     min-height: 100vh;
 }
 
-/* ── AUTH ── */
+
 .auth-wrapper {
     min-height: 100vh;
     display: flex;
@@ -99,7 +99,7 @@ body {
     font-weight: 500;
 }
 
-/* ── FLASH ── */
+
 .flash {
     padding: 10px 14px;
     border-radius: 10px;
@@ -110,7 +110,6 @@ body {
 .flash.success { background: #d4edda; color: #155724; }
 .flash.error { background: #f8d7da; color: #721c24; }
 
-/* ── PAGE ── */
 .page {
     max-width: 420px;
     margin: 0 auto;
@@ -120,7 +119,6 @@ body {
     position: relative;
 }
 
-/* ── HEADER ── */
 .page-header {
     display: flex;
     justify-content: space-between;
@@ -143,7 +141,6 @@ body {
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
-/* ── QUOTE BANNER ── */
 .quote-banner {
     background: #e0e0e0;
     border-radius: 20px;
@@ -161,7 +158,6 @@ body {
     font-style: italic;
 }
 
-/* ── SECTIE HEADER ── */
 .section-header {
     display: flex;
     justify-content: space-between;
@@ -184,7 +180,6 @@ body {
     border-radius: 20px;
 }
 
-/* ── DAG TABS ── */
 .day-tabs {
     display: flex;
     gap: 8px;
@@ -208,7 +203,6 @@ body {
     font-weight: 600;
 }
 
-/* ── TIJDLIJN ── */
 .tijdlijn {
     display: flex;
     flex-direction: column;

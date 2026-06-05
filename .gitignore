@@ -6,4 +6,4 @@ __pycache__/
 venv/
 instance/
 studybuddy.db
-*.log
+*.logstudybuddy.log*
