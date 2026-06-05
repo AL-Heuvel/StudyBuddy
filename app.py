@@ -2,7 +2,7 @@ import logging
 
 from logging.handlers import RotatingFileHandler
 
-from flask import Flask, render_template, redirect, url_for, session, request, flash
+from flask import Flask, render_template, redirect, url_for, session, request, flash, send_file
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -13,6 +13,8 @@ from algorithm import genereer_schema
 import requests
 
 import os
+
+from io import BytesIO
 
 from werkzeug.utils import secure_filename
  
@@ -133,6 +135,25 @@ def adverteren():
             flash("Er ging iets mis bij het verzenden. Probeer opnieuw.", "error")
 
     return render_template("advertentie_form.html")
+
+@app.route("/adverteren/download")
+def adverteren_download():
+    inhoud = (
+        "StudyBuddy Advertentie Pakketoverzicht\n\n"
+        "Starter\n"
+        "- Tot 1.000 views per maand\n\n"
+        "Basis\n"
+        "- Tot 5.000 views per maand\n\n"
+        "Premium\n"
+        "- Tot 10.000 views per maand\n\n"
+        "Neem contact op via het formulier op de advertentiepagina.\n"
+    )
+    return send_file(
+        BytesIO(inhoud.encode("utf-8")),
+        mimetype="text/plain",
+        as_attachment=True,
+        download_name="studybuddy-advertentie-pakketoverzicht.txt",
+    )
  
 @app.route("/register", methods=["GET", "POST"])
 

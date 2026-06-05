@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [2026-05-29 08:18:00] INFO - Takenoverzicht bekeken door gebruiker 7
 [2026-05-29 08:18:02] INFO - Taak 2 heropend door gebruiker 7
 [2026-05-29 08:18:02] INFO - Takenoverzicht bekeken door gebruiker 7
@@ -19,3 +20,120 @@
 [2026-05-29 09:08:28] INFO - Takenoverzicht bekeken door gebruiker 7
 [2026-05-29 09:08:32] INFO - Quote opgehaald voor gebruiker 7
 [2026-05-29 09:08:33] INFO - Gebruiker 'kaviesje' is uitgelogd
+=======
+[2026-04-10 08:20:56] WARNING - Mislukte inlogpoging voor gebruiker 'hjk'
+[2026-04-14 09:01:17] WARNING - Mislukte inlogpoging voor gebruiker 'queen'
+[2026-04-14 09:01:22] INFO - Gebruiker 'test' is ingelogd
+[2026-04-14 09:01:23] INFO - Quote opgehaald voor gebruiker 2
+[2026-04-14 09:01:26] INFO - Gebruiker 'test' is uitgelogd
+[2026-04-14 09:01:43] INFO - Nieuw account aangemaakt: 'queen'
+[2026-04-14 09:01:52] INFO - Gebruiker 'queen' is ingelogd
+[2026-04-14 09:01:52] INFO - Quote opgehaald voor gebruiker 3
+[2026-05-11 11:51:30] WARNING - Mislukte inlogpoging voor gebruiker 'alz'
+[2026-05-11 11:51:35] WARNING - Mislukte inlogpoging voor gebruiker 'test'
+[2026-05-11 11:51:42] INFO - Nieuw account aangemaakt: 'test'
+[2026-05-11 11:51:49] INFO - Gebruiker 'test' is ingelogd
+[2026-05-11 11:51:51] INFO - Quote opgehaald voor gebruiker 2
+[2026-05-11 11:52:08] INFO - Profiel bijgewerkt door gebruiker 2
+[2026-05-11 11:53:34] INFO - Profiel bijgewerkt door gebruiker 2
+[2026-05-11 11:53:43] INFO - Profiel bijgewerkt door gebruiker 2
+[2026-05-11 11:55:26] INFO - Quote opgehaald voor gebruiker 2
+[2026-05-11 11:55:28] INFO - Quote opgehaald voor gebruiker 2
+[2026-05-11 11:55:29] INFO - Gebruiker 'test1' is uitgelogd
+[2026-05-11 11:55:34] WARNING - Mislukte inlogpoging voor gebruiker 'test'
+[2026-05-11 11:55:40] WARNING - Mislukte inlogpoging voor gebruiker 'test'
+[2026-05-11 11:55:49] WARNING - Mislukte inlogpoging voor gebruiker 'test'
+<<<<<<< HEAD
+[2026-05-11 12:04:32] WARNING - Mislukte inlogpoging voor gebruiker 'test'
+[2026-05-11 12:04:38] INFO - Nieuw account aangemaakt: 'test'
+[2026-05-11 12:04:42] INFO - Gebruiker 'test' is ingelogd
+[2026-05-11 12:04:44] INFO - Quote opgehaald voor gebruiker 3
+[2026-05-11 12:05:00] INFO - Profiel bijgewerkt door gebruiker 3
+[2026-05-11 12:06:48] INFO - Quote opgehaald voor gebruiker 3
+[2026-05-11 12:10:48] INFO - Nieuw account aangemaakt: 'alz'
+[2026-05-11 12:10:52] INFO - Gebruiker 'alz' is ingelogd
+[2026-05-11 12:10:54] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:10:57] INFO - Schema gegenereerd voor gebruiker 4
+[2026-05-11 12:10:58] INFO - Takenoverzicht bekeken door gebruiker 4
+[2026-05-11 12:12:05] INFO - Gebruiker 'alz' is ingelogd
+[2026-05-11 12:12:07] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:14:40] ERROR - Fout bij registreren van 'alz': UNIQUE constraint failed: users.username
+[2026-05-11 12:14:56] ERROR - Fout bij registreren van 'test': database is locked
+[2026-05-11 12:15:06] INFO - Gebruiker 'alz' is ingelogd
+[2026-05-11 12:15:09] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:15:13] INFO - Takenoverzicht bekeken door gebruiker 4
+[2026-05-11 12:15:14] INFO - Schema gegenereerd voor gebruiker 4
+[2026-05-11 12:15:16] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:15:17] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:15:31] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:15:32] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:15:34] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:23:11] ERROR - Fout bij registreren van 'alz': UNIQUE constraint failed: users.username
+[2026-05-11 12:23:17] INFO - Gebruiker 'alz' is ingelogd
+[2026-05-11 12:23:18] INFO - Gebruiker 'alz' is ingelogd
+[2026-05-11 12:23:20] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:23:21] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:23:27] ERROR - Fout bij opslaan instellingen: table instellingen has no column named werk_tijd
+[2026-05-11 12:23:30] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:23:39] ERROR - Fout bij opslaan instellingen: table instellingen has no column named werk_tijd
+[2026-05-11 12:23:43] ERROR - Fout bij opslaan instellingen: table instellingen has no column named werk_tijd
+[2026-05-11 12:25:38] ERROR - Fout bij registreren van 'alz': UNIQUE constraint failed: users.username
+[2026-05-11 12:25:45] INFO - Gebruiker 'alz' is ingelogd
+[2026-05-11 12:25:48] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7396c19c8050>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-05-11 12:25:59] ERROR - Fout bij opslaan instellingen: database is locked
+[2026-05-11 12:27:46] INFO - Gebruiker 'alz' is ingelogd
+[2026-05-11 12:27:48] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:27:55] INFO - Instellingen bijgewerkt voor gebruiker 4
+[2026-05-11 12:28:00] INFO - Quote opgehaald voor gebruiker 4
+[2026-05-11 12:28:14] INFO - Instellingen bijgewerkt voor gebruiker 4
+[2026-05-11 12:28:19] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Read timed out. (read timeout=3)
+=======
+[2026-05-11 12:05:00] INFO - Admin dashboard geopend door gebruiker 1
+[2026-05-11 12:05:00] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-05-11 12:05:33] INFO - Admin dashboard geopend door gebruiker 1
+[2026-05-11 12:05:34] INFO - Admin dashboard geopend door gebruiker 1
+[2026-05-11 12:05:35] INFO - Admin dashboard geopend door gebruiker 1
+[2026-05-11 12:07:55] INFO - Admin dashboard geopend door gebruiker 1
+[2026-05-11 12:07:55] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-05-11 12:10:40] INFO - Admin dashboard geopend door gebruiker 1
+[2026-05-11 12:10:40] INFO - Nieuwe gebruiker 'anlie' aangemaakt door admin 1 (is_admin: True)
+[2026-05-11 12:11:01] INFO - Admin dashboard geopend door gebruiker 1
+[2026-05-11 12:11:29] INFO - Admin dashboard geopend door gebruiker 1
+[2026-05-11 12:11:29] INFO - Nieuwe gebruiker 'frederieke' aangemaakt door admin 1 (is_admin: False)
+[2026-05-11 12:11:37] INFO - Admin dashboard geopend door gebruiker 1
+[2026-05-11 12:11:41] INFO - Gebruiker 'admin' is uitgelogd
+[2026-05-11 12:11:49] INFO - Gebruiker 'frederieke' is ingelogd (admin: False)
+[2026-05-11 12:11:52] INFO - Quote opgehaald voor gebruiker 4
+>>>>>>> f9b957d (admin pagina)
+[2026-05-29 07:45:26] INFO - Nieuw account aangemaakt: 'hoi'
+[2026-05-29 07:46:03] ERROR - Fout bij registreren van 'hoi': UNIQUE constraint failed: users.username
+<<<<<<< HEAD
+[2026-05-29 07:54:54] ERROR - Fout bij registreren van 'admin': UNIQUE constraint failed: users.username
+=======
+[2026-05-29 07:47:30] INFO - Nieuw account aangemaakt: 'hoi@hoi.nl'
+[2026-05-29 07:53:28] ERROR - Fout bij registreren van 'hoi@hoi.nl': UNIQUE constraint failed: users.username
+>>>>>>> 35fb9ea (Update log to reflect new account creation attempts and unique constraint errors)
+[2026-05-29 08:07:40] INFO - Nieuw account aangemaakt: 'kaviesje'
+[2026-05-29 08:07:49] INFO - Gebruiker 'kaviesje' is ingelogd (admin: False)
+[2026-05-29 08:07:52] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<HTTPSConnection(host='zenquotes.io', port=443) at 0x7b33385135f0>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-05-29 08:08:05] INFO - Gebruiker 'kaviesje' is uitgelogd
+[2026-05-29 08:08:20] INFO - Gebruiker 'kaviesje' is ingelogd (admin: False)
+[2026-05-29 08:08:23] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<HTTPSConnection(host='zenquotes.io', port=443) at 0x7b3335b25430>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-05-29 08:08:31] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Read timed out. (read timeout=3)
+[2026-05-29 08:10:27] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-05-29 08:10:27] INFO - Admin dashboard geopend door gebruiker 6
+[2026-05-29 08:10:44] INFO - Admin dashboard geopend door gebruiker 6
+[2026-05-29 08:10:45] INFO - Admin dashboard geopend door gebruiker 6
+[2026-05-29 08:10:46] INFO - Admin dashboard geopend door gebruiker 6
+[2026-05-29 08:10:47] INFO - Admin dashboard geopend door gebruiker 6
+[2026-05-29 08:10:48] INFO - Admin dashboard geopend door gebruiker 6
+[2026-05-29 08:10:48] INFO - Admin dashboard geopend door gebruiker 6
+[2026-05-29 08:10:48] INFO - Admin dashboard geopend door gebruiker 6
+[2026-05-29 08:10:49] INFO - Admin dashboard geopend door gebruiker 6
+[2026-05-29 08:10:49] INFO - Admin dashboard geopend door gebruiker 6
+[2026-05-29 08:10:49] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-05 08:52:33] INFO - Gebruiker 'anlei' is ingelogd (admin: False)
+[2026-06-05 08:52:35] INFO - Quote opgehaald voor gebruiker 1
+[2026-06-05 08:52:58] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7c3d385f2ba0>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-06-05 08:53:01] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7c3d386048c0>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+>>>>>>> 323bd05 (Add advertisement request form and related functionality)

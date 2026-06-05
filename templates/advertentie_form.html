@@ -62,18 +62,50 @@
                     Tarieven / budget
                     <input type="text" name="tarieven" placeholder="Bijvoorbeeld: €500 per maand" required>
                 </label>
-                <label>
-                    Aantal views pakket
-                    <select name="views_pakket" required>
-                        <option value="" disabled selected>Kies een optie</option>
-                        <option value="starter">Starter</option>
-                        <option value="basis">Basis</option>
-                        <option value="premium">Premium</option>
-                    </select>
-                </label>
             </div>
 
-            <button type="submit">Verstuur aanvraag</button>
+            <fieldset class="pakket-keuze">
+                <legend>Aantal views pakket</legend>
+                <div class="pakket-grid">
+                    <label class="pakket-card">
+                        <input type="radio" name="views_pakket" value="starter" required>
+                        <span class="pakket-card-inner">
+                            <span class="pakket-top">
+                                <span class="pakket-check"></span>
+                                <span class="pakket-naam">Starter</span>
+                            </span>
+                            <span class="pakket-tekst">Tot 1.000 views per maand voor een slimme, kleine start.</span>
+                        </span>
+                    </label>
+
+                    <label class="pakket-card">
+                        <input type="radio" name="views_pakket" value="basis" required>
+                        <span class="pakket-card-inner">
+                            <span class="pakket-top">
+                                <span class="pakket-check"></span>
+                                <span class="pakket-naam">Basis</span>
+                            </span>
+                            <span class="pakket-tekst">Tot 5.000 views per maand voor extra bereik en zichtbaarheid.</span>
+                        </span>
+                    </label>
+
+                    <label class="pakket-card">
+                        <input type="radio" name="views_pakket" value="premium" required>
+                        <span class="pakket-card-inner">
+                            <span class="pakket-top">
+                                <span class="pakket-check"></span>
+                                <span class="pakket-naam">Premium</span>
+                            </span>
+                            <span class="pakket-tekst">Tot 10.000 views per maand voor maximale aandacht en groei.</span>
+                        </span>
+                    </label>
+                </div>
+            </fieldset>
+
+            <div class="form-actions">
+                <button type="submit">Verstuur aanvraag</button>
+                <a href="/adverteren/download" class="download-button">Download pakketoverzicht</a>
+            </div>
         </form>
     </div>
 </div>
