@@ -156,6 +156,23 @@ def init_db():
         )
     """)
 
+    # Advertentie aanvragen tabel
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS advertentie_aanvragen (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            bedrijf_naam TEXT NOT NULL,
+            voornaam TEXT NOT NULL,
+            achternaam TEXT NOT NULL,
+            email TEXT NOT NULL,
+            telefoon TEXT NOT NULL,
+            doel_advertentie TEXT NOT NULL,
+            tarieven TEXT NOT NULL,
+            views_pakket TEXT NOT NULL CHECK(views_pakket IN ('starter', 'basis', 'premium')),
+            startdatum TEXT NOT NULL,
+            aangemaakt_op TEXT DEFAULT (datetime('now'))
+        )
+    """)
+
     cursor.execute("PRAGMA table_info(users)")
     column_names = [column[1] for column in cursor.fetchall()]
 

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBuddy - Advertentie Aanvraag</title>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/static/css/advertentie.css?v=20260605">
+</head>
+<body>
+<div class="wrapper">
+    <div class="blob blob-one"></div>
+    <div class="blob blob-two"></div>
+
+    <div class="card">
+        <a href="/landing.html" class="terug-link">← Terug naar home</a>
+
+        <h1>Plaats jouw advertentie</h1>
+        <p class="subtitel">Vul dit formulier in en wij nemen contact op om jouw advertentie live te zetten.</p>
+
+        <form method="POST" class="advertentie-form">
+            <div class="grid-two">
+                <label>
+                    Naam van het bedrijf
+                    <input type="text" name="bedrijf_naam" required>
+                </label>
+                <label>
+                    E-mail
+                    <input type="email" name="email" required>
+                </label>
+            </div>
+
+            <div class="grid-two">
+                <label>
+                    Voornaam
+                    <input type="text" name="voornaam" required>
+                </label>
+                <label>
+                    Achternaam
+                    <input type="text" name="achternaam" required>
+                </label>
+            </div>
+
+            <div class="grid-two">
+                <label>
+                    Telefoon
+                    <input type="tel" name="telefoon" required>
+                </label>
+                <label>
+                    Startdatum
+                    <input type="date" name="startdatum" required>
+                </label>
+            </div>
+
+            <label>
+                Doel van advertentie
+                <textarea name="doel_advertentie" rows="4" placeholder="Bijvoorbeeld: naamsbekendheid, leads, verkoop..." required></textarea>
+            </label>
+
+            <div class="grid-two">
+                <label>
+                    Tarieven / budget
+                    <input type="text" name="tarieven" placeholder="Bijvoorbeeld: €500 per maand" required>
+                </label>
+                <label>
+                    Aantal views pakket
+                    <select name="views_pakket" required>
+                        <option value="" disabled selected>Kies een optie</option>
+                        <option value="starter">Starter</option>
+                        <option value="basis">Basis</option>
+                        <option value="premium">Premium</option>
+                    </select>
+                </label>
+            </div>
+
+            <button type="submit">Verstuur aanvraag</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
