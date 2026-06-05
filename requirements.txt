@@ -5,3 +5,4 @@ flask-wtf
 python-dotenv
 gunicorn
 requests
+weasyprint

@@ -109,3 +109,13 @@
 [2026-05-29 08:10:49] INFO - Admin dashboard geopend door gebruiker 6
 [2026-05-29 08:10:49] INFO - Admin dashboard geopend door gebruiker 6
 [2026-05-29 08:10:49] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-05 09:04:52] INFO - Nieuw account aangemaakt: 'Jvoorhees'
+[2026-06-05 09:04:57] INFO - Gebruiker 'Jvoorhees' is ingelogd (admin: False)
+[2026-06-05 09:05:00] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<HTTPSConnection(host='zenquotes.io', port=443) at 0x7d0edfdb9d90>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-06-05 09:05:04] INFO - Schema gegenereerd voor gebruiker 8
+[2026-06-05 09:05:05] INFO - Takenoverzicht bekeken door gebruiker 8
+[2026-06-05 09:05:09] INFO - Takenoverzicht bekeken door gebruiker 8
+[2026-06-05 09:05:10] INFO - Schema gegenereerd voor gebruiker 8
+[2026-06-05 09:05:15] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<HTTPSConnection(host='zenquotes.io', port=443) at 0x7d0edd30fe00>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-06-05 09:05:17] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<HTTPSConnection(host='zenquotes.io', port=443) at 0x7d0edd30e360>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-06-05 09:08:30] INFO - Gebruiker 'Jvoorhees' is uitgelogd
