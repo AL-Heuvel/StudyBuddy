@@ -1077,3 +1077,25 @@ init_db()
 if __name__ == "__main__":
 
     app.run(host="0.0.0.0", port=5000, debug=False)
+
+from flask import make_response
+from factuur import maak_factuur
+
+@app.route("/factuur")
+def factuur():
+    if not ingelogd():
+        return redirect(url_for("login"))
+    db = get_db()
+    user = db.execute(
+        "SELECT * FROM users WHERE id = ?",
+        (session["user_id"],)
+    ).fetchone()
+
+    pdf_bytes, factuurnummer = maak_factuur(user)
+
+    response = make_response(pdf_bytes)
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = f'attachment; filename=factuur_{factuurnummer}.pdf'
+
+    logger.info(f"Factuur {factuurnummer} gedownload door gebruiker {session['user_id']}")
+    return response
