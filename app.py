@@ -82,6 +82,48 @@ def ingelogd():
 def toegestaan_bestand(filename):
 
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def haal_actieve_advertentie_op(db):
+    return db.execute(
+        """
+        SELECT a.id AS advertentie_id,
+               a.titel,
+               a.beschrijving,
+               a.afbeelding,
+               a.doel_url,
+               c.id AS campagne_id,
+               c.resterende_views,
+               b.naam AS bedrijf_naam,
+               t.naam AS tarief_naam,
+               t.aantal_views,
+               t.prijs
+        FROM advertenties a
+        JOIN campagnes c ON c.advertentie_id = a.id
+        JOIN bedrijven b ON b.id = a.bedrijf_id
+        JOIN tarieven t ON t.id = c.tarief_id
+        WHERE a.actief = 1
+          AND c.status = 'actief'
+          AND c.resterende_views > 0
+        ORDER BY RANDOM()
+        LIMIT 1
+        """
+    ).fetchone()
+
+def registreer_advertentie_view(db, campagne_id):
+    db.execute(
+        "INSERT INTO advertentie_views (campagne_id) VALUES (?)",
+        (campagne_id,)
+    )
+    db.execute(
+        "UPDATE campagnes SET resterende_views = CASE WHEN resterende_views > 0 THEN resterende_views - 1 ELSE 0 END WHERE id = ?",
+        (campagne_id,)
+    )
+
+def registreer_advertentie_click(db, campagne_id):
+    db.execute(
+        "INSERT INTO advertentie_clicks (campagne_id) VALUES (?)",
+        (campagne_id,)
+    )
  
 # ── AUTH ─────────────────────────────────────────────────
 
@@ -97,6 +139,15 @@ def landing_html():
 
 @app.route("/adverteren", methods=["GET", "POST"])
 def adverteren():
+    db = get_db()
+
+    def render_form():
+        actieve_advertentie = haal_actieve_advertentie_op(db)
+        if actieve_advertentie:
+            registreer_advertentie_view(db, actieve_advertentie["campagne_id"])
+            db.commit()
+        return render_template("advertentie_form.html", actieve_advertentie=actieve_advertentie)
+
     if request.method == "POST":
         bedrijf_naam = request.form.get("bedrijf_naam", "").strip()
         voornaam = request.form.get("voornaam", "").strip()
@@ -123,32 +174,31 @@ def adverteren():
 
         if not all(verplichte_velden):
             flash("Vul alle velden in.", "error")
-            return render_template("advertentie_form.html")
+            return render_form()
 
         if views_pakket not in {"starter", "basis", "premium"}:
             flash("Kies een geldig views-pakket.", "error")
-            return render_template("advertentie_form.html")
+            return render_form()
 
         if 'afbeelding' not in request.files:
             flash("Upload een advertentie-afbeelding.", "error")
-            return render_template("advertentie_form.html")
+            return render_form()
 
         afbeelding = request.files['afbeelding']
 
         if not afbeelding or afbeelding.filename == "":
             flash("Upload een advertentie-afbeelding.", "error")
-            return render_template("advertentie_form.html")
+            return render_form()
 
         if not toegestaan_bestand(afbeelding.filename):
             flash("Alleen PNG, JPG of JPEG-afbeeldingen zijn toegestaan.", "error")
-            return render_template("advertentie_form.html")
+            return render_form()
 
         os.makedirs(app.config['ADVERTENTIE_UPLOAD_FOLDER'], exist_ok=True)
         afbeelding_naam = secure_filename(f"ad_{bedrijf_naam}_{afbeelding.filename}")
         afbeelding.save(os.path.join(app.config['ADVERTENTIE_UPLOAD_FOLDER'], afbeelding_naam))
 
         try:
-            db = get_db()
             db.execute(
                 """
                 INSERT INTO advertentie_aanvragen (
@@ -177,7 +227,7 @@ def adverteren():
             logger.error(f"Fout bij opslaan advertentieaanvraag: {e}")
             flash("Er ging iets mis bij het verzenden. Probeer opnieuw.", "error")
 
-    return render_template("advertentie_form.html")
+    return render_form()
 
 @app.route("/adverteren/download")
 def adverteren_download():
@@ -214,6 +264,30 @@ def advertentie_popup():
         advertentie_afbeelding=advertentie_afbeeldingen[0],
         target=target,
     )
+
+@app.route("/advertentie/klik/<int:campagne_id>")
+def advertentie_click(campagne_id):
+    db = get_db()
+    advertentie = db.execute(
+        """
+        SELECT a.doel_url
+        FROM advertenties a
+        JOIN campagnes c ON c.advertentie_id = a.id
+        WHERE c.id = ?
+          AND a.actief = 1
+          AND c.status = 'actief'
+        """,
+        (campagne_id,),
+    ).fetchone()
+
+    if not advertentie:
+        return redirect(url_for("index"))
+
+    registreer_advertentie_click(db, campagne_id)
+    db.commit()
+
+    logger.info("Advertentieklik geregistreerd voor campagne %s", campagne_id)
+    return redirect(advertentie["doel_url"])
  
 @app.route("/register", methods=["GET", "POST"])
 
@@ -1072,6 +1146,8 @@ def instellingen():
 def inject_timer_settings():
     advertentie_map = app.config.get('ADVERTENTIE_UPLOAD_FOLDER', 'static/advertensies')
     advertentie_afbeeldingen = []
+    advertentie_css_pad = os.path.join('static', 'css', 'promo-form.css')
+    advertentie_css_version = int(os.path.getmtime(advertentie_css_pad)) if os.path.exists(advertentie_css_pad) else 0
 
     if os.path.isdir(advertentie_map):
         geldige_extensies = {'.png', '.jpg', '.jpeg'}
@@ -1097,6 +1173,7 @@ def inject_timer_settings():
                 TIMER_WERK_MIN=werk,
                 TIMER_PAUZE_MIN=pauze,
                 advertentie_afbeeldingen=advertentie_afbeeldingen,
+                advertentie_css_version=advertentie_css_version,
             )
     except Exception:
         pass
@@ -1104,6 +1181,7 @@ def inject_timer_settings():
         TIMER_WERK_MIN=25,
         TIMER_PAUZE_MIN=5,
         advertentie_afbeeldingen=[],
+        advertentie_css_version=advertentie_css_version,
     )
  
 @app.route("/vak/verwijderen/<int:vak_id>")
