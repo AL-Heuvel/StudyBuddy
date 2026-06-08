@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudyBuddy - Advertentie Aanvraag</title>
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
- <link rel="stylesheet" href="{{ url_for('static', filename='css/advertentie_form.css') }}">
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/promo-form.css') }}">
 </head>
 <body>
 <div class="wrapper">
@@ -14,6 +14,34 @@
 
     <div class="card">
         <a href="{{ url_for('index') }}" class="terug-link">← Terug naar home</a>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-wrap">
+            {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        {% if actieve_advertentie %}
+        <section class="featured-ad">
+            <div class="featured-ad-copy">
+                <p class="featured-ad-label">Actieve advertentie uit de database</p>
+                <h2>{{ actieve_advertentie['titel'] }}</h2>
+                <p>{{ actieve_advertentie['beschrijving'] }}</p>
+                <div class="featured-ad-meta">
+                    <span>{{ actieve_advertentie['bedrijf_naam'] }}</span>
+                    <span>{{ actieve_advertentie['tarief_naam'] }} pakket</span>
+                    <span>{{ actieve_advertentie['resterende_views'] }} views over</span>
+                </div>
+            </div>
+            <a class="featured-ad-link" href="{{ url_for('advertentie_click', campagne_id=actieve_advertentie['campagne_id']) }}">
+                <img src="{{ url_for('static', filename='advertensies/' + actieve_advertentie['afbeelding']) }}" alt="{{ actieve_advertentie['titel'] }}">
+            </a>
+        </section>
+        {% endif %}
 
         <h1>Plaats jouw advertentie</h1>
         <p class="subtitel">Vul dit formulier in en wij nemen contact op om jouw advertentie live te zetten.</p>
