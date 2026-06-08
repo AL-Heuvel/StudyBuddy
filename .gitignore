@@ -6,7 +6,5 @@ __pycache__/
 venv/
 instance/
 studybuddy.db
-*.logstudybuddy.log*
-studybuddy.db
-studybuddy.log
-*.bak
+*.log
+studybuddy.log*
