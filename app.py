@@ -1141,6 +1141,8 @@ def instellingen():
 def inject_timer_settings():
     advertentie_map = app.config.get('ADVERTENTIE_UPLOAD_FOLDER', 'static/advertensies')
     advertentie_afbeeldingen = []
+    advertentie_css_pad = os.path.join('static', 'css', 'promo-form.css')
+    advertentie_css_version = int(os.path.getmtime(advertentie_css_pad)) if os.path.exists(advertentie_css_pad) else 0
 
     if os.path.isdir(advertentie_map):
         geldige_extensies = {'.png', '.jpg', '.jpeg'}
@@ -1166,6 +1168,7 @@ def inject_timer_settings():
                 TIMER_WERK_MIN=werk,
                 TIMER_PAUZE_MIN=pauze,
                 advertentie_afbeeldingen=advertentie_afbeeldingen,
+                advertentie_css_version=advertentie_css_version,
             )
     except Exception:
         pass
@@ -1173,6 +1176,7 @@ def inject_timer_settings():
         TIMER_WERK_MIN=25,
         TIMER_PAUZE_MIN=5,
         advertentie_afbeeldingen=[],
+        advertentie_css_version=advertentie_css_version,
     )
  
 @app.route("/vak/verwijderen/<int:vak_id>")
