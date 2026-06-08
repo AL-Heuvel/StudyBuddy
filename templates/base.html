@@ -18,6 +18,22 @@
     {% endif %}
     {% endwith %}
 
+    {% if advertentie_afbeeldingen and request.endpoint not in ['login', 'register'] %}
+    <section class="advertentie-strip">
+      <div class="advertentie-strip-header">
+        <span>Advertenties</span>
+        <a href="{{ url_for('adverteren') }}">Plaats ook een advertentie</a>
+      </div>
+      <div class="advertentie-strip-grid">
+        {% for advertentie in advertentie_afbeeldingen[:3] %}
+        <a class="advertentie-card" href="{{ url_for('adverteren') }}">
+          <img src="{{ url_for('static', filename='advertensies/' + advertentie) }}" alt="Advertentie">
+        </a>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
     {% block content %}{% endblock %}
     <script>
       // server-injected timer values (minutes)

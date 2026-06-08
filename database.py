@@ -166,12 +166,19 @@ def init_db():
             email TEXT NOT NULL,
             telefoon TEXT NOT NULL,
             doel_advertentie TEXT NOT NULL,
+            afbeelding TEXT,
             tarieven TEXT NOT NULL,
             views_pakket TEXT NOT NULL CHECK(views_pakket IN ('starter', 'basis', 'premium')),
             startdatum TEXT NOT NULL,
             aangemaakt_op TEXT DEFAULT (datetime('now'))
         )
     """)
+
+    cursor.execute("PRAGMA table_info(advertentie_aanvragen)")
+    aanvraag_columns = [column[1] for column in cursor.fetchall()]
+
+    if "afbeelding" not in aanvraag_columns:
+        cursor.execute("ALTER TABLE advertentie_aanvragen ADD COLUMN afbeelding TEXT")
 
     cursor.execute("PRAGMA table_info(users)")
     column_names = [column[1] for column in cursor.fetchall()]

@@ -376,6 +376,137 @@ body {
     border: 1px solid rgba(255,255,255,0.20);
 }
 
+.advertentie-showcase {
+    background: #f9f3df;
+    padding: 36px 24px 44px;
+}
+
+.advertentie-showcase-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.advertentie-showcase-header h2 {
+    font-size: 22px;
+    font-weight: 900;
+    color: #1a1a2e;
+}
+
+.advertentie-showcase-header a {
+    font-size: 13px;
+    font-weight: 800;
+    color: #9b6bb5;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.advertentie-showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.advertentie-tegel {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    aspect-ratio: 1 / 1;
+}
+
+.advertentie-tegel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.popup-body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #302a4a 100%);
+    min-height: 100vh;
+}
+
+.advertentie-overlay {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: radial-gradient(circle at top, rgba(212, 184, 224, 0.18), transparent 40%), rgba(0, 0, 0, 0.35);
+}
+
+.advertentie-modal {
+    position: relative;
+    width: min(92vw, 520px);
+    background: #fffaf1;
+    border-radius: 28px;
+    padding: 24px;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+    text-align: center;
+    animation: popupIn 0.25s ease-out;
+}
+
+.advertentie-sluiten {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #1a1a2e;
+    color: white;
+    font-size: 24px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    line-height: 1;
+}
+
+.advertentie-modal-label {
+    display: inline-block;
+    margin-bottom: 14px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: #f0d4fe;
+    color: #1a1a2e;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.advertentie-modal-afbeelding {
+    width: 100%;
+    max-height: 70vh;
+    object-fit: cover;
+    border-radius: 20px;
+    display: block;
+}
+
+.advertentie-modal-tekst {
+    margin-top: 16px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #4c3d67;
+}
+
+@keyframes popupIn {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
 .features-title {
     font-size: 22px;
     font-weight: 900;

@@ -23,10 +23,28 @@ app = Flask(__name__)
 app.secret_key = "studybuddy_secret_2026"
  
 UPLOAD_FOLDER = 'static/uploads'
+ADVERTENTIE_UPLOAD_FOLDER = 'static/advertensies'
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['ADVERTENTIE_UPLOAD_FOLDER'] = ADVERTENTIE_UPLOAD_FOLDER
+
+
+def haal_advertentie_afbeeldingen_op():
+    advertentie_map = app.config.get('ADVERTENTIE_UPLOAD_FOLDER', 'static/advertensies')
+    if not os.path.isdir(advertentie_map):
+        return []
+
+    geldige_extensies = {'.png', '.jpg', '.jpeg'}
+    bestanden = []
+
+    for bestandsnaam in os.listdir(advertentie_map):
+        volledig_pad = os.path.join(advertentie_map, bestandsnaam)
+        if os.path.isfile(volledig_pad) and os.path.splitext(bestandsnaam)[1].lower() in geldige_extensies:
+            bestanden.append((os.path.getmtime(volledig_pad), bestandsnaam))
+
+    return [bestandsnaam for _, bestandsnaam in sorted(bestanden, reverse=True)]
  
 # ── LOGGING SETUP ──────────────────────────────────────────
 
@@ -84,6 +102,7 @@ def adverteren():
         tarieven = request.form.get("tarieven", "").strip()
         views_pakket = request.form.get("views_pakket", "").strip().lower()
         startdatum = request.form.get("startdatum", "").strip()
+        afbeelding_naam = None
 
         verplichte_velden = [
             bedrijf_naam,
@@ -105,14 +124,32 @@ def adverteren():
             flash("Kies een geldig views-pakket.", "error")
             return render_template("advertentie_form.html")
 
+        if 'afbeelding' not in request.files:
+            flash("Upload een advertentie-afbeelding.", "error")
+            return render_template("advertentie_form.html")
+
+        afbeelding = request.files['afbeelding']
+
+        if not afbeelding or afbeelding.filename == "":
+            flash("Upload een advertentie-afbeelding.", "error")
+            return render_template("advertentie_form.html")
+
+        if not toegestaan_bestand(afbeelding.filename):
+            flash("Alleen PNG, JPG of JPEG-afbeeldingen zijn toegestaan.", "error")
+            return render_template("advertentie_form.html")
+
+        os.makedirs(app.config['ADVERTENTIE_UPLOAD_FOLDER'], exist_ok=True)
+        afbeelding_naam = secure_filename(f"ad_{bedrijf_naam}_{afbeelding.filename}")
+        afbeelding.save(os.path.join(app.config['ADVERTENTIE_UPLOAD_FOLDER'], afbeelding_naam))
+
         try:
             db = get_db()
             db.execute(
                 """
                 INSERT INTO advertentie_aanvragen (
                     bedrijf_naam, voornaam, achternaam, email, telefoon,
-                    doel_advertentie, tarieven, views_pakket, startdatum
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    doel_advertentie, tarieven, views_pakket, startdatum, afbeelding
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     bedrijf_naam,
@@ -124,6 +161,7 @@ def adverteren():
                     tarieven,
                     views_pakket,
                     startdatum,
+                    afbeelding_naam,
                 ),
             )
             db.commit()
@@ -153,6 +191,23 @@ def adverteren_download():
         mimetype="text/plain",
         as_attachment=True,
         download_name="studybuddy-advertentie-pakketoverzicht.txt",
+    )
+
+@app.route("/advertentie-popup")
+def advertentie_popup():
+    if not ingelogd():
+        return redirect(url_for("login"))
+
+    target = session.pop("post_login_target", url_for("dashboard"))
+    advertentie_afbeeldingen = haal_advertentie_afbeeldingen_op()
+
+    if not session.pop("show_advertentie_popup", False) or not advertentie_afbeeldingen:
+        return redirect(target)
+
+    return render_template(
+        "advertentie_popup.html",
+        advertentie_afbeelding=advertentie_afbeeldingen[0],
+        target=target,
     )
  
 @app.route("/register", methods=["GET", "POST"])
@@ -253,13 +308,12 @@ def login():
 
             session["is_admin"] = 1 if user["is_admin"] else 0
 
+            session["show_advertentie_popup"] = True
+            session["post_login_target"] = url_for("admin_dashboard") if user["is_admin"] else url_for("dashboard")
+
             logger.info(f"Gebruiker '{username}' is ingelogd (admin: {bool(user['is_admin'])})")
 
-            if is_admin():
-
-                return redirect(url_for("admin_dashboard"))
-
-            return redirect(url_for("dashboard"))
+            return redirect(url_for("advertentie_popup"))
 
         else:
 
@@ -1008,9 +1062,25 @@ def instellingen():
     return render_template("settings.html", vakken=vakken, instellingen=instelling, user=user)
 
 
-# Inject timer settings into all templates
+# Inject timer settings and uploaded advert images into all templates
 @app.context_processor
 def inject_timer_settings():
+    advertentie_map = app.config.get('ADVERTENTIE_UPLOAD_FOLDER', 'static/advertensies')
+    advertentie_afbeeldingen = []
+
+    if os.path.isdir(advertentie_map):
+        geldige_extensies = {'.png', '.jpg', '.jpeg'}
+        bestanden = []
+
+        for bestandsnaam in os.listdir(advertentie_map):
+            volledig_pad = os.path.join(advertentie_map, bestandsnaam)
+            if os.path.isfile(volledig_pad) and os.path.splitext(bestandsnaam)[1].lower() in geldige_extensies:
+                bestanden.append((os.path.getmtime(volledig_pad), bestandsnaam))
+
+        advertentie_afbeeldingen = [
+            bestandsnaam for _, bestandsnaam in sorted(bestanden, reverse=True)
+        ]
+
     try:
         if 'user_id' in session:
             db = get_db()
@@ -1018,10 +1088,18 @@ def inject_timer_settings():
             werk = inst['werk_tijd'] if inst and inst['werk_tijd'] is not None else 25
             pauze = inst['pauze_tijd'] if inst and inst['pauze_tijd'] is not None else 5
             # expose in minutes
-            return dict(TIMER_WERK_MIN=werk, TIMER_PAUZE_MIN=pauze)
+            return dict(
+                TIMER_WERK_MIN=werk,
+                TIMER_PAUZE_MIN=pauze,
+                advertentie_afbeeldingen=advertentie_afbeeldingen,
+            )
     except Exception:
         pass
-    return dict(TIMER_WERK_MIN=25, TIMER_PAUZE_MIN=5)
+    return dict(
+        TIMER_WERK_MIN=25,
+        TIMER_PAUZE_MIN=5,
+        advertentie_afbeeldingen=[],
+    )
  
 @app.route("/vak/verwijderen/<int:vak_id>")
 

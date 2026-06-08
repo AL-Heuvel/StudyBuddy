@@ -18,7 +18,7 @@
         <h1>Plaats jouw advertentie</h1>
         <p class="subtitel">Vul dit formulier in en wij nemen contact op om jouw advertentie live te zetten.</p>
 
-        <form method="POST" class="advertentie-form">
+        <form method="POST" class="advertentie-form" enctype="multipart/form-data">
             <div class="grid-two">
                 <label>
                     Naam van het bedrijf
@@ -55,6 +55,11 @@
             <label>
                 Doel van advertentie
                 <textarea name="doel_advertentie" rows="4" placeholder="Bijvoorbeeld: naamsbekendheid, leads, verkoop..." required></textarea>
+            </label>
+
+            <label>
+                Advertentie-afbeelding
+                <input type="file" name="afbeelding" accept="image/png,image/jpeg,image/jpg" required>
             </label>
 
             <div class="grid-two">

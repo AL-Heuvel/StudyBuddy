@@ -110,6 +110,55 @@ body {
 .flash.success { background: #d4edda; color: #155724; }
 .flash.error { background: #f8d7da; color: #721c24; }
 
+/* ── ADVERTENTIES ── */
+.advertentie-strip {
+    max-width: 420px;
+    margin: 0 auto;
+    background: #fff7e8;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 10px 12px 12px;
+}
+
+.advertentie-strip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #7c5a13;
+}
+
+.advertentie-strip-header a {
+    color: #9b6bb5;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.advertentie-strip-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.advertentie-card {
+    display: block;
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    aspect-ratio: 1 / 1;
+}
+
+.advertentie-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ── PAGE ── */
 .page {
     max-width: 420px;
     margin: 0 auto;
