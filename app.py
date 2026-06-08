@@ -2,7 +2,7 @@ import logging
 
 from logging.handlers import RotatingFileHandler
 
-from flask import Flask, render_template, redirect, url_for, session, request, flash, send_file
+from flask import Flask, render_template, redirect, url_for, session, request, flash, send_file, make_response
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -1239,13 +1239,18 @@ def profiel():
  
 init_db()
 
-from flask import make_response
-from factuur import maak_factuur
-
 @app.route("/factuur")
 def factuur():
     if not ingelogd():
         return redirect(url_for("login"))
+
+    try:
+        from factuur import maak_factuur
+    except ModuleNotFoundError:
+        logger.error("Factuur-export niet beschikbaar: reportlab ontbreekt")
+        flash("Factuur-export is tijdelijk niet beschikbaar.", "error")
+        return redirect(url_for("instellingen"))
+
     db = get_db()
     user = db.execute(
         "SELECT * FROM users WHERE id = ?",

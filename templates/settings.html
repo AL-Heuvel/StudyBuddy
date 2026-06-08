@@ -67,7 +67,7 @@
     <div class="profiel-info-rijen">
       <div class="profiel-info-rij">
         <span class="profiel-label">Naam</span>
-        <span class="profiel-waarde">{{ session['username'] }}</span>
+        <span class="profiel-waarde">{{ user['username'] if user and user['username'] else session.get('username', 'Gebruiker') }}</span>
       </div>
       {% if user and user['email'] %}
       <div class="profiel-info-rij">

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudyBuddy - Advertentie Aanvraag</title>
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/static/css/advertentie.css?v=20260605">
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/advertentie_form.css') }}">
 </head>
 <body>
 <div class="wrapper">
@@ -13,7 +13,7 @@
     <div class="blob blob-two"></div>
 
     <div class="card">
-        <a href="/landing.html" class="terug-link">← Terug naar home</a>
+        <a href="{{ url_for('index') }}" class="terug-link">← Terug naar home</a>
 
         <h1>Plaats jouw advertentie</h1>
         <p class="subtitel">Vul dit formulier in en wij nemen contact op om jouw advertentie live te zetten.</p>
@@ -109,7 +109,7 @@
 
             <div class="form-actions">
                 <button type="submit">Verstuur aanvraag</button>
-                <a href="/adverteren/download" class="download-button">Download pakketoverzicht</a>
+                <a href="{{ url_for('adverteren_download') }}" class="download-button">Download pakketoverzicht</a>
             </div>
         </form>
     </div>
