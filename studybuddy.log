@@ -26,3 +26,8 @@
 [2026-06-08 11:44:21] INFO - Quote opgehaald voor gebruiker 3
 [2026-06-08 11:44:35] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7615879149e0>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
 [2026-06-08 11:59:46] INFO - Advertentieklik geregistreerd voor campagne 1
+[2026-06-08 12:25:47] INFO - Quote opgehaald voor gebruiker 1
+[2026-06-08 12:30:29] INFO - Admin dashboard geopend door gebruiker 1
+[2026-06-08 12:31:24] WARNING - Mislukte inlogpoging voor gebruiker 'admin'
+[2026-06-08 12:31:32] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-08 12:31:34] INFO - Admin dashboard geopend door gebruiker 6
