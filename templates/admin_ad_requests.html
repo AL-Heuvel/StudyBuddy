@@ -1,0 +1,36 @@
+{% extends "admin.html" %}
+{% block content %}
+<h1>Advertentie aanvragen</h1>
+{% if aanvragen %}
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Bedrijf</th>
+      <th>Email</th>
+      <th>Pakket</th>
+      <th>Datum</th>
+      <th>Acties</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for a in aanvragen %}
+    <tr>
+      <td>{{ a['id'] }}</td>
+      <td>{{ a['bedrijf_naam'] }}</td>
+      <td>{{ a['email'] }}</td>
+      <td>{{ a['views_pakket'] }}</td>
+      <td>{{ a['aangemaakt_op'] }}</td>
+      <td>
+        <form method="post" action="{{ url_for('admin_ad_approve', aanvraag_id=a['id']) }}" style="display:inline">
+          <button type="submit" class="btn btn-success">Goedkeuren</button>
+        </form>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>Geen nieuwe aanvragen.</p>
+{% endif %}
+{% endblock %}

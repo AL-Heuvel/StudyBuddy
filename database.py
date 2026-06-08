@@ -179,6 +179,15 @@ def init_db():
 
     if "afbeelding" not in aanvraag_columns:
         cursor.execute("ALTER TABLE advertentie_aanvragen ADD COLUMN afbeelding TEXT")
+        aanvraag_columns.append('afbeelding')
+
+    if "user_id" not in aanvraag_columns:
+        cursor.execute("ALTER TABLE advertentie_aanvragen ADD COLUMN user_id INTEGER")
+        aanvraag_columns.append('user_id')
+
+    if "status" not in aanvraag_columns:
+        cursor.execute("ALTER TABLE advertentie_aanvragen ADD COLUMN status TEXT DEFAULT 'pending'")
+        aanvraag_columns.append('status')
 
     cursor.execute("PRAGMA table_info(users)")
     column_names = [column[1] for column in cursor.fetchall()]
@@ -247,6 +256,18 @@ def init_db():
         )
  
     conn.commit()
+
+    # Meldingen (notificaties voor gebruikers)
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS meldingen (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            bericht TEXT NOT NULL,
+            gelezen INTEGER DEFAULT 0,
+            aangemaakt_op DATETIME DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES users(id)
+        )
+    """)
 
     admin_username = os.getenv("STUDYBUDDY_ADMIN_USERNAME", "admin")
     admin_password = os.getenv("STUDYBUDDY_ADMIN_PASSWORD", "admin123")
