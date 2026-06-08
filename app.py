@@ -1239,12 +1239,6 @@ def profiel():
  
 init_db()
 
-# ── START ─────────────────────────────────────────────────
-
-if __name__ == "__main__":
-
-    app.run(host="0.0.0.0", port=5000, debug=False)
-
 from flask import make_response
 from factuur import maak_factuur
 
@@ -1266,3 +1260,10 @@ def factuur():
 
     logger.info(f"Factuur {factuurnummer} gedownload door gebruiker {session['user_id']}")
     return response
+
+
+# ── START ─────────────────────────────────────────────────
+
+if __name__ == "__main__":
+
+    app.run(host="0.0.0.0", port=5000, debug=False)

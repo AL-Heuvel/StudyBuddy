@@ -1,0 +1,24 @@
+[2026-06-05 09:21:53] INFO - Takenoverzicht bekeken door gebruiker 9
+[2026-06-05 09:27:02] INFO - Gebruiker 'nyjah' is ingelogd (admin: False)
+[2026-06-05 09:27:12] INFO - Quote opgehaald voor gebruiker 9
+[2026-06-05 09:29:30] WARNING - Mislukte inlogpoging voor gebruiker 'nyjah'
+[2026-06-05 09:29:35] INFO - Gebruiker 'nyjah' is ingelogd (admin: False)
+[2026-06-05 09:29:39] INFO - Quote opgehaald voor gebruiker 9
+[2026-06-08 11:16:21] WARNING - Mislukte inlogpoging voor gebruiker 'r'
+[2026-06-08 11:16:35] INFO - Gebruiker 'nyjah' is ingelogd (admin: False)
+[2026-06-08 11:16:40] INFO - Quote opgehaald voor gebruiker 9
+[2026-06-08 11:16:44] INFO - Schema gegenereerd voor gebruiker 9
+[2026-06-08 11:16:45] INFO - Takenoverzicht bekeken door gebruiker 9
+[2026-06-08 11:27:57] INFO - Gebruiker 'nyjah' is ingelogd (admin: False)
+[2026-06-08 11:28:04] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Read timed out. (read timeout=3)
+[2026-06-08 11:28:55] INFO - Schema gegenereerd voor gebruiker 9
+[2026-06-08 11:28:57] INFO - Takenoverzicht bekeken door gebruiker 9
+[2026-06-08 11:29:58] INFO - Takenoverzicht bekeken door gebruiker 9
+[2026-06-08 11:32:29] INFO - Gebruiker 'nyjah' is ingelogd (admin: False)
+[2026-06-08 11:32:36] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<HTTPSConnection(host='zenquotes.io', port=443) at 0x782427b72ea0>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-06-08 11:32:37] INFO - Quote opgehaald voor gebruiker 9
+[2026-06-08 11:36:35] INFO - Gebruiker 'nyjah' is ingelogd (admin: False)
+[2026-06-08 11:36:41] INFO - Quote opgehaald voor gebruiker 9
+[2026-06-08 11:36:46] INFO - Takenoverzicht bekeken door gebruiker 9
+[2026-06-08 11:36:47] INFO - Schema gegenereerd voor gebruiker 9
+[2026-06-08 11:36:50] INFO - Quote opgehaald voor gebruiker 9
