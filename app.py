@@ -31,11 +31,6 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['ADVERTENTIE_UPLOAD_FOLDER'] = ADVERTENTIE_UPLOAD_FOLDER
 from flask import send_from_directory
 
-@app.route('/sw.js')
-def service_worker():
-    return send_from_directory('static', 'sw.js', mimetype='application/javascript')
-
-
 def haal_advertentie_afbeeldingen_op():
     advertentie_map = app.config.get('ADVERTENTIE_UPLOAD_FOLDER', 'static/advertensies')
     if not os.path.isdir(advertentie_map):
@@ -1348,6 +1343,12 @@ def factuur():
 
     logger.info(f"Factuur {factuurnummer} gedownload door gebruiker {session['user_id']}")
     return response
+
+from flask import send_from_directory
+
+@app.route('/sw.js')
+def service_worker():
+    return send_from_directory('static', 'sw.js', mimetype='application/javascript')
 
 
 # ── START ─────────────────────────────────────────────────
