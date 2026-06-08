@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudyBuddy</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- PWA & Favicons -->
+     <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+     <meta name="theme-color" content="#d4b8e0">
+     <meta name="apple-mobile-web-app-capable" content="yes">
+     <meta name="apple-mobile-web-app-title" content="StudyBuddy">
+     <link rel="apple-touch-icon" href="{{ url_for('static', filename='media/apple-touch-icon.png') }}">
+     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='media/favicon-32x32.png') }}">
+     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='media/favicon-16x16.png') }}">
+     <link rel="icon" href="{{ url_for('static', filename='media/favicon.ico') }}">
 </head>
 <body>
  
@@ -62,6 +71,14 @@
       item.classList.add('active');
     }
   });
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('PWA actief:', reg.scope))
+        .catch(err => console.log('PWA fout:', err));
+    });
+  }
 </script>
 </body>
 </html>
