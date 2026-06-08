@@ -1,4 +1,4 @@
-const CACHE_NAAM = 'studybuddy-v1';
+const CACHE_NAAM = 'studybuddy-v2';
 const BESTANDEN = [
   '/dashboard',
   '/static/css/style.css',
