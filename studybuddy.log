@@ -26,3 +26,22 @@
 [2026-06-08 11:44:21] INFO - Quote opgehaald voor gebruiker 3
 [2026-06-08 11:44:35] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7615879149e0>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
 [2026-06-08 11:59:46] INFO - Advertentieklik geregistreerd voor campagne 1
+[2026-06-08 12:26:18] INFO - Nieuw account aangemaakt: 'hoihoihoi'
+[2026-06-08 12:26:26] ERROR - Fout bij registreren van 'hoihoihoi': UNIQUE constraint failed: users.username
+[2026-06-08 12:26:39] INFO - Gebruiker 'hoihoihoi' is ingelogd (admin: False)
+[2026-06-08 12:26:43] INFO - Quote opgehaald voor gebruiker 10
+[2026-06-08 12:26:51] INFO - Quote opgehaald voor gebruiker 10
+[2026-06-12 07:26:58] INFO - Advertentieklik geregistreerd voor campagne 1
+[2026-06-12 07:27:05] INFO - Advertentieklik geregistreerd voor campagne 1
+[2026-06-12 07:27:26] INFO - Nieuw account aangemaakt: 'kavishleer'
+[2026-06-12 07:27:41] INFO - Gebruiker 'kavishleer' is ingelogd (admin: False)
+[2026-06-12 07:27:46] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<HTTPSConnection(host='zenquotes.io', port=443) at 0x7990bc586b10>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-06-12 07:27:54] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<HTTPSConnection(host='zenquotes.io', port=443) at 0x7990bc586a80>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-06-12 07:27:55] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<HTTPSConnection(host='zenquotes.io', port=443) at 0x7990bc59b380>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-06-12 07:28:01] INFO - Schema gegenereerd voor gebruiker 11
+[2026-06-12 07:28:03] INFO - Takenoverzicht bekeken door gebruiker 11
+[2026-06-12 07:28:14] INFO - Factuur SB-2026-6604 gedownload door gebruiker 11
+[2026-06-12 07:28:31] INFO - Gebruiker 'kavishleer' is uitgelogd
+[2026-06-12 07:33:56] INFO - Nieuwe advertentieaanvraag ontvangen van Gamma (GammaNederland@gmail.com)
+[2026-06-12 07:34:39] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-12 07:34:43] INFO - Admin dashboard geopend door gebruiker 6

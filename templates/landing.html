@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,176 +8,176 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
 </head>
+
 <body>
 
 
-<nav class="top-nav">
-    <div class="nav-logo">Study<span>Buddy</span></div>
-    <a href="{{ url_for('login') }}" class="nav-login">Inloggen</a>
-</nav>
+    <nav class="top-nav">
+        <div class="nav-logo">Study<span>Buddy</span></div>
+        <a href="{{ url_for('login') }}" class="nav-login">Inloggen</a>
+    </nav>
 
 
-<section class="hero">
-    <div class="blob blob-yellow"></div>
-    <div class="blob blob-teal"></div>
-    <div class="blob blob-purple"></div>
+    <section class="hero">
+        <div class="blob blob-yellow"></div>
+        <div class="blob blob-teal"></div>
+        <div class="blob blob-purple"></div>
 
-    <div class="hero-left">
-        <div class="hero-badge">✦ Gratis te gebruiken</div>
-        <h1 class="hero-logo">Study<span>Buddy</span></h1>
-        <p class="hero-tagline">Plan slimmer, studeer beter. Jouw persoonlijke studieassistent met taken, timer en motivatie.</p>
-        <div class="hero-btns">
-            <a href="{{ url_for('register') }}" class="btn-begin">Begin nu →</a>
-            <a href="#features" class="btn-meer">Meer info</a>
+        <div class="hero-left">
+            <div class="hero-badge">✦ Gratis te gebruiken</div>
+            <h1 class="hero-logo">Study<span>Buddy</span></h1>
+            <p class="hero-tagline">Plan slimmer, studeer beter. Jouw persoonlijke studieassistent met taken, timer en
+                motivatie.</p>
+            <div class="hero-btns">
+                <a href="{{ url_for('register') }}" class="btn-begin">Begin nu →</a>
+                <a href="#features" class="btn-meer">Meer info</a>
+            </div>
+
         </div>
 
-    </div>
-
-    <div class="hero-right">
-        <div class="floating-cards">
-            <div class="float-card card-toets">
-                <div>
-                    <span class="card-toets-label">Toets voltooid</span>
-                    <span class="card-toets-subject">Wiskunde H4</span>
+        <div class="hero-right">
+            <div class="floating-cards">
+                <div class="float-card card-toets">
+                    <div>
+                        <span class="card-toets-label">Toets voltooid</span>
+                        <span class="card-toets-subject">Wiskunde H4</span>
+                    </div>
+                    <div class="check-icon">✓</div>
                 </div>
-                <div class="check-icon">✓</div>
+                <div class="float-card card-timer">
+                    <div class="card-timer-label">Timer</div>
+                    <div class="card-timer-time">25:00</div>
+                    <div class="timer-bar">
+                        <div class="timer-fill"></div>
+                    </div>
+                </div>
+                <div class="float-card card-motivatie">
+                    <div class="card-motivatie-label">Motivatie</div>
+                    <div class="card-motivatie-quote">"You've got this!"</div>
+                </div>
+
             </div>
-            <div class="float-card card-timer">
-                <div class="card-timer-label">Timer</div>
-                <div class="card-timer-time">25:00</div>
-                <div class="timer-bar"><div class="timer-fill"></div></div>
+        </div>
+        </div>
+
+        <div class="cta-wrapper" id="meer">
+            <a href="{{ url_for('register') }}" class="btn-account">Maak gratis een account aan</a>
+            <a href="{{ url_for('adverteren') }}" class="btn-advertentie">Adverteer op StudyBuddy</a>
+        </div>
+
+        <div class="social-proof">
+            <div class="sp-avatars">
+                <div class="sp-av" style="background:#9b6bb5"></div>
+                <div class="sp-av" style="background:#6cc17a"></div>
+                <div class="sp-av" style="background:#f5a623"></div>
             </div>
-            <div class="float-card card-motivatie">
-                <div class="card-motivatie-label">Motivatie</div>
-                <div class="card-motivatie-quote">"You've got this!"</div>
+            <p class="sp-text">Gebouwd door studenten, voor studenten</p>
+        </div>
+    </section>
+
+
+    <section class="section-features" id="features">
+        <div class="section-label">Wat je krijgt</div>
+        <h2 class="features-title">Alles wat je nodig hebt</h2>
+
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon-wrap">
+                    <img src="{{ url_for('static', filename='media/books.png') }}" alt="Taken">
+                </div>
+                <div class="feature-text">
+                    <h3>Taken beheren</h3>
+                    <p>Maak taken aan per vak met deadline, prioriteit en moeilijkheidsgraad.</p>
+                </div>
             </div>
-            <div class="float-card card-streak">
-                <span class="streak-icon">🔥</span>
-                <div>
-                    <div class="streak-num">7</div>
-                    <div class="streak-label">dagen streak</div>
+
+            <div class="feature-item">
+                <div class="feature-icon-wrap">
+                    <img src="{{ url_for('static', filename='media/timer.png') }}" alt="Timer">
+                </div>
+                <div class="feature-text">
+                    <h3>Studietimer</h3>
+                    <p>Ingebouwde timer met instelbare werk- en pauzetijden.</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon-wrap">
+                    <img src="{{ url_for('static', filename='media/calendar.png') }}" alt="Rooster">
+                </div>
+                <div class="feature-text">
+                    <h3>Slim rooster</h3>
+                    <p>Ons algoritme maakt automatisch een dagelijks studieschema voor jou.</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon-wrap">
+                    <img src="{{ url_for('static', filename='media/award.gif') }}" alt="Motivatie">
+                </div>
+                <div class="feature-text">
+                    <h3>Motivatie</h3>
+                    <p>Dagelijkse motivatiequotes die jou helpen gefocust te blijven.</p>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="cta-wrapper" id="meer">
         <a href="{{ url_for('register') }}" class="btn-account">Maak gratis een account aan</a>
-        <a href="{{ url_for('adverteren') }}" class="btn-advertentie">Adverteer op StudyBuddy</a>
-    </div>
+    </section>
 
-    <div class="social-proof">
-        <div class="sp-avatars">
-            <div class="sp-av" style="background:#9b6bb5"></div>
-            <div class="sp-av" style="background:#6cc17a"></div>
-            <div class="sp-av" style="background:#f5a623"></div>
-        </div>
-        <p class="sp-text">Gebouwd door studenten, voor studenten</p>
-    </div>
-</section>
+    <section class="section-wie">
+        <div class="wie-inner">
+            <div class="section-label light">Het team</div>
+            <h2 class="section-title">Wie zijn wij?</h2>
+            <p class="wie-sub">Wij zijn vier studenten die zelf weten hoe lastig plannen kan zijn. Daarom bouwen we
+                StudyBuddy een app die echt helpt.</p>
+            <div class="team-avatars">
+                <div class="team-card">
+                    <div class="avatar-ring av-ring-a">
+                        <div class="avatar av-a">A</div>
+                    </div>
+                    <span class="avatar-name">An Lei</span>
 
-
-<section class="section-features" id="features">
-    <div class="section-label">Wat je krijgt</div>
-    <h2 class="features-title">Alles wat je nodig hebt</h2>
-
-    <div class="features-grid">
-        <div class="feature-item">
-            <div class="feature-icon-wrap">
-                <img src="{{ url_for('static', filename='media/books.png') }}" alt="Taken">
-            </div>
-            <div class="feature-text">
-                <h3>Taken beheren</h3>
-                <p>Maak taken aan per vak met deadline, prioriteit en moeilijkheidsgraad.</p>
-            </div>
-        </div>
-
-        <div class="feature-item">
-            <div class="feature-icon-wrap">
-                <img src="{{ url_for('static', filename='media/timer.png') }}" alt="Timer">
-            </div>
-            <div class="feature-text">
-                <h3>Studietimer</h3>
-                <p>Ingebouwde timer met instelbare werk- en pauzetijden.</p>
-            </div>
-        </div>
-
-        <div class="feature-item">
-            <div class="feature-icon-wrap">
-                <img src="{{ url_for('static', filename='media/calendar.png') }}" alt="Rooster">
-            </div>
-            <div class="feature-text">
-                <h3>Slim rooster</h3>
-                <p>Ons algoritme maakt automatisch een dagelijks studieschema voor jou.</p>
-            </div>
-        </div>
-
-        <div class="feature-item">
-            <div class="feature-icon-wrap">
-                <img src="{{ url_for('static', filename='media/award.gif') }}" alt="Motivatie">
-            </div>
-            <div class="feature-text">
-                <h3>Motivatie</h3>
-                <p>Dagelijkse motivatiequotes die jou helpen gefocust te blijven.</p>
-            </div>
-        </div>
-    </div>
-
-    <a href="{{ url_for('register') }}" class="btn-account">Maak gratis een account aan</a>
-</section>
-
-<section class="section-wie">
-    <div class="wie-inner">
-        <div class="section-label light">Het team</div>
-        <h2 class="section-title">Wie zijn wij?</h2>
-        <p class="wie-sub">Wij zijn vier studenten die zelf weten hoe lastig plannen kan zijn. Daarom bouwen we StudyBuddy een app die echt helpt.</p>
-        <div class="team-avatars">
-            <div class="team-card">
-                <div class="avatar-ring av-ring-a">
-                    <div class="avatar av-a">A</div>
                 </div>
-                <span class="avatar-name">An Lei</span>
-                
-            </div>
-            <div class="team-card">
-                <div class="avatar-ring av-ring-e">
-                    <div class="avatar av-e">F</div>
+                <div class="team-card">
+                    <div class="avatar-ring av-ring-e">
+                        <div class="avatar av-e">F</div>
+                    </div>
+                    <span class="avatar-name">Frederieke</span>
+
                 </div>
-                <span class="avatar-name">Frederieke</span>
-               
-            </div>
-            <div class="team-card">
-                <div class="avatar-ring av-ring-k">
-                    <div class="avatar av-k">K</div>
+                <div class="team-card">
+                    <div class="avatar-ring av-ring-k">
+                        <div class="avatar av-k">K</div>
+                    </div>
+                    <span class="avatar-name">Kavish</span>
+
                 </div>
-                <span class="avatar-name">Kavish</span>
-                
-            </div>
-            <div class="team-card">
-                <div class="avatar-ring av-ring-n">
-                    <div class="avatar av-n">N</div>
+                <div class="team-card">
+                    <div class="avatar-ring av-ring-n">
+                        <div class="avatar av-n">N</div>
+                    </div>
+                    <span class="avatar-name">Nyjah</span>
+
                 </div>
-                <span class="avatar-name">Nyjah</span>
-                
             </div>
         </div>
-    </div>
 
-</section>
+    </section>
 
-<footer class="footer">
-    <div class="footer-logo">Study<span>Buddy</span></div>
-    <p>© 2026 StudyBuddy · Gemaakt door studenten, voor studenten.</p>
-</footer>
+    <footer class="footer">
+        <div class="footer-logo">Study<span>Buddy</span></div>
+        <p>© 2026 StudyBuddy · Gemaakt door studenten, voor studenten.</p>
+    </footer>
 
-<script>
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(el => {
-        if (el.isIntersecting) el.target.classList.add('visible');
-    });
-}, { threshold: 0.12 });
-document.querySelectorAll('.feature-item, .team-card').forEach(el => observer.observe(el));
-</script>
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(el => {
+                if (el.isIntersecting) el.target.classList.add('visible');
+            });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.feature-item, .team-card').forEach(el => observer.observe(el));
+    </script>
 </body>
-</html>
 
+</html>
