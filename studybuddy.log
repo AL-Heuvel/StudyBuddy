@@ -39,3 +39,8 @@
 [2026-06-12 09:05:38] INFO - Gebruiker 'admin' is ingelogd (admin: True)
 [2026-06-12 09:05:42] INFO - Admin dashboard geopend door gebruiker 6
 >>>>>>> d333562 (Error gefixed)
+[2026-06-12 09:15:42] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-12 09:16:27] INFO - Gebruiker 'nyjah' is ingelogd (admin: False)
+[2026-06-12 09:22:33] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-12 09:22:35] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-12 09:22:41] INFO - Gebruiker 'admin' is uitgelogd
