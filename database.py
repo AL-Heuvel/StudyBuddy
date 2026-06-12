@@ -4,10 +4,11 @@ import sqlite3
 from werkzeug.security import generate_password_hash
  
 def get_db():
-    conn = sqlite3.connect("studybuddy.db")
+    conn = sqlite3.connect("studybuddy.db", timeout=30)
     conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA journal_mode=WAL")
     return conn
- 
+
 def init_db():
     conn = get_db()
     cursor = conn.cursor()
