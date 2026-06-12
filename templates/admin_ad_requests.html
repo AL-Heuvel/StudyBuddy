@@ -1,36 +1,111 @@
 {% extends "admin.html" %}
+
 {% block content %}
-<h1>Advertentie aanvragen</h1>
-{% if aanvragen %}
-<table class="table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Bedrijf</th>
-      <th>Email</th>
-      <th>Pakket</th>
-      <th>Datum</th>
-      <th>Acties</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for a in aanvragen %}
-    <tr>
-      <td>{{ a['id'] }}</td>
-      <td>{{ a['bedrijf_naam'] }}</td>
-      <td>{{ a['email'] }}</td>
-      <td>{{ a['views_pakket'] }}</td>
-      <td>{{ a['aangemaakt_op'] }}</td>
-      <td>
-        <form method="post" action="{{ url_for('admin_ad_approve', aanvraag_id=a['id']) }}" style="display:inline">
-          <button type="submit" class="btn btn-success">Goedkeuren</button>
-        </form>
-      </td>
-    </tr>
-  {% endfor %}
-  </tbody>
-</table>
-{% else %}
-<p>Geen nieuwe aanvragen.</p>
-{% endif %}
+<div class="tc" style="padding:20px">
+  <div class="tc-hd">
+    <div class="tc-title">Advertentie aanvragen</div>
+  </div>
+
+  <div style="margin-top:12px;">
+    <h3 style="font-size:16px; margin-bottom:8px;">In afwachting</h3>
+    {% if aanvragen and aanvragen|length > 0 %}
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Bedrijf</th>
+          <th>Email</th>
+          <th>Pakket</th>
+          <th>Datum</th>
+          <th>Acties</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for a in aanvragen %}
+        <tr>
+          <td>{{ a['id'] }}</td>
+          <td>{{ a['bedrijf_naam'] }}</td>
+          <td>{{ a['email'] }}</td>
+          <td>{{ a['views_pakket'] }}</td>
+          <td>{{ a['aangemaakt_op'] }}</td>
+          <td>
+            <form method="post" action="{{ url_for('admin_ad_approve', aanvraag_id=a['id']) }}" style="display:inline">
+              <button type="submit" class="btn-sm btn-edit">Goedkeuren</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <p>Geen nieuwe aanvragen.</p>
+    {% endif %}
+  </div>
+
+  <hr style="margin:18px 0; border:none; border-top:1px solid #f5f0fc;">
+
+  <div>
+    <h3 style="font-size:16px; margin-bottom:8px;">Lopende campagnes</h3>
+    {% if lopende and lopende|length > 0 %}
+      <table>
+        <thead>
+          <tr>
+            <th>Campagne</th>
+            <th>Bedrijf</th>
+            <th>Periode</th>
+            <th>Resterende views</th>
+            <th>Afbeelding</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for c in lopende %}
+          <tr>
+            <td>{{ c['titel'] }}</td>
+            <td>{{ c['bedrijf_naam'] }}</td>
+            <td>{{ c['start_datum'] }} → {{ c['eind_datum'] }}</td>
+            <td>{{ c['resterende_views'] }}</td>
+            <td>{% if c['afbeelding'] %}<img src="{{ url_for('static', filename='advertensies/' + c['afbeelding']) }}" alt="" style="height:40px">{% else %}—{% endif %}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>Er zijn momenteel geen lopende campagnes.</p>
+    {% endif %}
+  </div>
+
+  <hr style="margin:18px 0; border:none; border-top:1px solid #f5f0fc;">
+
+  <div>
+    <h3 style="font-size:16px; margin-bottom:8px;">Verlopen campagnes</h3>
+    {% if verlopen and verlopen|length > 0 %}
+      <table>
+        <thead>
+          <tr>
+            <th>Campagne</th>
+            <th>Bedrijf</th>
+            <th>Periode</th>
+            <th>Resterende views</th>
+            <th>Afbeelding</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for c in verlopen %}
+          <tr>
+            <td>{{ c['titel'] }}</td>
+            <td>{{ c['bedrijf_naam'] }}</td>
+            <td>{{ c['start_datum'] }} → {{ c['eind_datum'] }}</td>
+            <td>{{ c['resterende_views'] }}</td>
+            <td>{% if c['afbeelding'] %}<img src="{{ url_for('static', filename='advertensies/' + c['afbeelding']) }}" alt="" style="height:40px">{% else %}—{% endif %}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>Geen verlopen campagnes.</p>
+    {% endif %}
+  </div>
+
+</div>
+
 {% endblock %}

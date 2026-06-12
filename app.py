@@ -1354,10 +1354,36 @@ def factuur():
 @admin_required
 def admin_ad_requests():
     db = get_db()
-    aanvragen = db.execute(
+    # pending aanvragen
+    aanvragen_pending = db.execute(
         "SELECT * FROM advertentie_aanvragen WHERE status = 'pending' ORDER BY aangemaakt_op DESC"
     ).fetchall()
-    return render_template('admin_ad_requests.html', aanvragen=aanvragen)
+
+    # actieve campagnes (lopend)
+    lopende = db.execute(
+        """
+        SELECT c.id as campagne_id, a.id as advertentie_id, a.titel, a.beschrijving, a.afbeelding, c.start_datum, c.eind_datum, c.resterende_views, b.naam as bedrijf_naam
+        FROM campagnes c
+        JOIN advertenties a ON a.id = c.advertentie_id
+        JOIN bedrijven b ON b.id = a.bedrijf_id
+        WHERE c.status = 'actief' AND date(c.start_datum) <= date('now') AND date(c.eind_datum) >= date('now')
+        ORDER BY c.start_datum DESC
+        """
+    ).fetchall()
+
+    # verlopen campagnes (afgelopen)
+    verlopen = db.execute(
+        """
+        SELECT c.id as campagne_id, a.id as advertentie_id, a.titel, a.beschrijving, a.afbeelding, c.start_datum, c.eind_datum, c.resterende_views, b.naam as bedrijf_naam
+        FROM campagnes c
+        JOIN advertenties a ON a.id = c.advertentie_id
+        JOIN bedrijven b ON b.id = a.bedrijf_id
+        WHERE date(c.eind_datum) < date('now') OR c.status != 'actief'
+        ORDER BY c.eind_datum DESC
+        """
+    ).fetchall()
+
+    return render_template('admin_ad_requests.html', aanvragen=aanvragen_pending, lopende=lopende, verlopen=verlopen)
 
 @app.route('/admin/advertentie/aanvraag/<int:aanvraag_id>/approve', methods=['POST'])
 @admin_required
