@@ -21,8 +21,8 @@
         <div class="advertentie-modal">
             <a class="advertentie-sluiten" href="{{ target }}" aria-label="Sluiten">×</a>
             <div class="advertentie-modal-label">Advertentie</div>
-            <img class="advertentie-modal-afbeelding" src="{{ url_for('static', filename='advertensies/' + advertentie_afbeelding) }}" alt="Advertentie afbeelding">
-            <p class="advertentie-modal-tekst">Klik op het kruisje om door te gaan naar de homepagina.</p>
+            <img class="advertentie-modal-afbeelding" src="{{ url_for('static', filename='advertensies/' + advertentie['afbeelding']) }}" alt="{{ advertentie['titel'] }}">
+            <p class="advertentie-modal-tekst">Deze advertentie is goedgekeurd en wordt nu zichtbaar op StudyBuddy.</p>
         </div>
     </div>
 </body>

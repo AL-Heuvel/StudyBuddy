@@ -1,0 +1,73 @@
+[2026-06-05 09:21:53] INFO - Takenoverzicht bekeken door gebruiker 9
+[2026-06-05 09:27:02] INFO - Gebruiker 'nyjah' is ingelogd (admin: False)
+[2026-06-05 09:27:12] INFO - Quote opgehaald voor gebruiker 9
+[2026-06-05 09:29:30] WARNING - Mislukte inlogpoging voor gebruiker 'nyjah'
+[2026-06-05 09:29:35] INFO - Gebruiker 'nyjah' is ingelogd (admin: False)
+[2026-06-05 09:29:39] INFO - Quote opgehaald voor gebruiker 9
+[2026-06-08 11:16:21] WARNING - Mislukte inlogpoging voor gebruiker 'r'
+[2026-06-08 11:16:35] INFO - Gebruiker 'nyjah' is ingelogd (admin: False)
+[2026-06-08 11:16:40] INFO - Quote opgehaald voor gebruiker 9
+[2026-06-08 11:16:44] INFO - Schema gegenereerd voor gebruiker 9
+[2026-06-08 11:16:45] INFO - Takenoverzicht bekeken door gebruiker 9
+[2026-06-08 11:27:57] INFO - Gebruiker 'nyjah' is ingelogd (admin: False)
+[2026-06-08 11:28:04] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Read timed out. (read timeout=3)
+[2026-06-08 11:28:55] INFO - Schema gegenereerd voor gebruiker 9
+[2026-06-08 11:28:57] INFO - Takenoverzicht bekeken door gebruiker 9
+[2026-06-08 11:29:58] INFO - Takenoverzicht bekeken door gebruiker 9
+[2026-06-08 11:32:29] INFO - Gebruiker 'nyjah' is ingelogd (admin: False)
+[2026-06-08 11:32:36] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<HTTPSConnection(host='zenquotes.io', port=443) at 0x782427b72ea0>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-06-08 11:32:37] INFO - Quote opgehaald voor gebruiker 9
+[2026-06-08 11:36:35] INFO - Gebruiker 'nyjah' is ingelogd (admin: False)
+[2026-06-08 11:36:41] INFO - Quote opgehaald voor gebruiker 9
+[2026-06-08 11:36:46] INFO - Takenoverzicht bekeken door gebruiker 9
+[2026-06-08 11:36:47] INFO - Schema gegenereerd voor gebruiker 9
+[2026-06-08 11:36:50] INFO - Quote opgehaald voor gebruiker 9
+[2026-06-08 11:44:17] INFO - Gebruiker 'test' is ingelogd (admin: False)
+[2026-06-08 11:44:21] INFO - Quote opgehaald voor gebruiker 3
+[2026-06-08 11:44:35] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7615879149e0>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-06-08 11:59:46] INFO - Advertentieklik geregistreerd voor campagne 1
+[2026-06-08 12:25:47] INFO - Quote opgehaald voor gebruiker 1
+[2026-06-08 12:30:29] INFO - Admin dashboard geopend door gebruiker 1
+[2026-06-08 12:31:24] WARNING - Mislukte inlogpoging voor gebruiker 'admin'
+[2026-06-08 12:31:32] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-08 12:31:34] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-08 12:39:11] INFO - Quote opgehaald voor gebruiker 6
+[2026-06-08 12:39:19] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-08 12:39:22] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-08 12:43:29] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-08 12:43:32] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-08 12:43:58] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-08 12:44:16] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-08 12:44:20] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-08 12:47:05] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-08 12:47:07] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-08 12:49:11] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-08 12:49:17] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-12 07:21:39] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-12 07:21:42] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-12 07:39:57] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-12 07:39:59] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-12 07:41:53] INFO - Nieuwe advertentieaanvraag ontvangen van intratuin (intratuin@glr.nl)
+[2026-06-12 07:41:56] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x76aa3b54a390>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-06-12 07:42:05] ERROR - Factuur-export niet beschikbaar: reportlab ontbreekt
+[2026-06-12 07:42:08] ERROR - Factuur-export niet beschikbaar: reportlab ontbreekt
+[2026-06-12 07:44:24] INFO - Gebruiker 'admin' is uitgelogd
+[2026-06-12 07:53:59] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-12 07:54:03] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-12 07:54:47] INFO - Gebruiker 'admin' is uitgelogd
+[2026-06-12 07:54:56] ERROR - Fout bij registreren van 'nyjah': UNIQUE constraint failed: users.username
+[2026-06-12 07:55:05] INFO - Gebruiker 'nyjah' is ingelogd (admin: False)
+[2026-06-12 07:55:12] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Read timed out. (read timeout=3)
+[2026-06-12 07:55:15] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x76aa3b12dd30>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-06-12 07:55:22] INFO - Schema gegenereerd voor gebruiker 9
+[2026-06-12 07:55:27] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x76aa3b117530>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-06-12 07:55:29] INFO - Schema gegenereerd voor gebruiker 9
+[2026-06-12 07:55:30] INFO - Takenoverzicht bekeken door gebruiker 9
+[2026-06-12 07:55:36] INFO - Instellingen bijgewerkt voor gebruiker 9
+[2026-06-12 07:55:44] INFO - Schema gegenereerd voor gebruiker 9
+[2026-06-12 07:55:46] INFO - Takenoverzicht bekeken door gebruiker 9
+[2026-06-12 08:04:06] INFO - Nieuwe advertentieaanvraag ontvangen van intratuin (intratuin@glr.nl)
+[2026-06-12 08:04:08] INFO - Quote opgehaald voor gebruiker 9
+[2026-06-12 08:04:12] INFO - Gebruiker 'nyjah' is uitgelogd
+[2026-06-12 08:04:18] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-12 08:04:20] INFO - Admin dashboard geopend door gebruiker 6

@@ -35,8 +35,8 @@
       </div>
       <div class="advertentie-strip-grid">
         {% for advertentie in advertentie_afbeeldingen[:3] %}
-        <a class="advertentie-card" href="{{ url_for('adverteren') }}">
-          <img src="{{ url_for('static', filename='advertensies/' + advertentie) }}" alt="Advertentie">
+        <a class="advertentie-card" href="{{ url_for('advertentie_click', campagne_id=advertentie['campagne_id']) }}">
+          <img src="{{ url_for('static', filename='advertensies/' + advertentie['afbeelding']) }}" alt="{{ advertentie['titel'] }}">
         </a>
         {% endfor %}
       </div>
