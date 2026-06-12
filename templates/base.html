@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudyBuddy</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block head_extra %}{% endblock %}
     <!-- PWA & Favicons -->
      <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
      <meta name="theme-color" content="#d4b8e0">
@@ -35,8 +36,8 @@
       </div>
       <div class="advertentie-strip-grid">
         {% for advertentie in advertentie_afbeeldingen[:3] %}
-        <a class="advertentie-card" href="{{ url_for('advertentie_click', campagne_id=advertentie['campagne_id']) }}">
-          <img src="{{ url_for('static', filename='advertensies/' + advertentie['afbeelding']) }}" alt="{{ advertentie['titel'] }}">
+        <a class="advertentie-card" href="{{ url_for('adverteren') }}">
+          <img src="{{ url_for('static', filename='advertensies/' + advertentie) }}" alt="Advertentie">
         </a>
         {% endfor %}
       </div>

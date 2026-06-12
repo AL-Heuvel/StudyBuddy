@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [2026-06-12 08:38:49] INFO - Gebruiker 'admin' is ingelogd (admin: True)
 [2026-06-12 08:39:45] INFO - Gebruiker 'admin' is ingelogd (admin: True)
 [2026-06-12 08:40:37] INFO - Gebruiker 'admin' is ingelogd (admin: True)
@@ -13,4 +14,28 @@
 [2026-06-12 08:45:52] INFO - Quote opgehaald voor gebruiker 9
 [2026-06-12 08:45:55] INFO - Schema gegenereerd voor gebruiker 9
 [2026-06-12 08:45:56] INFO - Takenoverzicht bekeken door gebruiker 9
-[2026-06-12 09:09:04] INFO - Gebruiker 'test' is ingelogd (admin: False)
+=======
+[2026-06-12 08:58:26] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-12 08:58:34] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-12 09:00:42] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-12 09:00:44] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-12 09:00:52] INFO - Gebruiker 'admin' is uitgelogd
+[2026-06-12 09:01:01] INFO - Nieuw account aangemaakt: 'kavishleer4'
+[2026-06-12 09:01:03] INFO - Gebruiker 'kavishleer4' is ingelogd (admin: False)
+[2026-06-12 09:01:10] INFO - Quote opgehaald voor gebruiker 12
+[2026-06-12 09:01:13] INFO - Schema gegenereerd voor gebruiker 12
+[2026-06-12 09:01:15] INFO - Takenoverzicht bekeken door gebruiker 12
+[2026-06-12 09:01:29] INFO - Nieuwe taak 'hoi' aangemaakt door gebruiker 12
+[2026-06-12 09:01:29] INFO - Takenoverzicht bekeken door gebruiker 12
+[2026-06-12 09:01:32] INFO - Quote opgehaald voor gebruiker 12
+[2026-06-12 09:03:44] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-12 09:05:16] INFO - Nieuw account aangemaakt: 'kavishleer5'
+[2026-06-12 09:05:19] INFO - Gebruiker 'kavishleer5' is ingelogd (admin: False)
+[2026-06-12 09:05:24] INFO - Quote opgehaald voor gebruiker 13
+[2026-06-12 09:05:27] INFO - Takenoverzicht bekeken door gebruiker 13
+[2026-06-12 09:05:28] INFO - Schema gegenereerd voor gebruiker 13
+[2026-06-12 09:05:31] INFO - Quote opgehaald voor gebruiker 13
+[2026-06-12 09:05:33] INFO - Gebruiker 'kavishleer5' is uitgelogd
+[2026-06-12 09:05:38] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-12 09:05:42] INFO - Admin dashboard geopend door gebruiker 6
+>>>>>>> d333562 (Error gefixed)

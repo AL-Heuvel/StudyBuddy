@@ -88,6 +88,40 @@ def haal_actieve_advertentie_op(db):
     ).fetchone()
 
 
+def haal_goedgekeurde_advertenties_op(limit=None):
+    try:
+        db = get_db()
+        query = """
+            SELECT a.id AS advertentie_id,
+                   a.titel,
+                   a.beschrijving,
+                   a.afbeelding,
+                   a.doel_url,
+                   c.id AS campagne_id,
+                   c.resterende_views,
+                   b.naam AS bedrijf_naam,
+                   t.naam AS tarief_naam,
+                   t.aantal_views,
+                   t.prijs
+            FROM advertenties a
+            JOIN campagnes c ON c.advertentie_id = a.id
+            JOIN bedrijven b ON b.id = a.bedrijf_id
+            JOIN tarieven t ON t.id = c.tarief_id
+            WHERE a.actief = 1
+              AND c.status = 'actief'
+              AND c.resterende_views > 0
+            ORDER BY c.start_datum DESC, c.id DESC
+        """
+        params = ()
+        if limit is not None:
+            query += " LIMIT ?"
+            params = (limit,)
+
+        return db.execute(query, params).fetchall()
+    except Exception:
+        return []
+
+
 def registreer_advertentie_view(db, campagne_id):
     db.execute(
         "INSERT INTO advertentie_views (campagne_id) VALUES (?)",
@@ -250,14 +284,14 @@ def advertentie_popup():
         return redirect(url_for("login"))
 
     target = session.pop("post_login_target", url_for("dashboard"))
-    advertentie_afbeeldingen = haal_advertentie_afbeeldingen_op()
+    actieve_advertenties = haal_goedgekeurde_advertenties_op(limit=1)
 
-    if not session.pop("show_advertentie_popup", False) or not advertentie_afbeeldingen:
+    if not session.pop("show_advertentie_popup", False) or not actieve_advertenties:
         return redirect(target)
 
     return render_template(
         "advertentie_popup.html",
-        advertentie_afbeelding=advertentie_afbeeldingen[0],
+        advertentie=actieve_advertenties[0],
         target=target,
     )
 
@@ -330,8 +364,12 @@ def register():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "")
+        if not username or not password:
+            flash("Voer gebruikersnaam en wachtwoord in.", "error")
+            return render_template("login.html")
+
         db = get_db()
         user = db.execute(
             "SELECT * FROM users WHERE username = ?",
@@ -870,21 +908,14 @@ def instellingen():
 # Inject timer settings and uploaded advert images into all templates
 @app.context_processor
 def inject_timer_settings():
-    advertentie_map = app.config.get('ADVERTENTIE_UPLOAD_FOLDER', 'static/advertensies')
-    advertentie_afbeeldingen = []
     advertentie_css_pad = os.path.join('static', 'css', 'promo-form.css')
     advertentie_css_version = int(os.path.getmtime(advertentie_css_pad)) if os.path.exists(advertentie_css_pad) else 0
+    advertentie_afbeeldingen = []
 
-    if os.path.isdir(advertentie_map):
-        geldige_extensies = {'.png', '.jpg', '.jpeg'}
-        bestanden = []
-        for bestandsnaam in os.listdir(advertentie_map):
-            volledig_pad = os.path.join(advertentie_map, bestandsnaam)
-            if os.path.isfile(volledig_pad) and os.path.splitext(bestandsnaam)[1].lower() in geldige_extensies:
-                bestanden.append((os.path.getmtime(volledig_pad), bestandsnaam))
-        advertentie_afbeeldingen = [
-            bestandsnaam for _, bestandsnaam in sorted(bestanden, reverse=True)
-        ]
+    try:
+        advertentie_afbeeldingen = haal_goedgekeurde_advertenties_op(limit=3)
+    except Exception:
+        advertentie_afbeeldingen = []
 
     try:
         if 'user_id' in session:
@@ -903,7 +934,7 @@ def inject_timer_settings():
     return dict(
         TIMER_WERK_MIN=25,
         TIMER_PAUZE_MIN=5,
-        advertentie_afbeeldingen=[],
+        advertentie_afbeeldingen=advertentie_afbeeldingen,
         advertentie_css_version=advertentie_css_version,
     )
 
