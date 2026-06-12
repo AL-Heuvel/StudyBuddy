@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block head_extra %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+
 {% block content %}
 <div style="display: flex; min-height: 100vh; background: #f5f0fc; color: #2a1040; font-family: 'DM Sans', sans-serif;">
   <!-- SIDEBAR -->
