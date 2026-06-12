@@ -1,0 +1,159 @@
+.ad-page {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f0fc;
+  color: #2a1040;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ad-main {
+  margin-left: 210px;
+  flex: 1;
+  padding: 28px;
+}
+
+.ad-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.ad-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.ad-subtitle {
+  font-size: 12px;
+  color: #9b6ab8;
+  margin-top: 2px;
+}
+
+.ad-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1.5px solid #FAE6FE;
+  margin-bottom: 20px;
+}
+
+.ad-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1.5px solid #FAE6FE;
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.ad-card-empty {
+  padding: 20px;
+  font-size: 13px;
+  color: #9b6ab8;
+}
+
+.ad-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ad-table thead th {
+  text-align: left;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #b89ad0;
+  padding: 10px 20px;
+  background: #faf5ff;
+  border-bottom: 1.5px solid #FAE6FE;
+}
+
+.ad-table tbody tr {
+  border-bottom: 1px solid #f5f0fc;
+  transition: 0.15s;
+}
+
+.ad-table tbody tr:hover {
+  background: #faf5ff;
+}
+
+.ad-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.ad-table td {
+  padding: 11px 20px;
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+.td-id {
+  color: #9b6ab8;
+}
+
+.td-bold {
+  font-weight: 600;
+}
+
+.td-muted {
+  color: #9b6ab8;
+}
+
+.badge-purple {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+  background: #FAE6FE;
+  color: #7c3aad;
+}
+
+.badge-green {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+  background: #EBFFFB;
+  color: #2a8060;
+}
+
+.badge-red {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+  background: #fde8ee;
+  color: #c03060;
+}
+
+.btn-approve {
+  padding: 5px 12px;
+  background: #9b3de8;
+  color: white;
+  border: none;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: 0.2s;
+}
+
+.btn-approve:hover {
+  background: #8a2fd5;
+}
+
+.ad-img {
+  height: 40px;
+  width: auto;
+  border-radius: 6px;
+  border: 1px solid #FAE6FE;
+}
