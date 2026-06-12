@@ -1,5 +1,4 @@
 import logging
-
 from logging.handlers import RotatingFileHandler
 
 from flask import Flask, render_template, redirect, url_for, session, request, flash, send_file, make_response
@@ -11,13 +10,11 @@ from database import init_db, get_db
 from algorithm import genereer_schema
 
 import requests
-
 import os
 
 from io import BytesIO
-
 from werkzeug.utils import secure_filename
- 
+
 app = Flask(__name__)
 
 app.secret_key = "studybuddy_secret_2026"
@@ -29,7 +26,7 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['ADVERTENTIE_UPLOAD_FOLDER'] = ADVERTENTIE_UPLOAD_FOLDER
-
+from flask import send_from_directory
 
 def haal_advertentie_afbeeldingen_op():
     advertentie_map = app.config.get('ADVERTENTIE_UPLOAD_FOLDER', 'static/advertensies')
@@ -67,7 +64,7 @@ handler.setFormatter(formatter)
 logger = logging.getLogger(__name__)
 
 logger.addHandler(handler)
- 
+
 # ── HELPERS ──────────────────────────────────────────────
 
 def ingelogd():
@@ -198,8 +195,8 @@ def adverteren():
                 """
                 INSERT INTO advertentie_aanvragen (
                     bedrijf_naam, voornaam, achternaam, email, telefoon,
-                    doel_advertentie, tarieven, views_pakket, startdatum, afbeelding
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    doel_advertentie, tarieven, views_pakket, startdatum, afbeelding, user_id, status
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     bedrijf_naam,
@@ -212,12 +209,14 @@ def adverteren():
                     views_pakket,
                     startdatum,
                     afbeelding_naam,
+                    session.get('user_id'),
+                    'pending'
                 ),
             )
             db.commit()
             logger.info("Nieuwe advertentieaanvraag ontvangen van %s (%s)", bedrijf_naam, email)
-            flash("Bedankt! Je advertentieaanvraag is ontvangen.", "success")
-            return redirect(url_for("index"))
+            flash("Aanvraag ontvangen — wordt ter beoordeling naar een admin gestuurd.", "success")
+            return redirect(url_for("dashboard") if session.get('user_id') else url_for("index"))
         except Exception as e:
             logger.error(f"Fout bij opslaan advertentieaanvraag: {e}")
             flash("Er ging iets mis bij het verzenden. Probeer opnieuw.", "error")
@@ -666,6 +665,18 @@ def dashboard():
         return redirect(url_for("login"))
 
     db = get_db()
+
+    # Toon meldingen voor ingelogde gebruiker
+    try:
+        if session.get('user_id'):
+            meldingen = db.execute('SELECT * FROM meldingen WHERE user_id = ? AND gelezen = 0', (session['user_id'],)).fetchall()
+            for m in meldingen:
+                flash(m['bericht'], 'success')
+            if meldingen:
+                db.execute('UPDATE meldingen SET gelezen = 1 WHERE user_id = ? AND gelezen = 0', (session['user_id'],))
+                db.commit()
+    except Exception:
+        pass
 
     try:
 
@@ -1338,11 +1349,108 @@ def factuur():
     pdf_bytes, factuurnummer = maak_factuur(user)
 
     response = make_response(pdf_bytes)
+
+@app.route('/admin/advertentie/aanvragen')
+@admin_required
+def admin_ad_requests():
+    db = get_db()
+    # pending aanvragen
+    aanvragen_pending = db.execute(
+        "SELECT * FROM advertentie_aanvragen WHERE status = 'pending' ORDER BY aangemaakt_op DESC"
+    ).fetchall()
+
+    # actieve campagnes (lopend)
+    lopende = db.execute(
+        """
+        SELECT c.id as campagne_id, a.id as advertentie_id, a.titel, a.beschrijving, a.afbeelding, c.start_datum, c.eind_datum, c.resterende_views, b.naam as bedrijf_naam
+        FROM campagnes c
+        JOIN advertenties a ON a.id = c.advertentie_id
+        JOIN bedrijven b ON b.id = a.bedrijf_id
+        WHERE c.status = 'actief' AND date(c.start_datum) <= date('now') AND date(c.eind_datum) >= date('now')
+        ORDER BY c.start_datum DESC
+        """
+    ).fetchall()
+
+    # verlopen campagnes (afgelopen)
+    verlopen = db.execute(
+        """
+        SELECT c.id as campagne_id, a.id as advertentie_id, a.titel, a.beschrijving, a.afbeelding, c.start_datum, c.eind_datum, c.resterende_views, b.naam as bedrijf_naam
+        FROM campagnes c
+        JOIN advertenties a ON a.id = c.advertentie_id
+        JOIN bedrijven b ON b.id = a.bedrijf_id
+        WHERE date(c.eind_datum) < date('now') OR c.status != 'actief'
+        ORDER BY c.eind_datum DESC
+        """
+    ).fetchall()
+
+    return render_template('admin_ad_requests.html', aanvragen=aanvragen_pending, lopende=lopende, verlopen=verlopen)
+
+@app.route('/admin/advertentie/aanvraag/<int:aanvraag_id>/approve', methods=['POST'])
+@admin_required
+def admin_ad_approve(aanvraag_id):
+    db = get_db()
+    aanvraag = db.execute('SELECT * FROM advertentie_aanvragen WHERE id = ?', (aanvraag_id,)).fetchone()
+    if not aanvraag:
+        flash('Aanvraag niet gevonden.', 'error')
+        return redirect(url_for('admin_ad_requests'))
+
+    try:
+        # maak bedrijf aan of hergebruik
+        bedrijf = db.execute('SELECT id FROM bedrijven WHERE naam = ?', (aanvraag['bedrijf_naam'],)).fetchone()
+        if bedrijf:
+            bedrijf_id = bedrijf['id']
+        else:
+            cur = db.execute('INSERT INTO bedrijven (naam, email, telefoon, adres) VALUES (?, ?, ?, ?)',
+                             (aanvraag['bedrijf_naam'], aanvraag['email'], aanvraag['telefoon'], ''))
+            bedrijf_id = cur.lastrowid
+
+        # maak advertentie aan
+        titel = aanvraag['bedrijf_naam']
+        beschrijving = aanvraag['doel_advertentie']
+        afbeelding = aanvraag['afbeelding']
+        doel_url = f"mailto:{aanvraag['email']}" if aanvraag['email'] else url_for('index', _external=True)
+        cur2 = db.execute('INSERT INTO advertenties (bedrijf_id, titel, beschrijving, afbeelding, doel_url, actief) VALUES (?, ?, ?, ?, ?, 1)',
+                         (bedrijf_id, titel, beschrijving, afbeelding, doel_url))
+        advertentie_id = cur2.lastrowid
+
+        # bepaal tarief
+        pakket = aanvraag['views_pakket'] or 'starter'
+        naam_map = {'starter': 'Starter', 'basis': 'Basic', 'premium': 'Premium'}
+        tarief_row = db.execute('SELECT id, aantal_views FROM tarieven WHERE naam = ?', (naam_map.get(pakket, 'Starter'),)).fetchone()
+        tarief_id = tarief_row['id'] if tarief_row else None
+        resterende_views = tarief_row['aantal_views'] if tarief_row else 100
+
+        # maak campagne aan
+        db.execute('INSERT INTO campagnes (advertentie_id, tarief_id, start_datum, eind_datum, resterende_views, status) VALUES (?, ?, date("now"), date("now", "+30 days"), ?, "actief")',
+                   (advertentie_id, tarief_id, resterende_views))
+
+        # markeer aanvraag goedgekeurd
+        db.execute('UPDATE advertentie_aanvragen SET status = ? WHERE id = ?', ('approved', aanvraag_id))
+
+        # notificatie naar gebruiker
+        if aanvraag['user_id']:
+            bericht = f"Je advertentie-aanvraag voor {aanvraag['bedrijf_naam']} is goedgekeurd."
+            db.execute('INSERT INTO meldingen (user_id, bericht) VALUES (?, ?)', (aanvraag['user_id'], bericht))
+
+        db.commit()
+        flash('Advertentie goedgekeurd en gepubliceerd.', 'success')
+    except Exception as e:
+        db.rollback()
+        logger.error(f"Fout bij goedkeuren advertentie-aanvraag {aanvraag_id}: {e}")
+        flash('Er ging iets mis bij goedkeuren.', 'error')
+
+    return redirect(url_for('admin_ad_requests'))
     response.headers['Content-Type'] = 'application/pdf'
     response.headers['Content-Disposition'] = f'attachment; filename=factuur_{factuurnummer}.pdf'
 
     logger.info(f"Factuur {factuurnummer} gedownload door gebruiker {session['user_id']}")
     return response
+
+from flask import send_from_directory
+
+@app.route('/sw.js')
+def service_worker():
+    return send_from_directory('static', 'sw.js', mimetype='application/javascript')
 
 
 # ── START ─────────────────────────────────────────────────

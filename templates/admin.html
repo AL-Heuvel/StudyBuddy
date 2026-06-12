@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block head_extra %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+
 {% block content %}
 <div style="display: flex; min-height: 100vh; background: #f5f0fc; color: #2a1040; font-family: 'DM Sans', sans-serif;">
   <!-- SIDEBAR -->
@@ -11,6 +15,9 @@
     
     <a href="{{ url_for('admin_dashboard') }}" style="display: flex; align-items: center; gap: 10px; padding: 11px 20px; font-size: 13px; color: white; text-decoration: none; transition: 0.2s; background: #3d1a5e;">
       <span>👥</span> Gebruikers
+    </a>
+    <a href="{{ url_for('admin_ad_requests') }}" style="display: flex; align-items: center; gap: 10px; padding: 11px 20px; font-size: 13px; color: white; text-decoration: none; transition: 0.2s;">
+      <span>📣</span> Advertentie aanvragen
     </a>
     
  

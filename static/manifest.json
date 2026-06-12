@@ -1,0 +1,24 @@
+{
+  "name": "StudyBuddy - Slimme Studieplanner",
+  "short_name": "StudyBuddy",
+  "description": "Slimme studieplanner met motivatie voor studenten",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#f5f5f5",
+  "theme_color": "#d4b8e0",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/static/media/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/static/media/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
