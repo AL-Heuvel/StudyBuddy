@@ -126,11 +126,12 @@ def adverteren():
         if actieve_advertentie:
             registreer_advertentie_view(db, actieve_advertentie["campagne_id"])
             db.commit()
-        toon_factuur_knop = "factuur_gegevens" in session
+        toon_bevestiging_popup = session.pop("toon_advertentie_popup", False)
         return render_template(
             "advertentie_form.html",
             actieve_advertentie=actieve_advertentie,
-            toon_factuur_knop=toon_factuur_knop,
+            toon_bevestiging_popup=toon_bevestiging_popup,
+            factuur_download_url=url_for("advertentie_factuur"),
         )
 
     if request.method == "POST":
@@ -140,14 +141,23 @@ def adverteren():
         email = request.form.get("email", "").strip()
         telefoon = request.form.get("telefoon", "").strip()
         doel_advertentie = request.form.get("doel_advertentie", "").strip()
+        doel_url = request.form.get("doel_url", "").strip()
         tarieven = request.form.get("tarieven", "").strip()
         views_pakket = request.form.get("views_pakket", "").strip().lower()
         startdatum = request.form.get("startdatum", "").strip()
         afbeelding_naam = None
 
         verplichte_velden = [
-            bedrijf_naam, voornaam, achternaam, email, telefoon,
-            doel_advertentie, tarieven, views_pakket, startdatum,
+            bedrijf_naam,
+            voornaam,
+            achternaam,
+            email,
+            telefoon,
+            doel_advertentie,
+            doel_url,
+            tarieven,
+            views_pakket,
+            startdatum,
         ]
 
         if not all(verplichte_velden):
@@ -172,6 +182,10 @@ def adverteren():
             flash("Alleen PNG, JPG of JPEG-afbeeldingen zijn toegestaan.", "error")
             return render_form()
 
+        if not doel_url:
+            flash("Vul de doel-URL in waar de advertentie naartoe moet leiden.", "error")
+            return render_form()
+
         os.makedirs(app.config['ADVERTENTIE_UPLOAD_FOLDER'], exist_ok=True)
         afbeelding_naam = secure_filename(f"ad_{bedrijf_naam}_{afbeelding.filename}")
         afbeelding.save(os.path.join(app.config['ADVERTENTIE_UPLOAD_FOLDER'], afbeelding_naam))
@@ -181,13 +195,23 @@ def adverteren():
                 """
                 INSERT INTO advertentie_aanvragen (
                     bedrijf_naam, voornaam, achternaam, email, telefoon,
-                    doel_advertentie, tarieven, views_pakket, startdatum, afbeelding, user_id, status
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    doel_advertentie, doel_url, tarieven, views_pakket, startdatum, afbeelding, user_id, status
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
-                    bedrijf_naam, voornaam, achternaam, email, telefoon,
-                    doel_advertentie, tarieven, views_pakket, startdatum,
-                    afbeelding_naam, session.get('user_id'), 'pending'
+                    bedrijf_naam,
+                    voornaam,
+                    achternaam,
+                    email,
+                    telefoon,
+                    doel_advertentie,
+                    doel_url,
+                    tarieven,
+                    views_pakket,
+                    startdatum,
+                    afbeelding_naam,
+                    session.get('user_id'),
+                    'pending'
                 ),
             )
             db.commit()
@@ -200,6 +224,7 @@ def adverteren():
                 "email": email,
                 "views_pakket": views_pakket,
             }
+            session["toon_advertentie_popup"] = True
             flash("Aanvraag ontvangen! Je kunt nu je factuur downloaden.", "success")
             return redirect(url_for("adverteren"))
         except Exception as e:
@@ -505,20 +530,62 @@ def admin_ad_requests():
     ).fetchall()
     lopende = db.execute(
         """
-        SELECT c.id as campagne_id, a.id as advertentie_id, a.titel, a.beschrijving, a.afbeelding, c.start_datum, c.eind_datum, c.resterende_views, b.naam as bedrijf_naam
+        SELECT c.id as campagne_id,
+               a.id as advertentie_id,
+               a.titel,
+               a.beschrijving,
+               a.afbeelding,
+               c.start_datum,
+               c.eind_datum,
+               c.resterende_views,
+               b.naam as bedrijf_naam,
+               a.doel_url,
+               COALESCE(v.aantal_views, 0) AS aantal_views,
+               COALESCE(k.aantal_clicks, 0) AS aantal_clicks
         FROM campagnes c
         JOIN advertenties a ON a.id = c.advertentie_id
         JOIN bedrijven b ON b.id = a.bedrijf_id
+        LEFT JOIN (
+            SELECT campagne_id, COUNT(*) AS aantal_views
+            FROM advertentie_views
+            GROUP BY campagne_id
+        ) v ON v.campagne_id = c.id
+        LEFT JOIN (
+            SELECT campagne_id, COUNT(*) AS aantal_clicks
+            FROM advertentie_clicks
+            GROUP BY campagne_id
+        ) k ON k.campagne_id = c.id
         WHERE c.status = 'actief' AND date(c.start_datum) <= date('now') AND date(c.eind_datum) >= date('now')
         ORDER BY c.start_datum DESC
         """
     ).fetchall()
     verlopen = db.execute(
         """
-        SELECT c.id as campagne_id, a.id as advertentie_id, a.titel, a.beschrijving, a.afbeelding, c.start_datum, c.eind_datum, c.resterende_views, b.naam as bedrijf_naam
+        SELECT c.id as campagne_id,
+               a.id as advertentie_id,
+               a.titel,
+               a.beschrijving,
+               a.afbeelding,
+               c.start_datum,
+               c.eind_datum,
+               c.resterende_views,
+               b.naam as bedrijf_naam,
+               a.doel_url,
+               COALESCE(v.aantal_views, 0) AS aantal_views,
+               COALESCE(k.aantal_clicks, 0) AS aantal_clicks
         FROM campagnes c
         JOIN advertenties a ON a.id = c.advertentie_id
         JOIN bedrijven b ON b.id = a.bedrijf_id
+        LEFT JOIN (
+            SELECT campagne_id, COUNT(*) AS aantal_views
+            FROM advertentie_views
+            GROUP BY campagne_id
+        ) v ON v.campagne_id = c.id
+        LEFT JOIN (
+            SELECT campagne_id, COUNT(*) AS aantal_clicks
+            FROM advertentie_clicks
+            GROUP BY campagne_id
+        ) k ON k.campagne_id = c.id
         WHERE date(c.eind_datum) < date('now') OR c.status != 'actief'
         ORDER BY c.eind_datum DESC
         """
@@ -547,7 +614,7 @@ def admin_ad_approve(aanvraag_id):
         titel = aanvraag['bedrijf_naam']
         beschrijving = aanvraag['doel_advertentie']
         afbeelding = aanvraag['afbeelding']
-        doel_url = f"mailto:{aanvraag['email']}" if aanvraag['email'] else url_for('index', _external=True)
+        doel_url = aanvraag['doel_url'] if aanvraag['doel_url'] else (f"mailto:{aanvraag['email']}" if aanvraag['email'] else url_for('index', _external=True))
         cur2 = db.execute('INSERT INTO advertenties (bedrijf_id, titel, beschrijving, afbeelding, doel_url, actief) VALUES (?, ?, ?, ?, ?, 1)',
                          (bedrijf_id, titel, beschrijving, afbeelding, doel_url))
         advertentie_id = cur2.lastrowid

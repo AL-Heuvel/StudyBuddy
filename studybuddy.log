@@ -84,3 +84,28 @@
 [2026-06-12 08:24:48] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7bb70bdf33b0>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
 [2026-06-12 08:24:51] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7bb70bdf3590>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
 [2026-06-12 08:26:51] INFO - Gebruiker 'test' is uitgelogd
+[2026-06-12 08:18:49] INFO - Nieuwe advertentieaanvraag ontvangen van xenos (xenos@glr.nl)
+[2026-06-12 08:19:15] INFO - Gebruiker 'nyjah' is ingelogd (admin: False)
+[2026-06-12 08:19:18] INFO - Quote opgehaald voor gebruiker 9
+[2026-06-12 08:19:24] INFO - Gebruiker 'nyjah' is uitgelogd
+[2026-06-12 08:19:40] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-12 08:19:42] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-12 08:20:09] INFO - Gebruiker 'admin' is uitgelogd
+[2026-06-12 08:20:21] INFO - Gebruiker 'nyjah' is ingelogd (admin: False)
+[2026-06-12 08:20:33] INFO - Quote opgehaald voor gebruiker 9
+[2026-06-12 08:20:34] INFO - Advertentieklik geregistreerd voor campagne 6
+[2026-06-12 08:20:35] INFO - Advertentieklik geregistreerd voor campagne 6
+[2026-06-12 08:21:08] INFO - Advertentieklik geregistreerd voor campagne 6
+[2026-06-12 08:21:10] INFO - Advertentieklik geregistreerd voor campagne 6
+[2026-06-12 08:21:11] INFO - Advertentieklik geregistreerd voor campagne 5
+[2026-06-12 08:21:12] INFO - Advertentieklik geregistreerd voor campagne 5
+[2026-06-12 08:31:05] INFO - Nieuwe advertentieaanvraag ontvangen van frederieke (frederieke@glr.nl)
+[2026-06-12 08:31:23] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-12 08:31:26] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-12 08:31:43] INFO - Advertentieklik geregistreerd voor campagne 7
+[2026-06-12 08:31:55] INFO - Gebruiker 'admin' is uitgelogd
+[2026-06-12 08:32:00] INFO - Gebruiker 'nyjah' is ingelogd (admin: False)
+[2026-06-12 08:32:53] INFO - Quote opgehaald voor gebruiker 9
+[2026-06-12 08:32:54] INFO - Quote opgehaald voor gebruiker 9
+[2026-06-12 08:32:58] INFO - Advertentieklik geregistreerd voor campagne 7
+[2026-06-12 08:33:03] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Read timed out. (read timeout=3)

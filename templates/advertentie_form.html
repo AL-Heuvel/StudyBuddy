@@ -35,16 +35,18 @@
         {% endif %}
         {% endwith %}
 
-        {% if toon_factuur_knop %}
-        <section class="factuur-klaar">
-            <div class="factuur-klaar-tekst">
-                <h2>Je aanvraag is ontvangen!</h2>
-                <p>Download hieronder je factuur met de ingevulde gegevens.</p>
+        {% if toon_bevestiging_popup %}
+        <div class="popup-overlay" role="dialog" aria-modal="true" aria-labelledby="advertentie-popup-title">
+            <div class="popup-card">
+                <div class="popup-badge">Aanvraag verstuurd</div>
+                <h2 id="advertentie-popup-title">Je advertentie-aanvraag is verzonden</h2>
+                <p>De aanvraag is naar de admin gestuurd. Download hier meteen je factuur.</p>
+                <div class="popup-actions">
+                    <a class="factuur-download-btn" href="{{ factuur_download_url }}">Download factuur (PDF)</a>
+                    <a class="popup-close-btn" href="{{ url_for('adverteren') }}">Sluiten</a>
+                </div>
             </div>
-            <a class="factuur-download-btn" href="{{ url_for('advertentie_factuur') }}">
-                Download factuur (PDF)
-            </a>
-        </section>
+        </div>
         {% endif %}
 
         {% if actieve_advertentie %}
@@ -105,6 +107,11 @@
             <label>
                 Doel van advertentie
                 <textarea name="doel_advertentie" rows="4" placeholder="Bijvoorbeeld: naamsbekendheid, leads, verkoop..." required></textarea>
+            </label>
+
+            <label>
+                Doel-URL van de advertentie
+                <input type="url" name="doel_url" placeholder="https://jouw-website.nl" required>
             </label>
 
             <label>

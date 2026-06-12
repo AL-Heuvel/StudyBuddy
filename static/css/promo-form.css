@@ -431,3 +431,78 @@ button:hover {
     transform: translateY(-1px);
     box-shadow: 0 6px 16px rgba(176,136,200,0.45);
 }
+
+/* ── AANVRAAG POPUP ── */
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: rgba(15, 23, 42, 0.58);
+    backdrop-filter: blur(8px);
+    z-index: 999;
+}
+
+.popup-card {
+    width: min(100%, 540px);
+    background: #ffffff;
+    border-radius: 22px;
+    border: 1px solid #dbe7f3;
+    box-shadow: 0 30px 70px rgba(15, 23, 42, 0.22);
+    padding: 28px;
+    text-align: left;
+}
+
+.popup-badge {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #dcfce7;
+    color: #166534;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.popup-card h2 {
+    font-size: 24px;
+    line-height: 1.15;
+    color: #112033;
+    margin-bottom: 10px;
+}
+
+.popup-card p {
+    color: #526173;
+    line-height: 1.6;
+}
+
+.popup-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+.popup-close-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 14px 22px;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+    color: #334155;
+    font-weight: 800;
+    transition: transform 0.1s, background 0.15s, border-color 0.15s;
+}
+
+.popup-close-btn:hover {
+    transform: translateY(-1px);
+    background: #eef2f7;
+    border-color: #94a3b8;
+}
