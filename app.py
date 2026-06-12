@@ -9,7 +9,6 @@ import requests
 import os
 from io import BytesIO
 from werkzeug.utils import secure_filename
-from factuur import maak_advertentie_factuur
 from flask import send_from_directory
 
 app = Flask(__name__)
@@ -36,6 +35,41 @@ def haal_advertentie_afbeeldingen_op():
             bestanden.append((os.path.getmtime(volledig_pad), bestandsnaam))
 
     return [bestandsnaam for _, bestandsnaam in sorted(bestanden, reverse=True)]
+
+
+def haal_goedgekeurde_advertenties_op(limit=None):
+    try:
+        db = get_db()
+        query = """
+            SELECT a.id AS advertentie_id,
+                   a.titel,
+                   a.beschrijving,
+                   a.afbeelding,
+                   a.doel_url,
+                   c.id AS campagne_id,
+                   c.resterende_views,
+                   b.naam AS bedrijf_naam,
+                   t.naam AS tarief_naam,
+                   t.aantal_views,
+                   t.prijs
+            FROM advertenties a
+            JOIN campagnes c ON c.advertentie_id = a.id
+            JOIN bedrijven b ON b.id = a.bedrijf_id
+            JOIN tarieven t ON t.id = c.tarief_id
+            WHERE a.actief = 1
+              AND c.status = 'actief'
+              AND c.resterende_views > 0
+            ORDER BY c.start_datum DESC, c.id DESC
+        """
+
+        params = ()
+        if limit is not None:
+            query += " LIMIT ?"
+            params = (limit,)
+
+        return db.execute(query, params).fetchall()
+    except Exception:
+        return []
 
 
 # ── LOGGING SETUP ──────────────────────────────────────────
@@ -126,11 +160,12 @@ def adverteren():
         if actieve_advertentie:
             registreer_advertentie_view(db, actieve_advertentie["campagne_id"])
             db.commit()
-        toon_factuur_knop = "factuur_gegevens" in session
+        toon_bevestiging_popup = session.pop("toon_advertentie_popup", False)
         return render_template(
             "advertentie_form.html",
             actieve_advertentie=actieve_advertentie,
-            toon_factuur_knop=toon_factuur_knop,
+            toon_bevestiging_popup=toon_bevestiging_popup,
+            factuur_download_url=url_for("advertentie_factuur"),
         )
 
     if request.method == "POST":
@@ -140,14 +175,23 @@ def adverteren():
         email = request.form.get("email", "").strip()
         telefoon = request.form.get("telefoon", "").strip()
         doel_advertentie = request.form.get("doel_advertentie", "").strip()
+        doel_url = request.form.get("doel_url", "").strip()
         tarieven = request.form.get("tarieven", "").strip()
         views_pakket = request.form.get("views_pakket", "").strip().lower()
         startdatum = request.form.get("startdatum", "").strip()
         afbeelding_naam = None
 
         verplichte_velden = [
-            bedrijf_naam, voornaam, achternaam, email, telefoon,
-            doel_advertentie, tarieven, views_pakket, startdatum,
+            bedrijf_naam,
+            voornaam,
+            achternaam,
+            email,
+            telefoon,
+            doel_advertentie,
+            doel_url,
+            tarieven,
+            views_pakket,
+            startdatum,
         ]
 
         if not all(verplichte_velden):
@@ -172,6 +216,10 @@ def adverteren():
             flash("Alleen PNG, JPG of JPEG-afbeeldingen zijn toegestaan.", "error")
             return render_form()
 
+        if not doel_url:
+            flash("Vul de doel-URL in waar de advertentie naartoe moet leiden.", "error")
+            return render_form()
+
         os.makedirs(app.config['ADVERTENTIE_UPLOAD_FOLDER'], exist_ok=True)
         afbeelding_naam = secure_filename(f"ad_{bedrijf_naam}_{afbeelding.filename}")
         afbeelding.save(os.path.join(app.config['ADVERTENTIE_UPLOAD_FOLDER'], afbeelding_naam))
@@ -181,13 +229,23 @@ def adverteren():
                 """
                 INSERT INTO advertentie_aanvragen (
                     bedrijf_naam, voornaam, achternaam, email, telefoon,
-                    doel_advertentie, tarieven, views_pakket, startdatum, afbeelding, user_id, status
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    doel_advertentie, doel_url, tarieven, views_pakket, startdatum, afbeelding, user_id, status
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
-                    bedrijf_naam, voornaam, achternaam, email, telefoon,
-                    doel_advertentie, tarieven, views_pakket, startdatum,
-                    afbeelding_naam, session.get('user_id'), 'pending'
+                    bedrijf_naam,
+                    voornaam,
+                    achternaam,
+                    email,
+                    telefoon,
+                    doel_advertentie,
+                    doel_url,
+                    tarieven,
+                    views_pakket,
+                    startdatum,
+                    afbeelding_naam,
+                    session.get('user_id'),
+                    'pending'
                 ),
             )
             db.commit()
@@ -200,6 +258,7 @@ def adverteren():
                 "email": email,
                 "views_pakket": views_pakket,
             }
+            session["toon_advertentie_popup"] = True
             flash("Aanvraag ontvangen! Je kunt nu je factuur downloaden.", "success")
             return redirect(url_for("adverteren"))
         except Exception as e:
@@ -233,6 +292,13 @@ def advertentie_factuur():
         flash("Geen factuurgegevens gevonden. Vul eerst het advertentieformulier in.", "error")
         return redirect(url_for("adverteren"))
 
+    try:
+        from factuur import maak_advertentie_factuur
+    except ModuleNotFoundError:
+        logger.error("Factuur-export niet beschikbaar: reportlab ontbreekt")
+        flash("Factuur-export is tijdelijk niet beschikbaar.", "error")
+        return redirect(url_for("adverteren"))
+
     pdf_bytes, factuurnummer = maak_advertentie_factuur(gegevens)
     logger.info("Advertentiefactuur %s gegenereerd voor %s", factuurnummer, gegevens["bedrijf_naam"])
 
@@ -250,14 +316,14 @@ def advertentie_popup():
         return redirect(url_for("login"))
 
     target = session.pop("post_login_target", url_for("dashboard"))
-    advertentie_afbeeldingen = haal_advertentie_afbeeldingen_op()
+    advertentie_afbeeldingen = haal_goedgekeurde_advertenties_op(limit=1)
 
     if not session.pop("show_advertentie_popup", False) or not advertentie_afbeeldingen:
         return redirect(target)
 
     return render_template(
         "advertentie_popup.html",
-        advertentie_afbeelding=advertentie_afbeeldingen[0],
+        advertentie=advertentie_afbeeldingen[0],
         target=target,
     )
 
@@ -505,20 +571,62 @@ def admin_ad_requests():
     ).fetchall()
     lopende = db.execute(
         """
-        SELECT c.id as campagne_id, a.id as advertentie_id, a.titel, a.beschrijving, a.afbeelding, c.start_datum, c.eind_datum, c.resterende_views, b.naam as bedrijf_naam
+        SELECT c.id as campagne_id,
+               a.id as advertentie_id,
+               a.titel,
+               a.beschrijving,
+               a.afbeelding,
+               c.start_datum,
+               c.eind_datum,
+               c.resterende_views,
+               b.naam as bedrijf_naam,
+               a.doel_url,
+               COALESCE(v.aantal_views, 0) AS aantal_views,
+               COALESCE(k.aantal_clicks, 0) AS aantal_clicks
         FROM campagnes c
         JOIN advertenties a ON a.id = c.advertentie_id
         JOIN bedrijven b ON b.id = a.bedrijf_id
+        LEFT JOIN (
+            SELECT campagne_id, COUNT(*) AS aantal_views
+            FROM advertentie_views
+            GROUP BY campagne_id
+        ) v ON v.campagne_id = c.id
+        LEFT JOIN (
+            SELECT campagne_id, COUNT(*) AS aantal_clicks
+            FROM advertentie_clicks
+            GROUP BY campagne_id
+        ) k ON k.campagne_id = c.id
         WHERE c.status = 'actief' AND date(c.start_datum) <= date('now') AND date(c.eind_datum) >= date('now')
         ORDER BY c.start_datum DESC
         """
     ).fetchall()
     verlopen = db.execute(
         """
-        SELECT c.id as campagne_id, a.id as advertentie_id, a.titel, a.beschrijving, a.afbeelding, c.start_datum, c.eind_datum, c.resterende_views, b.naam as bedrijf_naam
+        SELECT c.id as campagne_id,
+               a.id as advertentie_id,
+               a.titel,
+               a.beschrijving,
+               a.afbeelding,
+               c.start_datum,
+               c.eind_datum,
+               c.resterende_views,
+               b.naam as bedrijf_naam,
+               a.doel_url,
+               COALESCE(v.aantal_views, 0) AS aantal_views,
+               COALESCE(k.aantal_clicks, 0) AS aantal_clicks
         FROM campagnes c
         JOIN advertenties a ON a.id = c.advertentie_id
         JOIN bedrijven b ON b.id = a.bedrijf_id
+        LEFT JOIN (
+            SELECT campagne_id, COUNT(*) AS aantal_views
+            FROM advertentie_views
+            GROUP BY campagne_id
+        ) v ON v.campagne_id = c.id
+        LEFT JOIN (
+            SELECT campagne_id, COUNT(*) AS aantal_clicks
+            FROM advertentie_clicks
+            GROUP BY campagne_id
+        ) k ON k.campagne_id = c.id
         WHERE date(c.eind_datum) < date('now') OR c.status != 'actief'
         ORDER BY c.eind_datum DESC
         """
@@ -547,7 +655,7 @@ def admin_ad_approve(aanvraag_id):
         titel = aanvraag['bedrijf_naam']
         beschrijving = aanvraag['doel_advertentie']
         afbeelding = aanvraag['afbeelding']
-        doel_url = f"mailto:{aanvraag['email']}" if aanvraag['email'] else url_for('index', _external=True)
+        doel_url = aanvraag['doel_url'] if aanvraag['doel_url'] else (f"mailto:{aanvraag['email']}" if aanvraag['email'] else url_for('index', _external=True))
         cur2 = db.execute('INSERT INTO advertenties (bedrijf_id, titel, beschrijving, afbeelding, doel_url, actief) VALUES (?, ?, ?, ?, ?, 1)',
                          (bedrijf_id, titel, beschrijving, afbeelding, doel_url))
         advertentie_id = cur2.lastrowid
@@ -867,29 +975,22 @@ def instellingen():
     return render_template("settings.html", vakken=vakken, instellingen=instelling, user=user)
 
 
-# Inject timer settings and uploaded advert images into all templates
+# Inject timer settings and approved advertentie records into all templates
 @app.context_processor
 def inject_timer_settings():
-    advertentie_map = app.config.get('ADVERTENTIE_UPLOAD_FOLDER', 'static/advertensies')
-    advertentie_afbeeldingen = []
     advertentie_css_pad = os.path.join('static', 'css', 'promo-form.css')
     advertentie_css_version = int(os.path.getmtime(advertentie_css_pad)) if os.path.exists(advertentie_css_pad) else 0
-
-    if os.path.isdir(advertentie_map):
-        geldige_extensies = {'.png', '.jpg', '.jpeg'}
-        bestanden = []
-        for bestandsnaam in os.listdir(advertentie_map):
-            volledig_pad = os.path.join(advertentie_map, bestandsnaam)
-            if os.path.isfile(volledig_pad) and os.path.splitext(bestandsnaam)[1].lower() in geldige_extensies:
-                bestanden.append((os.path.getmtime(volledig_pad), bestandsnaam))
-        advertentie_afbeeldingen = [
-            bestandsnaam for _, bestandsnaam in sorted(bestanden, reverse=True)
-        ]
+    advertentie_afbeeldingen = []
 
     try:
+        db = get_db()
+        advertentie_afbeeldingen = haal_goedgekeurde_advertenties_op(limit=3)
+
         if 'user_id' in session:
-            db = get_db()
-            inst = db.execute("SELECT werk_tijd, pauze_tijd FROM instellingen WHERE user_id = ?", (session['user_id'],)).fetchone()
+            inst = db.execute(
+                "SELECT werk_tijd, pauze_tijd FROM instellingen WHERE user_id = ?",
+                (session['user_id'],),
+            ).fetchone()
             werk = inst['werk_tijd'] if inst and inst['werk_tijd'] is not None else 25
             pauze = inst['pauze_tijd'] if inst and inst['pauze_tijd'] is not None else 5
             return dict(
@@ -900,10 +1001,11 @@ def inject_timer_settings():
             )
     except Exception:
         pass
+
     return dict(
         TIMER_WERK_MIN=25,
         TIMER_PAUZE_MIN=5,
-        advertentie_afbeeldingen=[],
+        advertentie_afbeeldingen=advertentie_afbeeldingen,
         advertentie_css_version=advertentie_css_version,
     )
 

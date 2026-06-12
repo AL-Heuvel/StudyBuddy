@@ -166,6 +166,7 @@ def init_db():
             email TEXT NOT NULL,
             telefoon TEXT NOT NULL,
             doel_advertentie TEXT NOT NULL,
+            doel_url TEXT,
             afbeelding TEXT,
             tarieven TEXT NOT NULL,
             views_pakket TEXT NOT NULL CHECK(views_pakket IN ('starter', 'basis', 'premium')),
@@ -180,6 +181,10 @@ def init_db():
     if "afbeelding" not in aanvraag_columns:
         cursor.execute("ALTER TABLE advertentie_aanvragen ADD COLUMN afbeelding TEXT")
         aanvraag_columns.append('afbeelding')
+
+    if "doel_url" not in aanvraag_columns:
+        cursor.execute("ALTER TABLE advertentie_aanvragen ADD COLUMN doel_url TEXT")
+        aanvraag_columns.append('doel_url')
 
     if "user_id" not in aanvraag_columns:
         cursor.execute("ALTER TABLE advertentie_aanvragen ADD COLUMN user_id INTEGER")
