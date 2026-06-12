@@ -390,3 +390,44 @@ button:hover {
         width: 100%;
     }
 }
+/* ── FACTUUR KLAAR BANNER ── */
+.factuur-klaar {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: linear-gradient(135deg, #e6f7f3, #ddf3ee);
+    border: 1px solid #c0e8de;
+    border-radius: 18px;
+    padding: 22px;
+    margin-bottom: 24px;
+}
+
+.factuur-klaar-tekst h2 {
+    font-size: 18px;
+    font-weight: 800;
+    color: #1a4d42;
+    margin-bottom: 4px;
+}
+
+.factuur-klaar-tekst p {
+    font-size: 14px;
+    color: #4a6a62;
+}
+
+.factuur-download-btn {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    padding: 14px 24px;
+    background: linear-gradient(135deg, #c4a0d4, #b088c8);
+    color: #ffffff;
+    font-weight: 700;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(176,136,200,0.35);
+    transition: transform 0.1s, box-shadow 0.15s;
+}
+
+.factuur-download-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(176,136,200,0.45);
+}

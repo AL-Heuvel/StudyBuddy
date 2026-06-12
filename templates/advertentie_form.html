@@ -35,6 +35,18 @@
         {% endif %}
         {% endwith %}
 
+        {% if toon_factuur_knop %}
+        <section class="factuur-klaar">
+            <div class="factuur-klaar-tekst">
+                <h2>Je aanvraag is ontvangen!</h2>
+                <p>Download hieronder je factuur met de ingevulde gegevens.</p>
+            </div>
+            <a class="factuur-download-btn" href="{{ url_for('advertentie_factuur') }}">
+                Download factuur (PDF)
+            </a>
+        </section>
+        {% endif %}
+
         {% if actieve_advertentie %}
         <section class="featured-ad">
             <div class="featured-ad-copy">

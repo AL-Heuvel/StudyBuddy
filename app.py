@@ -138,7 +138,12 @@ def adverteren():
         if actieve_advertentie:
             registreer_advertentie_view(db, actieve_advertentie["campagne_id"])
             db.commit()
-        return render_template("advertentie_form.html", actieve_advertentie=actieve_advertentie)
+        toon_factuur_knop = "factuur_gegevens" in session
+        return render_template(
+            "advertentie_form.html",
+            actieve_advertentie=actieve_advertentie,
+            toon_factuur_knop=toon_factuur_knop,
+        )
 
     if request.method == "POST":
         bedrijf_naam = request.form.get("bedrijf_naam", "").strip()
@@ -215,8 +220,16 @@ def adverteren():
             )
             db.commit()
             logger.info("Nieuwe advertentieaanvraag ontvangen van %s (%s)", bedrijf_naam, email)
-            flash("Aanvraag ontvangen — wordt ter beoordeling naar een admin gestuurd.", "success")
-            return redirect(url_for("dashboard") if session.get('user_id') else url_for("index"))
+
+            # Gegevens bewaren voor de factuur
+            session["factuur_gegevens"] = {
+                "bedrijf_naam": bedrijf_naam,
+                "contactpersoon": f"{voornaam} {achternaam}",
+                "email": email,
+                "views_pakket": views_pakket,
+            }
+            flash("Aanvraag ontvangen! Je kunt nu je factuur downloaden.", "success")
+            return redirect(url_for("adverteren"))
         except Exception as e:
             logger.error(f"Fout bij opslaan advertentieaanvraag: {e}")
             flash("Er ging iets mis bij het verzenden. Probeer opnieuw.", "error")
@@ -240,6 +253,23 @@ def adverteren_download():
         mimetype="text/plain",
         as_attachment=True,
         download_name="studybuddy-advertentie-pakketoverzicht.txt",
+    )
+
+@app.route("/adverteren/factuur")
+def advertentie_factuur():
+    gegevens = session.get("factuur_gegevens")
+    if not gegevens:
+        flash("Geen factuurgegevens gevonden. Vul eerst het advertentieformulier in.", "error")
+        return redirect(url_for("adverteren"))
+
+    pdf_bytes, factuurnummer = maak_advertentie_factuur(gegevens)
+    logger.info("Advertentiefactuur %s gegenereerd voor %s", factuurnummer, gegevens["bedrijf_naam"])
+
+    return send_file(
+        BytesIO(pdf_bytes),
+        mimetype="application/pdf",
+        as_attachment=True,
+        download_name=f"factuur_{factuurnummer}.pdf",
     )
 
 @app.route("/advertentie-popup")
@@ -1354,10 +1384,36 @@ def factuur():
 @admin_required
 def admin_ad_requests():
     db = get_db()
-    aanvragen = db.execute(
+    # pending aanvragen
+    aanvragen_pending = db.execute(
         "SELECT * FROM advertentie_aanvragen WHERE status = 'pending' ORDER BY aangemaakt_op DESC"
     ).fetchall()
-    return render_template('admin_ad_requests.html', aanvragen=aanvragen)
+
+    # actieve campagnes (lopend)
+    lopende = db.execute(
+        """
+        SELECT c.id as campagne_id, a.id as advertentie_id, a.titel, a.beschrijving, a.afbeelding, c.start_datum, c.eind_datum, c.resterende_views, b.naam as bedrijf_naam
+        FROM campagnes c
+        JOIN advertenties a ON a.id = c.advertentie_id
+        JOIN bedrijven b ON b.id = a.bedrijf_id
+        WHERE c.status = 'actief' AND date(c.start_datum) <= date('now') AND date(c.eind_datum) >= date('now')
+        ORDER BY c.start_datum DESC
+        """
+    ).fetchall()
+
+    # verlopen campagnes (afgelopen)
+    verlopen = db.execute(
+        """
+        SELECT c.id as campagne_id, a.id as advertentie_id, a.titel, a.beschrijving, a.afbeelding, c.start_datum, c.eind_datum, c.resterende_views, b.naam as bedrijf_naam
+        FROM campagnes c
+        JOIN advertenties a ON a.id = c.advertentie_id
+        JOIN bedrijven b ON b.id = a.bedrijf_id
+        WHERE date(c.eind_datum) < date('now') OR c.status != 'actief'
+        ORDER BY c.eind_datum DESC
+        """
+    ).fetchall()
+
+    return render_template('admin_ad_requests.html', aanvragen=aanvragen_pending, lopende=lopende, verlopen=verlopen)
 
 @app.route('/admin/advertentie/aanvraag/<int:aanvraag_id>/approve', methods=['POST'])
 @admin_required

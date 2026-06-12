@@ -1,21 +1,39 @@
 from reportlab.lib.pagesizes import A4
-from reportlab.lib.units import mm
 from reportlab.lib import colors
 from reportlab.pdfgen import canvas
 from io import BytesIO
 from datetime import datetime
 import random
 
+# Prijzen per pakket (excl. BTW)
+PAKKET_PRIJZEN = {
+    "starter": ("Starter pakket - tot 1.000 views/maand", 49.00),
+    "basis":   ("Basis pakket - tot 5.000 views/maand", 99.00),
+    "premium": ("Premium pakket - tot 10.000 views/maand", 199.00),
+}
 
-def maak_factuur(user):
-    """Genereert een PDF factuur voor de gegeven gebruiker en geeft de PDF terug als bytes."""
 
+def maak_advertentie_factuur(gegevens):
+    """
+    Genereert een PDF factuur voor een advertentie-aanvraag.
+    gegevens is een dict met: bedrijf_naam, contactpersoon, email, views_pakket
+    Geeft (pdf_bytes, factuurnummer) terug.
+    """
     buffer = BytesIO()
     c = canvas.Canvas(buffer, pagesize=A4)
     breedte, hoogte = A4
 
-    factuurnummer = f"SB-2026-{random.randint(1000, 9999)}"
+    factuurnummer = f"SB-ADV-2026-{random.randint(1000, 9999)}"
     datum = datetime.now().strftime("%d-%m-%Y")
+
+    pakket = gegevens.get("views_pakket", "starter").lower()
+    pakket_omschrijving, prijs = PAKKET_PRIJZEN.get(pakket, PAKKET_PRIJZEN["starter"])
+
+    btw = round(prijs * 0.21, 2)
+    totaal = round(prijs + btw, 2)
+
+    def euro(bedrag):
+        return f"{bedrag:.2f} EUR".replace(".", ",")
 
     # ── TITEL ──
     c.setFont("Helvetica-Bold", 36)
@@ -28,66 +46,59 @@ def maak_factuur(user):
     c.drawString(150, hoogte - 130, "StudyBuddy B.V.")
     c.drawString(150, hoogte - 145, "Coolsingel 42, 3011 AD Rotterdam")
 
-    # ── NAAR ──
+    # ── NAAR (advertentie-gegevens) ──
     c.setFont("Helvetica-Bold", 11)
-    c.drawString(40, hoogte - 180, "Naar")
+    c.drawString(40, hoogte - 185, "Naar")
     c.setFont("Helvetica", 10)
-    c.drawString(150, hoogte - 180, user["username"])
-    if user["email"]:
-        c.drawString(150, hoogte - 195, user["email"])
+    c.drawString(150, hoogte - 185, gegevens.get("bedrijf_naam", ""))
+    c.drawString(150, hoogte - 200, f"T.a.v. {gegevens.get('contactpersoon', '')}")
+    c.drawString(150, hoogte - 215, gegevens.get("email", ""))
 
     # ── FACTUURGEGEVENS ──
     c.setFont("Helvetica-Bold", 10)
-    c.drawString(40, hoogte - 240, "Factuurnummer")
-    c.drawString(200, hoogte - 240, "Factuurdatum")
-    c.drawString(360, hoogte - 240, "Abonnement")
+    c.drawString(40, hoogte - 260, "Factuurnummer")
+    c.drawString(200, hoogte - 260, "Factuurdatum")
+    c.drawString(360, hoogte - 260, "Pakket")
     c.setFont("Helvetica", 10)
-    c.drawString(40, hoogte - 255, factuurnummer)
-    c.drawString(200, hoogte - 255, datum)
-    c.drawString(360, hoogte - 255, "Premium")
+    c.drawString(40, hoogte - 275, factuurnummer)
+    c.drawString(200, hoogte - 275, datum)
+    c.drawString(360, hoogte - 275, pakket.capitalize())
 
     # ── TABEL HEADER ──
-    y = hoogte - 320
+    y = hoogte - 335
     c.setLineWidth(2)
+    c.setStrokeColor(colors.black)
     c.line(40, y + 15, breedte - 40, y + 15)
     c.setFont("Helvetica-Bold", 10)
     c.drawString(40, y, "Beschrijving")
-    c.drawString(280, y, "Aantal")
-    c.drawString(360, y, "Tarief")
-    c.drawString(460, y, "Totaal")
+    c.drawString(300, y, "Aantal")
+    c.drawString(380, y, "Tarief")
+    c.drawString(470, y, "Totaal")
     c.setLineWidth(0.5)
     c.line(40, y - 8, breedte - 40, y - 8)
 
-    # ── TABEL REGELS ──
-    regels = [
-        ("StudyBuddy Premium abonnement", "1", "9,99 €", "9,99 €"),
-        ("Extra gebruikerslicenties", "5", "4,50 €", "22,50 €"),
-        ("Eenmalige setup-kosten", "1", "15,00 €", "15,00 €"),
-    ]
-
+    # ── TABEL REGEL ──
     c.setFont("Helvetica", 10)
     y -= 35
-    for beschrijving, aantal, tarief, totaal in regels:
-        c.drawString(40, y, beschrijving)
-        c.drawString(280, y, aantal)
-        c.drawString(360, y, tarief)
-        c.drawString(460, y, totaal)
-        c.setStrokeColor(colors.HexColor("#eeeeee"))
-        c.line(40, y - 10, breedte - 40, y - 10)
-        y -= 30
+    c.drawString(40, y, pakket_omschrijving)
+    c.drawString(300, y, "1")
+    c.drawString(380, y, euro(prijs))
+    c.drawString(470, y, euro(prijs))
+    c.setStrokeColor(colors.HexColor("#eeeeee"))
+    c.line(40, y - 12, breedte - 40, y - 12)
 
     # ── TOTALEN ──
-    y -= 10
+    y -= 45
     c.setFont("Helvetica", 10)
-    c.drawString(360, y, "Subtotaal")
-    c.drawString(460, y, "47,49 €")
+    c.drawString(380, y, "Subtotaal")
+    c.drawString(470, y, euro(prijs))
     y -= 20
-    c.drawString(360, y, "BTW (21%)")
-    c.drawString(460, y, "9,97 €")
+    c.drawString(380, y, "BTW (21%)")
+    c.drawString(470, y, euro(btw))
     y -= 25
     c.setFont("Helvetica-Bold", 11)
-    c.drawString(360, y, "Totaalbedrag")
-    c.drawString(460, y, "57,46 €")
+    c.drawString(380, y, "Totaalbedrag")
+    c.drawString(470, y, euro(totaal))
 
     # ── FOOTER ──
     c.setStrokeColor(colors.HexColor("#dddddd"))
