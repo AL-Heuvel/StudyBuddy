@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudyBuddy</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block head_extra %}{% endblock %}
     <!-- PWA & Favicons -->
      <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
      <meta name="theme-color" content="#d4b8e0">
