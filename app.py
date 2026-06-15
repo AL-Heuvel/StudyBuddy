@@ -283,15 +283,22 @@ def advertentie_popup():
     if not ingelogd():
         return redirect(url_for("login"))
 
+    db = get_db()
     target = session.pop("post_login_target", url_for("dashboard"))
     actieve_advertenties = haal_goedgekeurde_advertenties_op(limit=1)
 
     if not session.pop("show_advertentie_popup", False) or not actieve_advertenties:
         return redirect(target)
 
+    advertentie = actieve_advertenties[0]
+    registreer_advertentie_view(db, advertentie["campagne_id"])
+    db.commit()
+
+    logger.info("Advertentieweergave geregistreerd voor campagne %s", advertentie["campagne_id"])
+
     return render_template(
         "advertentie_popup.html",
-        advertentie=actieve_advertenties[0],
+        advertentie=advertentie,
         target=target,
     )
 
@@ -314,10 +321,11 @@ def advertentie_click(campagne_id):
     if not advertentie:
         return redirect(url_for("index"))
 
+    registreer_advertentie_view(db, campagne_id)
     registreer_advertentie_click(db, campagne_id)
     db.commit()
 
-    logger.info("Advertentieklik geregistreerd voor campagne %s", campagne_id)
+    logger.info("Advertentieklik en weergave geregistreerd voor campagne %s", campagne_id)
     return redirect(advertentie["doel_url"])
 
 

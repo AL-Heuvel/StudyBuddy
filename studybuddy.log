@@ -81,3 +81,27 @@
 [2026-06-15 10:54:20] INFO - Admin dashboard geopend door gebruiker 6
 [2026-06-15 10:54:29] INFO - Gebruiker 10 verwijderd door admin 6
 [2026-06-15 10:54:30] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-15 11:01:23] INFO - Quote opgehaald voor gebruiker 10
+[2026-06-15 11:01:33] INFO - Nieuw account aangemaakt: 'frederiekecool2'
+[2026-06-15 11:01:38] INFO - Gebruiker 'frederiekecool2' is ingelogd (admin: False)
+[2026-06-15 11:02:27] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<HTTPSConnection(host='zenquotes.io', port=443) at 0x769bed1b41d0>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-06-15 11:05:12] INFO - Schema gegenereerd voor gebruiker 11
+[2026-06-15 11:05:14] INFO - Takenoverzicht bekeken door gebruiker 11
+[2026-06-15 11:05:24] INFO - Quote opgehaald voor gebruiker 11
+[2026-06-15 11:07:02] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-15 11:07:06] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-15 11:07:30] WARNING - Mislukte inlogpoging voor gebruiker 'frederiekecool3'
+[2026-06-15 11:07:48] INFO - Nieuw account aangemaakt: 'frederiekecool3'
+[2026-06-15 11:07:53] INFO - Gebruiker 'frederiekecool3' is ingelogd (admin: False)
+[2026-06-15 11:07:57] INFO - Quote opgehaald voor gebruiker 12
+[2026-06-15 11:08:04] INFO - Quote opgehaald voor gebruiker 12
+[2026-06-15 11:08:08] INFO - Gebruiker 'frederiekecool3' is uitgelogd
+[2026-06-15 11:08:16] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-15 11:08:18] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-15 11:10:04] INFO - Nieuw account aangemaakt: 'frederiekecool4'
+[2026-06-15 11:10:11] INFO - Gebruiker 'frederiekecool4' is ingelogd (admin: False)
+[2026-06-15 11:10:11] INFO - Advertentieweergave geregistreerd voor campagne 6
+[2026-06-15 11:10:16] INFO - Quote opgehaald voor gebruiker 13
+[2026-06-15 11:10:31] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-15 11:10:32] INFO - Advertentieweergave geregistreerd voor campagne 6
+[2026-06-15 11:10:34] INFO - Admin dashboard geopend door gebruiker 6
