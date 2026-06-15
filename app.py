@@ -384,12 +384,20 @@ def login():
             (username,)
         ).fetchone()
         if user and check_password_hash(user["password"], password):
+            is_admin_user = bool(user["is_admin"])
             session["user_id"] = user["id"]
             session["username"] = user["username"]
-            session["is_admin"] = 1 if user["is_admin"] else 0
+            session["is_admin"] = 1 if is_admin_user else 0
+
+            if is_admin_user:
+                session.pop("show_advertentie_popup", None)
+                session["post_login_target"] = url_for("admin_dashboard")
+                logger.info(f"Beheerder '{username}' is ingelogd")
+                return redirect(url_for("admin_dashboard"))
+
             session["show_advertentie_popup"] = True
-            session["post_login_target"] = url_for("admin_dashboard") if user["is_admin"] else url_for("dashboard")
-            logger.info(f"Gebruiker '{username}' is ingelogd (admin: {bool(user['is_admin'])})")
+            session["post_login_target"] = url_for("dashboard")
+            logger.info(f"Gebruiker '{username}' is ingelogd (admin: False)")
             return redirect(url_for("advertentie_popup"))
         else:
             logger.warning(f"Mislukte inlogpoging voor gebruiker '{username}'")

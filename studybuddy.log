@@ -105,3 +105,12 @@
 [2026-06-15 11:10:31] INFO - Gebruiker 'admin' is ingelogd (admin: True)
 [2026-06-15 11:10:32] INFO - Advertentieweergave geregistreerd voor campagne 6
 [2026-06-15 11:10:34] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-15 11:13:33] INFO - Nieuw account aangemaakt: 'frederiekecool5'
+[2026-06-15 11:13:39] INFO - Gebruiker 'frederiekecool5' is ingelogd (admin: False)
+[2026-06-15 11:13:39] INFO - Advertentieweergave geregistreerd voor campagne 6
+[2026-06-15 11:13:41] INFO - Quote opgehaald voor gebruiker 14
+[2026-06-15 11:13:58] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-15 11:13:58] INFO - Advertentieweergave geregistreerd voor campagne 6
+[2026-06-15 11:14:00] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-15 11:17:35] INFO - Beheerder 'admin' is ingelogd
+[2026-06-15 11:17:35] INFO - Admin dashboard geopend door gebruiker 6
