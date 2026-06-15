@@ -7,8 +7,7 @@
     <title>StudyBuddy – Plan slimmer, studeer beter</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
-    <!-- PWA & Favicons -->
-     <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
      <meta name="theme-color" content="#d4b8e0">
      <meta name="apple-mobile-web-app-capable" content="yes">
      <meta name="apple-mobile-web-app-title" content="StudyBuddy">
@@ -133,6 +132,39 @@
 
         <a href="{{ url_for('register') }}" class="btn-account">Maak gratis een account aan</a>
     </section>
+
+
+    <section class="section-waarom">
+        <div class="waarom-inner">
+            <div class="section-label">Waarom StudyBuddy?</div>
+            <h2 class="waarom-title">Gemaakt voor hoe jij echt studeert</h2>
+            <p class="waarom-sub">Geen ingewikkelde systemen. Geen nep-motivatie. Gewoon een tool die snapt dat studeren moeilijk is.</p>
+
+            <div class="waarom-grid">
+                <div class="waarom-card">
+                    <div class="waarom-card-title">Slim, niet hard</div>
+                    <div class="waarom-card-desc">Het rooster past zich aan jouw deadlines aan — zo hoef jij niet te puzzelen.</div>
+                </div>
+                <div class="waarom-card">
+                    <div class="waarom-card-title">Focus wanneer het telt</div>
+                    <div class="waarom-card-desc">De timer houdt bij hoe lang je echt werkt, niet hoe lang je naar je scherm staart.</div>
+                </div>
+                <div class="waarom-card waarom-card-dark">
+                    <div class="waarom-card-title">Gratis. Altijd.</div>
+                    <div class="waarom-card-desc">StudyBuddy is gebouwd door studenten die zelf geen geld willen uitgeven aan een planningsapp. Dus is het gratis en dat blijft zo.</div>
+                </div>
+                <div class="waarom-card">
+                    <div class="waarom-card-title">Prioriteit zonder stress</div>
+                    <div class="waarom-card-desc">Taken gesorteerd op urgentie en zwaarte, zodat je altijd weet wat éérst moet.</div>
+                </div>
+                <div class="waarom-card">
+                    <div class="waarom-card-title">Even opladen</div>
+                    <div class="waarom-card-desc">Een dagelijkse quote die niet nep voelt. Soms is dat genoeg om door te gaan.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <section class="section-wie">
         <div class="wie-inner">

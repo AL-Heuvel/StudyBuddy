@@ -39,3 +39,88 @@
 [2026-06-12 09:05:38] INFO - Gebruiker 'admin' is ingelogd (admin: True)
 [2026-06-12 09:05:42] INFO - Admin dashboard geopend door gebruiker 6
 >>>>>>> d333562 (Error gefixed)
+[2026-06-12 09:15:42] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-12 09:16:27] INFO - Gebruiker 'nyjah' is ingelogd (admin: False)
+[2026-06-12 09:22:33] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-12 09:22:35] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-12 09:22:41] INFO - Gebruiker 'admin' is uitgelogd
+[2026-06-12 09:24:16] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-12 09:24:18] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-12 09:24:35] INFO - Gebruiker 'test' is ingelogd (admin: False)
+[2026-06-12 09:24:40] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x703e578e6030>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-06-12 09:24:58] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x703e578e4170>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-06-12 09:31:53] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-12 09:31:56] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-12 09:35:28] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-12 09:35:30] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-12 09:36:43] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-12 09:36:46] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-12 09:37:08] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-12 09:37:10] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-12 09:37:51] INFO - Gebruiker 'test' is ingelogd (admin: False)
+[2026-06-12 09:37:54] INFO - Quote opgehaald voor gebruiker 3
+[2026-06-12 09:37:56] INFO - Schema gegenereerd voor gebruiker 3
+[2026-06-12 09:37:59] INFO - Takenoverzicht bekeken door gebruiker 3
+[2026-06-12 09:42:37] INFO - Takenoverzicht bekeken door gebruiker 3
+[2026-06-12 09:51:43] INFO - Takenoverzicht bekeken door gebruiker 3
+[2026-06-12 09:51:43] INFO - Schema gegenereerd voor gebruiker 3
+[2026-06-12 09:51:46] INFO - Quote opgehaald voor gebruiker 3
+[2026-06-12 09:53:15] INFO - Nieuwe advertentieaanvraag ontvangen van Spiegelnisserkade (HaileyImaan@gmail.com)
+[2026-06-12 09:53:29] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-12 09:53:31] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-15 10:53:15] INFO - Quote opgehaald voor gebruiker 6
+[2026-06-15 10:53:36] INFO - Nieuw account aangemaakt: 'q'
+[2026-06-15 10:53:42] ERROR - Fout bij registreren van 'q': UNIQUE constraint failed: users.username
+[2026-06-15 10:53:51] INFO - Gebruiker 'q' is ingelogd (admin: False)
+[2026-06-15 10:53:54] INFO - Quote opgehaald voor gebruiker 10
+[2026-06-15 10:54:00] INFO - Takenoverzicht bekeken door gebruiker 10
+[2026-06-15 10:54:01] INFO - Schema gegenereerd voor gebruiker 10
+[2026-06-15 10:54:05] INFO - Quote opgehaald voor gebruiker 10
+[2026-06-15 10:54:07] INFO - Gebruiker 'q' is uitgelogd
+[2026-06-15 10:54:17] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-15 10:54:20] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-15 10:54:29] INFO - Gebruiker 10 verwijderd door admin 6
+[2026-06-15 10:54:30] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-15 11:01:23] INFO - Quote opgehaald voor gebruiker 10
+[2026-06-15 11:01:33] INFO - Nieuw account aangemaakt: 'frederiekecool2'
+[2026-06-15 11:01:38] INFO - Gebruiker 'frederiekecool2' is ingelogd (admin: False)
+[2026-06-15 11:02:27] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<HTTPSConnection(host='zenquotes.io', port=443) at 0x769bed1b41d0>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-06-15 11:05:12] INFO - Schema gegenereerd voor gebruiker 11
+[2026-06-15 11:05:14] INFO - Takenoverzicht bekeken door gebruiker 11
+[2026-06-15 11:05:24] INFO - Quote opgehaald voor gebruiker 11
+[2026-06-15 11:07:02] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-15 11:07:06] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-15 11:07:30] WARNING - Mislukte inlogpoging voor gebruiker 'frederiekecool3'
+[2026-06-15 11:07:48] INFO - Nieuw account aangemaakt: 'frederiekecool3'
+[2026-06-15 11:07:53] INFO - Gebruiker 'frederiekecool3' is ingelogd (admin: False)
+[2026-06-15 11:07:57] INFO - Quote opgehaald voor gebruiker 12
+[2026-06-15 11:08:04] INFO - Quote opgehaald voor gebruiker 12
+[2026-06-15 11:08:08] INFO - Gebruiker 'frederiekecool3' is uitgelogd
+[2026-06-15 11:08:16] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-15 11:08:18] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-15 11:10:04] INFO - Nieuw account aangemaakt: 'frederiekecool4'
+[2026-06-15 11:10:11] INFO - Gebruiker 'frederiekecool4' is ingelogd (admin: False)
+[2026-06-15 11:10:11] INFO - Advertentieweergave geregistreerd voor campagne 6
+[2026-06-15 11:10:16] INFO - Quote opgehaald voor gebruiker 13
+[2026-06-15 11:10:31] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-15 11:10:32] INFO - Advertentieweergave geregistreerd voor campagne 6
+[2026-06-15 11:10:34] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-15 11:13:33] INFO - Nieuw account aangemaakt: 'frederiekecool5'
+[2026-06-15 11:13:39] INFO - Gebruiker 'frederiekecool5' is ingelogd (admin: False)
+[2026-06-15 11:13:39] INFO - Advertentieweergave geregistreerd voor campagne 6
+[2026-06-15 11:13:41] INFO - Quote opgehaald voor gebruiker 14
+[2026-06-15 11:13:58] INFO - Gebruiker 'admin' is ingelogd (admin: True)
+[2026-06-15 11:13:58] INFO - Advertentieweergave geregistreerd voor campagne 6
+[2026-06-15 11:14:00] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-15 11:17:35] INFO - Beheerder 'admin' is ingelogd
+[2026-06-15 11:17:35] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-15 11:25:33] INFO - Gebruiker 'frederiekecool5' is ingelogd (admin: False)
+[2026-06-15 11:25:33] INFO - Advertentieweergave geregistreerd voor campagne 6
+[2026-06-15 11:25:36] INFO - Quote opgehaald voor gebruiker 14
+[2026-06-15 11:25:40] INFO - Gebruiker 'frederiekecool5' is uitgelogd
+[2026-06-15 11:25:48] INFO - Beheerder 'admin' is ingelogd
+[2026-06-15 11:25:48] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-15 11:30:35] INFO - Gebruiker 'frederiekecool5' is ingelogd (admin: False)
+[2026-06-15 11:30:35] INFO - Advertentieweergave geregistreerd voor campagne 6
+[2026-06-15 11:30:39] INFO - Quote opgehaald voor gebruiker 14
+[2026-06-15 11:31:07] INFO - Quote opgehaald voor gebruiker 14
