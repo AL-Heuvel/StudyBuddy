@@ -110,7 +110,7 @@ def haal_goedgekeurde_advertenties_op(limit=None):
             WHERE a.actief = 1
               AND c.status = 'actief'
               AND c.resterende_views > 0
-            ORDER BY c.start_datum DESC, c.id DESC
+            ORDER BY RANDOM()
         """
         params = ()
         if limit is not None:
@@ -283,15 +283,22 @@ def advertentie_popup():
     if not ingelogd():
         return redirect(url_for("login"))
 
+    db = get_db()
     target = session.pop("post_login_target", url_for("dashboard"))
     actieve_advertenties = haal_goedgekeurde_advertenties_op(limit=1)
 
     if not session.pop("show_advertentie_popup", False) or not actieve_advertenties:
         return redirect(target)
 
+    advertentie = actieve_advertenties[0]
+    registreer_advertentie_view(db, advertentie["campagne_id"])
+    db.commit()
+
+    logger.info("Advertentieweergave geregistreerd voor campagne %s", advertentie["campagne_id"])
+
     return render_template(
         "advertentie_popup.html",
-        advertentie=actieve_advertenties[0],
+        advertentie=advertentie,
         target=target,
     )
 
@@ -314,10 +321,11 @@ def advertentie_click(campagne_id):
     if not advertentie:
         return redirect(url_for("index"))
 
+    registreer_advertentie_view(db, campagne_id)
     registreer_advertentie_click(db, campagne_id)
     db.commit()
 
-    logger.info("Advertentieklik geregistreerd voor campagne %s", campagne_id)
+    logger.info("Advertentieklik en weergave geregistreerd voor campagne %s", campagne_id)
     return redirect(advertentie["doel_url"])
 
 
@@ -376,12 +384,20 @@ def login():
             (username,)
         ).fetchone()
         if user and check_password_hash(user["password"], password):
+            is_admin_user = bool(user["is_admin"])
             session["user_id"] = user["id"]
             session["username"] = user["username"]
-            session["is_admin"] = 1 if user["is_admin"] else 0
+            session["is_admin"] = 1 if is_admin_user else 0
+
+            if is_admin_user:
+                session.pop("show_advertentie_popup", None)
+                session["post_login_target"] = url_for("admin_dashboard")
+                logger.info(f"Beheerder '{username}' is ingelogd")
+                return redirect(url_for("admin_dashboard"))
+
             session["show_advertentie_popup"] = True
-            session["post_login_target"] = url_for("admin_dashboard") if user["is_admin"] else url_for("dashboard")
-            logger.info(f"Gebruiker '{username}' is ingelogd (admin: {bool(user['is_admin'])})")
+            session["post_login_target"] = url_for("dashboard")
+            logger.info(f"Gebruiker '{username}' is ingelogd (admin: False)")
             return redirect(url_for("advertentie_popup"))
         else:
             logger.warning(f"Mislukte inlogpoging voor gebruiker '{username}'")
