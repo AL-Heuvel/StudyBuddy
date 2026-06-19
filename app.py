@@ -174,14 +174,14 @@ def adverteren():
         email = request.form.get("email", "").strip()
         telefoon = request.form.get("telefoon", "").strip()
         doel_advertentie = request.form.get("doel_advertentie", "").strip()
-        tarieven = request.form.get("tarieven", "").strip()
+        
         views_pakket = request.form.get("views_pakket", "").strip().lower()
         startdatum = request.form.get("startdatum", "").strip()
         afbeelding_naam = None
 
         verplichte_velden = [
             bedrijf_naam, voornaam, achternaam, email, telefoon,
-            doel_advertentie, tarieven, views_pakket, startdatum,
+            doel_advertentie, views_pakket, startdatum,
         ]
 
         if not all(verplichte_velden):
@@ -215,12 +215,12 @@ def adverteren():
                 """
                 INSERT INTO advertentie_aanvragen (
                     bedrijf_naam, voornaam, achternaam, email, telefoon,
-                    doel_advertentie, tarieven, views_pakket, startdatum, afbeelding, user_id, status
+                    doel_advertentie, views_pakket, startdatum, afbeelding, user_id, status
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     bedrijf_naam, voornaam, achternaam, email, telefoon,
-                    doel_advertentie, tarieven, views_pakket, startdatum,
+                    doel_advertentie, views_pakket, startdatum,
                     afbeelding_naam, session.get('user_id'), 'pending'
                 ),
             )
