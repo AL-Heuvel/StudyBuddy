@@ -63,3 +63,27 @@
 [2026-06-19 08:25:06] INFO - Takenoverzicht bekeken door gebruiker 3
 [2026-06-19 08:26:50] INFO - Quote opgehaald voor gebruiker 3
 [2026-06-19 08:32:08] INFO - Gebruiker 'test' is uitgelogd
+[2026-06-19 09:11:30] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-19 09:11:52] INFO - Quote opgehaald voor gebruiker 6
+[2026-06-19 09:11:56] INFO - Schema gegenereerd voor gebruiker 6
+[2026-06-19 09:11:58] INFO - Quote opgehaald voor gebruiker 6
+[2026-06-19 09:12:02] INFO - Gebruiker 'admin' is uitgelogd
+[2026-06-19 09:12:46] INFO - Nieuwe advertentieaanvraag ontvangen van frederieke (anlei@glr.nl)
+[2026-06-19 09:12:56] WARNING - Mislukte inlogpoging voor gebruiker 'admin'
+[2026-06-19 09:13:03] INFO - Beheerder 'admin' is ingelogd
+[2026-06-19 09:13:03] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-19 09:13:33] INFO - Nieuwe advertentieaanvraag ontvangen van frederieke (frederieke@gmail.com)
+[2026-06-19 09:15:05] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-19 09:17:05] INFO - Gebruiker 'nyjah' is ingelogd (admin: False)
+[2026-06-19 09:17:05] INFO - Advertentieweergave geregistreerd voor campagne 8
+[2026-06-19 09:17:10] INFO - Quote opgehaald voor gebruiker 9
+[2026-06-19 09:17:13] INFO - Quote opgehaald voor gebruiker 9
+[2026-06-19 09:17:17] INFO - Quote opgehaald voor gebruiker 9
+[2026-06-19 09:17:19] INFO - Quote opgehaald voor gebruiker 9
+[2026-06-19 09:17:23] INFO - Quote opgehaald voor gebruiker 9
+[2026-06-19 09:17:25] INFO - Gebruiker 'nyjah' is uitgelogd
+[2026-06-19 09:17:30] INFO - Beheerder 'admin' is ingelogd
+[2026-06-19 09:17:30] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-19 09:17:58] INFO - Advertentieklik en weergave geregistreerd voor campagne 8
+[2026-06-19 09:17:59] INFO - Advertentieklik en weergave geregistreerd voor campagne 8
+[2026-06-19 09:22:29] INFO - Nieuwe advertentieaanvraag ontvangen van frederieke (frederieke@gmail.com)
