@@ -557,28 +557,51 @@ def admin_ad_requests():
     aanvragen_pending = db.execute(
         "SELECT * FROM advertentie_aanvragen WHERE status = 'pending' ORDER BY aangemaakt_op DESC"
     ).fetchall()
+    afgewezen = db.execute(
+    """
+    SELECT *
+    FROM advertentie_aanvragen
+    WHERE status = 'rejected'
+    ORDER BY aangemaakt_op DESC
+    """
+).fetchall()
     lopende = db.execute(
         """
-        SELECT c.id as campagne_id, a.id as advertentie_id, a.titel, a.beschrijving, a.afbeelding, c.start_datum, c.eind_datum, c.resterende_views, b.naam as bedrijf_naam
-        FROM campagnes c
-        JOIN advertenties a ON a.id = c.advertentie_id
-        JOIN bedrijven b ON b.id = a.bedrijf_id
-        WHERE c.status = 'actief' AND date(c.start_datum) <= date('now') AND date(c.eind_datum) >= date('now')
-        ORDER BY c.start_datum DESC
+            SELECT c.id as campagne_id, a.id as advertentie_id, a.titel, a.beschrijving,
+           a.afbeelding, c.start_datum, c.eind_datum, c.resterende_views,
+           b.naam as bedrijf_naam
+    FROM campagnes c
+    JOIN advertenties a ON a.id = c.advertentie_id
+    JOIN bedrijven b ON b.id = a.bedrijf_id
+    WHERE c.status = 'actief'
+      AND date(c.start_datum) <= date('now')
+      AND date(c.eind_datum) >= date('now')
+      AND c.resterende_views > 0
+    ORDER BY c.start_datum DESC
         """
     ).fetchall()
     verlopen = db.execute(
         """
-        SELECT c.id as campagne_id, a.id as advertentie_id, a.titel, a.beschrijving, a.afbeelding, c.start_datum, c.eind_datum, c.resterende_views, b.naam as bedrijf_naam
-        FROM campagnes c
-        JOIN advertenties a ON a.id = c.advertentie_id
-        JOIN bedrijven b ON b.id = a.bedrijf_id
-        WHERE date(c.eind_datum) < date('now') OR c.status != 'actief'
-        ORDER BY c.eind_datum DESC
+           SELECT c.id as campagne_id, a.id as advertentie_id, a.titel, a.beschrijving,
+           a.afbeelding, c.start_datum, c.eind_datum, c.resterende_views,
+           b.naam as bedrijf_naam
+    FROM campagnes c
+    JOIN advertenties a ON a.id = c.advertentie_id
+    JOIN bedrijven b ON b.id = a.bedrijf_id
+    WHERE c.resterende_views <= 0
+       OR date(c.eind_datum) < date('now')
+       OR c.status != 'actief'
+    ORDER BY c.eind_datum DESC
         """
     ).fetchall()
-    return render_template('admin_ad_requests.html', aanvragen=aanvragen_pending, lopende=lopende, verlopen=verlopen)
 
+    return render_template(
+    "admin_ad_requests.html",
+    aanvragen=aanvragen_pending,
+    lopende=lopende,
+    verlopen=verlopen,
+    afgewezen=afgewezen
+)
 
 @app.route('/admin/advertentie/aanvraag/<int:aanvraag_id>/approve', methods=['POST'])
 @admin_required
@@ -630,7 +653,44 @@ def admin_ad_approve(aanvraag_id):
 
     return redirect(url_for('admin_ad_requests'))
 
+@app.route('/admin/advertentie/aanvraag/<int:aanvraag_id>/reject', methods=['POST'])
+@admin_required
+def admin_ad_reject(aanvraag_id):
+    db = get_db()
 
+    aanvraag = db.execute(
+        "SELECT * FROM advertentie_aanvragen WHERE id = ?",
+        (aanvraag_id,)
+    ).fetchone()
+
+    if not aanvraag:
+        flash("Aanvraag niet gevonden.", "error")
+        return redirect(url_for("admin_ad_requests"))
+
+    try:
+        # Aanvraag markeren als afgewezen
+        db.execute(
+            "UPDATE advertentie_aanvragen SET status = ? WHERE id = ?",
+            ("rejected", aanvraag_id)
+        )
+
+        # Eventueel melding sturen naar gebruiker
+        if aanvraag["user_id"]:
+            bericht = f"Je advertentie-aanvraag voor {aanvraag['bedrijf_naam']} is afgewezen."
+            db.execute(
+                "INSERT INTO meldingen (user_id, bericht) VALUES (?, ?)",
+                (aanvraag["user_id"], bericht)
+            )
+
+        db.commit()
+        flash("Advertentieaanvraag afgewezen.", "success")
+
+    except Exception as e:
+        db.rollback()
+        logger.error(f"Fout bij afwijzen advertentie-aanvraag {aanvraag_id}: {e}")
+        flash("Er ging iets mis bij het afwijzen.", "error")
+
+    return redirect(url_for("admin_ad_requests"))
 # ── DASHBOARD ─────────────────────────────────────────────
 @app.route("/dashboard")
 def dashboard():

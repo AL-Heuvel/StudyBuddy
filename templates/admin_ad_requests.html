@@ -1,29 +1,37 @@
 {% extends "base.html" %}
 
 {% block head_extra %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_ad_request.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin_ad_request.css') }}">
 {% endblock %}
 
 {% block content %}
 <div class="ad-page">
-  <aside style="width: 210px; background: #2a1040; display: flex; flex-direction: column; padding: 28px 0; position: fixed; top: 0; left: 0; min-height: 100vh;">
-    <div style="font-family: 'Syne', sans-serif; font-size: 19px; font-weight: 800; color: white; padding: 0 20px; margin-bottom: 32px;">
+  <aside
+    style="width: 210px; background: #2a1040; display: flex; flex-direction: column; padding: 28px 0; position: fixed; top: 0; left: 0; min-height: 100vh;">
+    <div
+      style="font-family: 'Syne', sans-serif; font-size: 19px; font-weight: 800; color: white; padding: 0 20px; margin-bottom: 32px;">
       Study<span style="color: #b06aed;">Buddy</span>
     </div>
-    <div style="font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #6a4a8a; padding: 0 20px; margin-bottom: 6px;">Menu</div>
-    
-    <a href="{{ url_for('admin_dashboard') }}" style="display: flex; align-items: center; gap: 10px; padding: 11px 20px; font-size: 13px; color: white; text-decoration: none; transition: 0.2s;">
+    <div
+      style="font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #6a4a8a; padding: 0 20px; margin-bottom: 6px;">
+      Menu</div>
+
+    <a href="{{ url_for('admin_dashboard') }}"
+      style="display: flex; align-items: center; gap: 10px; padding: 11px 20px; font-size: 13px; color: white; text-decoration: none; transition: 0.2s;">
       <span>👥</span> Gebruikers
     </a>
-    <a href="{{ url_for('admin_ad_requests') }}" style="display: flex; align-items: center; gap: 10px; padding: 11px 20px; font-size: 13px; color: white; text-decoration: none; transition: 0.2s; background: #3d1a5e;">
+    <a href="{{ url_for('admin_ad_requests') }}"
+      style="display: flex; align-items: center; gap: 10px; padding: 11px 20px; font-size: 13px; color: white; text-decoration: none; transition: 0.2s; background: #3d1a5e;">
       <span>📣</span> Advertentie aanvragen
     </a>
-    
- 
+
+
     <div style="margin-top: auto; padding: 0 20px;">
-      <div style="display: flex; align-items: center; gap: 10px; background: #3d1a5e; border-radius: 12px; padding: 10px 12px;">
-        <div style="width: 30px; height: 30px; background: #9b3de8; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 800; color: white;">
+      <div
+        style="display: flex; align-items: center; gap: 10px; background: #3d1a5e; border-radius: 12px; padding: 10px 12px;">
+        <div
+          style="width: 30px; height: 30px; background: #9b3de8; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 800; color: white;">
           {{ session.username[0].upper() }}
         </div>
         <div>
@@ -31,7 +39,8 @@
           <div style="font-size: 10px; color: #9b6ab8;">Beheerder</div>
         </div>
       </div>
-      <a href="{{ url_for('logout') }}" style="display: block; margin-top: 15px; padding: 8px 12px; background: #c03060; color: white; border-radius: 8px; text-align: center; text-decoration: none; font-size: 12px; font-weight: 600;">
+      <a href="{{ url_for('logout') }}"
+        style="display: block; margin-top: 15px; padding: 8px 12px; background: #c03060; color: white; border-radius: 8px; text-align: center; text-decoration: none; font-size: 12px; font-weight: 600;">
         Uitloggen
       </a>
     </div>
@@ -63,7 +72,7 @@
           </tr>
         </thead>
         <tbody>
-        {% for a in aanvragen %}
+          {% for a in aanvragen %}
           <tr>
             <td class="td-id">#{{ a['id'] }}</td>
             <td class="td-bold">{{ a['bedrijf_naam'] }}</td>
@@ -71,16 +80,27 @@
             <td><span class="badge-purple">{{ a['views_pakket'] }}</span></td>
             <td class="td-muted">{{ a['aangemaakt_op'] }}</td>
             <td>
-              <form method="post" action="{{ url_for('admin_ad_approve', aanvraag_id=a['id']) }}" style="display:inline">
-                <button type="submit" class="btn-approve">✅ Goedkeuren</button>
-              </form>
+              <div style="display:flex; gap:8px;">
+                <form method="post" action="{{ url_for('admin_ad_approve', aanvraag_id=a['id']) }}">
+                  <button type="submit" class="btn-approve">
+                    ✅ Goedkeuren
+                  </button>
+                </form>
+
+                <form method="post" action="{{ url_for('admin_ad_reject', aanvraag_id=a['id']) }}"
+                  onsubmit="return confirm('Weet je zeker dat je deze aanvraag wilt afwijzen?');">
+                  <button type="submit" class="btn-reject">
+                    ❌ Afwijzen
+                  </button>
+                </form>
+              </div>
             </td>
           </tr>
-        {% endfor %}
+          {% endfor %}
         </tbody>
       </table>
       {% else %}
-        <div class="ad-card-empty">Geen nieuwe aanvragen.</div>
+      <div class="ad-card-empty">Geen nieuwe aanvragen.</div>
       {% endif %}
     </div>
 
@@ -101,7 +121,7 @@
           </tr>
         </thead>
         <tbody>
-        {% for c in lopende %}
+          {% for c in lopende %}
           <tr>
             <td class="td-bold">{{ c['titel'] }}</td>
             <td>{{ c['bedrijf_naam'] }}</td>
@@ -109,13 +129,14 @@
             <td>{{ c['aantal_views'] }}</td>
             <td>{{ c['aantal_clicks'] }}</td>
             <td>{{ c['resterende_views'] }}</td>
-            <td>{% if c['afbeelding'] %}<img src="{{ url_for('static', filename='advertensies/' + c['afbeelding']) }}" alt="" style="height:40px">{% else %}—{% endif %}</td>
+            <td>{% if c['afbeelding'] %}<img src="{{ url_for('static', filename='advertensies/' + c['afbeelding']) }}"
+                alt="" style="height:40px">{% else %}—{% endif %}</td>
           </tr>
-        {% endfor %}
+          {% endfor %}
         </tbody>
       </table>
       {% else %}
-        <div class="ad-card-empty">Er zijn momenteel geen lopende campagnes.</div>
+      <div class="ad-card-empty">Er zijn momenteel geen lopende campagnes.</div>
       {% endif %}
     </div>
 
@@ -136,7 +157,7 @@
           </tr>
         </thead>
         <tbody>
-        {% for c in verlopen %}
+          {% for c in verlopen %}
           <tr>
             <td class="td-bold">{{ c['titel'] }}</td>
             <td>{{ c['bedrijf_naam'] }}</td>
@@ -144,13 +165,63 @@
             <td>{{ c['aantal_views'] }}</td>
             <td>{{ c['aantal_clicks'] }}</td>
             <td>{{ c['resterende_views'] }}</td>
-            <td>{% if c['afbeelding'] %}<img src="{{ url_for('static', filename='advertensies/' + c['afbeelding']) }}" alt="" style="height:40px">{% else %}—{% endif %}</td>
+            <td>{% if c['afbeelding'] %}<img src="{{ url_for('static', filename='advertensies/' + c['afbeelding']) }}"
+                alt="" style="height:40px">{% else %}—{% endif %}</td>
           </tr>
-        {% endfor %}
+          {% endfor %}
         </tbody>
       </table>
       {% else %}
-        <div class="ad-card-empty">Geen verlopen campagnes.</div>
+      <div class="ad-card-empty">Geen verlopen campagnes.</div>
+      {% endif %}
+    </div>
+
+    <div class="ad-card">
+      <div class="ad-card-header">❌ Afgewezen aanvragen</div>
+
+      {% if afgewezen and afgewezen|length > 0 %}
+      <table class="ad-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Bedrijf</th>
+            <th>Email</th>
+            <th>Pakket</th>
+            <th>Datum</th>
+            <th>Afbeelding</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for a in afgewezen %}
+          <tr>
+            <td>#{{ a['id'] }}</td>
+            <td class="td-bold">{{ a['bedrijf_naam'] }}</td>
+            <td>{{ a['email'] }}</td>
+            <td>
+              <span class="badge-purple">
+                {{ a['views_pakket'] }}
+              </span>
+            </td>
+            <td>{{ a['aangemaakt_op'] }}</td>
+
+            <td>
+              {% if a['afbeelding'] %}
+              <img src="{{ url_for('static', filename='advertensies/' + a['afbeelding']) }}" style="height:40px">
+              {% else %}
+              —
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+
+      {% else %}
+      <div class="ad-card-empty">
+        Geen afgewezen aanvragen.
+      </div>
       {% endif %}
     </div>
 
