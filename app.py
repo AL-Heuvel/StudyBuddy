@@ -181,7 +181,7 @@ def adverteren():
 
         verplichte_velden = [
             bedrijf_naam, voornaam, achternaam, email, telefoon,
-            doel_advertentie, tarieven, views_pakket, startdatum,
+            doel_advertentie, views_pakket, startdatum,
         ]
 
         if not all(verplichte_velden):
