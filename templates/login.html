@@ -1,18 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
- 
+
 <div class="auth-wrapper">
   <div class="auth-card">
- 
+    <a href="{{ url_for('landing_html') }}" class="btn-secondary-home">
+      ← Terug naar home
+    </a><br>
+
+
     <div class="auth-logo">
       <div class="logo-icon"></div>
       <h1>StudyBuddy</h1>
     </div>
- 
+
     <h2>login</h2>
- 
-    
- 
+
+
+
     <form method="POST">
       <div class="input-group">
         <span class="input-icon"></span>
@@ -24,10 +28,10 @@
       </div>
       <button type="submit" class="btn-primary">Inloggen</button>
     </form>
- 
+
     <p class="auth-link">Geen account? <a href="{{ url_for('register') }}">Registreer hier</a></p>
- 
+
   </div>
 </div>
- 
+
 {% endblock %}

@@ -1,85 +1,89 @@
 {% extends "base.html" %}
 {% block content %}
- 
+
 <div class="page">
- 
-  
+
+
   <div class="page-header">
     <h1>Home</h1>
     <a href="{{ url_for('logout') }}" class="logout-btn">uitloggen ↩</a>
   </div>
- 
-  
+
+
   <div class="quote-banner">
     <p>{{ quote }}</p>
   </div>
- 
-  
+
+
   <div class="section-header">
     <h2>taken</h2>
     <a href="{{ url_for('taken') }}" class="see-all">see all</a>
   </div>
- 
+
 
   <div class="day-tabs">
     <button class="day-tab" onclick="filterTaken('yesterday')">gisteren</button>
     <button class="day-tab active" onclick="filterTaken('today')">vandaag</button>
     <button class="day-tab" onclick="filterTaken('tomorrow')">morgen</button>
   </div>
- 
-  
+
+
   <div class="tijdlijn">
     {% if taken %}
-      {% for taak in taken %}
-      <div class="tijdlijn-item">
-        <div class="tijdlijn-tijd">
-          {{ taak['deadline'] or '--:--' }}
-        </div>
-        <div class="tijdlijn-lijn"></div>
-        <div class="tijdlijn-card">
-          <span class="tijdlijn-titel">{{ taak['titel'] }}</span>
-          {% if taak['vak_naam'] %}
-            <span class="tijdlijn-vak">{{ taak['vak_naam'] }}</span>
-          {% endif %}
-          <a href="{{ url_for('taak_voltooien', taak_id=taak['id']) }}" class="tijdlijn-done">-</a>
-        </div>
+    {% for taak in taken %}
+    <div class="tijdlijn-item">
+      <div class="tijdlijn-tijd">
+        {{ taak['deadline'] or '--:--' }}
       </div>
-      {% endfor %}
+      <div class="tijdlijn-lijn"></div>
+      <div class="tijdlijn-card">
+        <span class="tijdlijn-titel">{{ taak['titel'] }}</span>
+        {% if taak['vak_naam'] %}
+        <span class="tijdlijn-vak">{{ taak['vak_naam'] }}</span>
+        {% endif %}
+        <a href="{{ url_for('taak_voltooien', taak_id=taak['id']) }}" class="tijdlijn-done">-</a>
+      </div>
+    </div>
+    {% endfor %}
     {% else %}
-      <div class="geen-taken">
-        <img src="{{ url_for('static', filename='media/award.gif') }}" alt="beker">
-        <p>Geen taken vandaag!</p>
-      </div>
+    <div class="geen-taken">
+      <img src="{{ url_for('static', filename='media/award.gif') }}" alt="beker">
+      <p>Geen taken vandaag!</p>
+    </div>
     {% endif %}
   </div>
- 
-  
+
+
   <a href="{{ url_for('taak_nieuw') }}" class="fab">+</a>
- 
-  
+
+
   <div class="timer-balk" id="timerBalk">
     <span class="timer-icon">⏱</span>
     <span class="timer-display" id="timerDisplay">25:00</span>
     <button class="timer-pause" id="timerBtn" onclick="toggleTimer()">⏸</button>
   </div>
- 
+
   <nav class="navbar">
     <a href="{{ url_for('dashboard') }}" class="nav-item active">
-        <img src="{{ url_for('static', filename='media/home.png') }}" alt="Home">
+      <img src="{{ url_for('static', filename='media/home.png') }}" alt="Home">
+      <span>Home</span>
     </a>
     <a href="{{ url_for('schema') }}" class="nav-item">
-        <img src="{{ url_for('static', filename='media/calendar.png') }}" alt="Schema">
+      <img src="{{ url_for('static', filename='media/calendar.png') }}" alt="Schema">
+      <span>Schema</span>
     </a>
     <a href="{{ url_for('taken') }}" class="nav-item">
-        <img src="{{ url_for('static', filename='media/books.png') }}" alt="Taken">
+      <img src="{{ url_for('static', filename='media/books.png') }}" alt="Taken">
+      <span>Taken</span>
     </a>
     <a href="{{ url_for('instellingen') }}" class="nav-item">
-        <img src="{{ url_for('static', filename='media/settings.png') }}" alt="Instellingen">
+      <img src="{{ url_for('static', filename='media/settings.png') }}" alt="Instellingen">
+      <span>Instellingen</span>
     </a>
-</nav>
- 
+  </nav>
+
 </div>
- 
+
 <script src="/static/js/db.js"></script>
- 
+
 {% endblock %}

@@ -28,7 +28,8 @@
     {% endif %}
     {% endwith %}
 
-    {% if advertentie_afbeeldingen and request.endpoint not in ['login', 'register'] %}
+    {% if advertentie_afbeeldingen and request.endpoint not in ['login', 'register']
+    and not request.path.startswith('/admin') %}
     <section class="advertentie-strip">
       <div class="advertentie-strip-header">
         <span>Advertenties</span>

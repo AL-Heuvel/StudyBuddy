@@ -3,13 +3,52 @@
 
 <div class="page">
 
-
   <div class="page-header">
     <h1>Instellingen</h1>
     <img src="{{ url_for('static', filename='media/settings.png') }}" alt="Instellingen">
   </div>
 
-  
+
+  <div class="instellingen-sectie profiel-sectie">
+    <div class="sectie-header-row">
+      <h2>account & Profiel</h2>
+      <img src="{{ url_for('static', filename='media/account.png') }}" alt="Instellingen">
+    </div>
+
+    <a href="{{ url_for('profiel') }}" class="profiel-edit-rij">
+      <span class="profiel-edit-tekst">Edit profiel</span>
+      {% if user and user['foto'] %}
+      <img src="{{ url_for('static', filename='uploads/' + user['foto']) }}" class="avatar-foto-klein"
+        alt="Profielfoto">
+      {% else %}
+      <div class="profiel-avatar-groot">👤</div>
+      {% endif %}
+    </a>
+
+    <div class="profiel-info-rijen">
+      <div class="profiel-info-rij">
+        <span class="profiel-label">Naam</span>
+        <span class="profiel-waarde">{{ user['username'] if user and user['username'] else session.get('username',
+          'Gebruiker') }}</span>
+      </div>
+      {% if user and user['email'] %}
+      <div class="profiel-info-rij">
+        <span class="profiel-label">E-mail</span>
+        <span class="profiel-waarde blauw">{{ user['email'] }}</span>
+      </div>
+      {% endif %}
+      {% if user and user['telefoonnummer'] %}
+      <div class="profiel-info-rij">
+        <span class="profiel-label">Telefoonnummer</span>
+        <span class="profiel-waarde">{{ user['telefoonnummer'] }}</span>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+
+
+
 
 
   <div class="instellingen-sectie">
@@ -40,49 +79,7 @@
   </div>
 
 
-  <div class="instellingen-rij-kaart">
-    <a href="{{ url_for('logout') }}" class="instellingen-rij">
-      <span>log uit</span>
-      <span class="rij-icon">↩</span>
-    </a>
-  </div>
 
-
-  <div class="instellingen-sectie profiel-sectie">
-    <div class="sectie-header-row">
-      <h2>account & Profiel</h2>
-      <img src="{{ url_for('static', filename='media/account.png') }}" alt="Instellingen">
-    </div>
-
-    <a href="{{ url_for('profiel') }}" class="profiel-edit-rij">
-      <span class="profiel-edit-tekst">Edit profiel</span>
-      {% if user and user['foto'] %}
-      <img src="{{ url_for('static', filename='uploads/' + user['foto']) }}" class="avatar-foto-klein"
-        alt="Profielfoto">
-      {% else %}
-      <div class="profiel-avatar-groot">👤</div>
-      {% endif %}
-    </a>
-
-    <div class="profiel-info-rijen">
-      <div class="profiel-info-rij">
-        <span class="profiel-label">Naam</span>
-        <span class="profiel-waarde">{{ user['username'] if user and user['username'] else session.get('username', 'Gebruiker') }}</span>
-      </div>
-      {% if user and user['email'] %}
-      <div class="profiel-info-rij">
-        <span class="profiel-label">E-mail</span>
-        <span class="profiel-waarde blauw">{{ user['email'] }}</span>
-      </div>
-      {% endif %}
-      {% if user and user['telefoonnummer'] %}
-      <div class="profiel-info-rij">
-        <span class="profiel-label">Telefoonnummer</span>
-        <span class="profiel-waarde">{{ user['telefoonnummer'] }}</span>
-      </div>
-      {% endif %}
-    </div>
-  </div>
 
 
   <div class="instellingen-sectie timer-sectie">
@@ -93,11 +90,15 @@
     <form method="POST" class="timer-instellingen">
       <div class="timer-rij">
         <span>Werkintervalduur (minuten)</span>
-        <input type="number" id="werkTijdInput" name="werk_tijd" min="1" max="60" value="{{ instellingen['werk_tijd'] if instellingen and instellingen['werk_tijd'] else 25 }}" onchange="updateTimer('werk', this.value)">
+        <input type="number" id="werkTijdInput" name="werk_tijd" min="1" max="60"
+          value="{{ instellingen['werk_tijd'] if instellingen and instellingen['werk_tijd'] else 25 }}"
+          onchange="updateTimer('werk', this.value)">
       </div>
       <div class="timer-rij">
         <span>Pauzeduur (minuten)</span>
-        <input type="number" id="pauzeInput" name="pauze_tijd" min="1" max="30" value="{{ instellingen['pauze_tijd'] if instellingen and instellingen['pauze_tijd'] else 5 }}" onchange="updateTimer('pauze', this.value)">
+        <input type="number" id="pauzeInput" name="pauze_tijd" min="1" max="30"
+          value="{{ instellingen['pauze_tijd'] if instellingen and instellingen['pauze_tijd'] else 5 }}"
+          onchange="updateTimer('pauze', this.value)">
       </div>
       <div style="margin-top:8px">
         <button type="submit" class="btn-opslaan">Opslaan</button>
@@ -119,6 +120,14 @@
         <button type="submit" class="btn-opslaan">Opslaan</button>
       </div>
     </form>
+  </div>
+  
+
+  <div class="instellingen-rij-kaart">
+    <a href="{{ url_for('logout') }}" class="instellingen-rij">
+      <span>log uit</span>
+      <span class="rij-icon">↩</span>
+    </a>
   </div>
 
 

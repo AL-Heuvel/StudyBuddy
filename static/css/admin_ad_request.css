@@ -146,7 +146,22 @@
   font-family: 'DM Sans', sans-serif;
   transition: 0.2s;
 }
+.btn-reject {
+  padding: 5px 12px;
+  background: #c03060;
+  color: white;
+  border: none;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: 0.2s;
+}
 
+.btn-reject:hover {
+  background: #a82650;
+}
 .btn-approve:hover {
   background: #8a2fd5;
 }
