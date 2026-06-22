@@ -43,7 +43,7 @@
                 <p>De aanvraag is naar de admin gestuurd. Download hier meteen je factuur.</p>
                 <div class="popup-actions">
                     <a class="factuur-download-btn" href="{{ url_for('advertentie_factuur') }}">Download factuur (PDF)</a>
-                    <a class="popup-close-btn" href="{{ url_for('adverteren') }}">Sluiten</a>
+                    <a class="popup-close-btn" href="#" onclick="document.querySelector('.popup-overlay').style.display='none'; return false;">Sluiten</a>
                 </div>
             </div>
         </div>
@@ -120,12 +120,6 @@
             </label>
 
 
-            <div class="grid-two">
-                <label>
-                    Tarieven / budget
-                    <input type="text" name="tarieven" placeholder="Bijvoorbeeld: €500 per maand" required>
-                </label>
-            </div>
 
             <fieldset class="pakket-keuze">
                 <legend>Aantal views pakket</legend>

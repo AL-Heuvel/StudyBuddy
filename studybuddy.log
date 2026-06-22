@@ -1,19 +1,18 @@
-[2026-06-22 11:40:47] INFO - Admin dashboard geopend door gebruiker 6
-[2026-06-22 11:48:49] ERROR - Fout bij registreren van 'test': UNIQUE constraint failed: users.username
-[2026-06-22 11:48:58] INFO - Gebruiker 'test' is ingelogd (admin: False)
-[2026-06-22 11:48:58] INFO - Advertentieweergave geregistreerd voor campagne 1
-[2026-06-22 11:49:03] INFO - Quote opgehaald voor gebruiker 3
-[2026-06-22 11:49:12] INFO - Quote opgehaald voor gebruiker 3
-[2026-06-22 11:49:44] INFO - Quote opgehaald voor gebruiker 3
-[2026-06-22 11:49:47] INFO - Gebruiker 'test' is uitgelogd
-[2026-06-22 11:55:05] INFO - Gebruiker 'test' is ingelogd (admin: False)
-[2026-06-22 11:55:05] INFO - Advertentieweergave geregistreerd voor campagne 4
-[2026-06-22 11:55:09] INFO - Quote opgehaald voor gebruiker 3
-[2026-06-22 11:55:10] INFO - Schema gegenereerd voor gebruiker 3
-[2026-06-22 11:55:13] INFO - Quote opgehaald voor gebruiker 3
-[2026-06-22 11:56:29] INFO - Schema gegenereerd voor gebruiker 3
-[2026-06-22 11:56:33] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Read timed out. (read timeout=3)
-[2026-06-22 11:56:35] INFO - Takenoverzicht bekeken door gebruiker 3
-[2026-06-22 11:56:35] INFO - Quote opgehaald voor gebruiker 3
-[2026-06-22 11:56:38] INFO - Quote opgehaald voor gebruiker 3
-[2026-06-22 11:56:41] INFO - Quote opgehaald voor gebruiker 3
+[2026-06-22 11:42:49] INFO - Advertentiefactuur SB-ADV-2026-4010 gegenereerd voor Axe
+[2026-06-22 11:43:35] INFO - Nieuw account aangemaakt: 'hoipoep22'
+[2026-06-22 11:43:41] INFO - Gebruiker 'hoipoep22' is ingelogd (admin: False)
+[2026-06-22 11:43:41] INFO - Advertentieweergave geregistreerd voor campagne 6
+[2026-06-22 11:43:46] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<HTTPSConnection(host='zenquotes.io', port=443) at 0x72a594082b10>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-06-22 11:43:49] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<HTTPSConnection(host='zenquotes.io', port=443) at 0x72a5934d2b40>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-06-22 11:51:49] INFO - Nieuw account aangemaakt: 'hoipoep34'
+[2026-06-22 11:51:54] INFO - Gebruiker 'hoipoep34' is ingelogd (admin: False)
+[2026-06-22 11:51:54] INFO - Advertentieweergave geregistreerd voor campagne 4
+[2026-06-22 11:51:59] INFO - Quote opgehaald voor gebruiker 18
+[2026-06-22 11:54:44] INFO - Nieuw account aangemaakt: 'hoipoep35'
+[2026-06-22 11:54:49] INFO - Gebruiker 'hoipoep35' is ingelogd (admin: False)
+[2026-06-22 11:54:49] INFO - Advertentieweergave geregistreerd voor campagne 3
+[2026-06-22 11:54:54] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Read timed out. (read timeout=3)
+[2026-06-22 11:55:17] INFO - Quote opgehaald voor gebruiker 19
+[2026-06-22 11:55:18] INFO - Schema gegenereerd voor gebruiker 19
+[2026-06-22 11:55:19] INFO - Takenoverzicht bekeken door gebruiker 19
+[2026-06-22 11:55:22] INFO - Quote opgehaald voor gebruiker 19
