@@ -337,7 +337,7 @@ body {
 /* ── FAB ── */
 .fab {
     position: fixed;
-    bottom: 165px;
+    bottom: 80px;
     right: 50%;
     transform: translateX(180px);
     width: 52px; height: 52px;
