@@ -95,3 +95,8 @@
 [2026-06-19 09:28:20] ERROR - Fout bij opslaan advertentieaanvraag: name 'tarieven' is not defined
 [2026-06-19 09:28:47] ERROR - Fout bij opslaan advertentieaanvraag: name 'tarieven' is not defined
 [2026-06-19 09:29:12] ERROR - Fout bij opslaan advertentieaanvraag: name 'tarieven' is not defined
+[2026-06-19 09:38:45] INFO - Nieuwe advertentieaanvraag ontvangen van kavish (kavish@glr.nl)
+[2026-06-22 11:18:23] INFO - Nieuwe advertentieaanvraag ontvangen van Kavish (kavish@glr.nl)
+[2026-06-22 11:18:38] WARNING - Mislukte inlogpoging voor gebruiker 'admin'
+[2026-06-22 11:18:46] INFO - Beheerder 'admin' is ingelogd
+[2026-06-22 11:18:46] INFO - Admin dashboard geopend door gebruiker 6
