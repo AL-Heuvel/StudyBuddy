@@ -49,23 +49,6 @@
         </div>
         {% endif %}
 
-        {% if actieve_advertentie %}
-        <section class="featured-ad">
-            <div class="featured-ad-copy">
-                <p class="featured-ad-label">Goedgekeurde advertentie uit de database</p>
-                <h2>{{ actieve_advertentie['titel'] }}</h2>
-                <p>{{ actieve_advertentie['beschrijving'] }}</p>
-                <div class="featured-ad-meta">
-                    <span>{{ actieve_advertentie['bedrijf_naam'] }}</span>
-                    <span>{{ actieve_advertentie['tarief_naam'] }} pakket</span>
-                    <span>{{ actieve_advertentie['resterende_views'] }} views over</span>
-                </div>
-            </div>
-            <a class="featured-ad-link" href="{{ url_for('advertentie_click', campagne_id=actieve_advertentie['campagne_id']) }}">
-                <img src="{{ url_for('static', filename='advertensies/' + actieve_advertentie['afbeelding']) }}" alt="{{ actieve_advertentie['titel'] }}">
-            </a>
-        </section>
-        {% endif %}
 
         <h1>Plaats jouw advertentie</h1>
         <p class="subtitel">Vul dit formulier in en wij nemen contact op om jouw advertentie live te zetten.</p>
