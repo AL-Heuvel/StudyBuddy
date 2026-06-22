@@ -16,3 +16,19 @@
 [2026-06-22 11:55:18] INFO - Schema gegenereerd voor gebruiker 19
 [2026-06-22 11:55:19] INFO - Takenoverzicht bekeken door gebruiker 19
 [2026-06-22 11:55:22] INFO - Quote opgehaald voor gebruiker 19
+[2026-06-22 12:04:39] INFO - Beheerder 'admin' is ingelogd
+[2026-06-22 12:04:39] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-22 12:04:51] ERROR - Fout bij goedkeuren advertentie-aanvraag 8: NOT NULL constraint failed: advertenties.doel_url
+[2026-06-22 12:04:53] ERROR - Fout bij goedkeuren advertentie-aanvraag 8: NOT NULL constraint failed: advertenties.doel_url
+[2026-06-22 12:04:54] ERROR - Fout bij goedkeuren advertentie-aanvraag 8: NOT NULL constraint failed: advertenties.doel_url
+[2026-06-22 12:04:57] ERROR - Fout bij goedkeuren advertentie-aanvraag 8: NOT NULL constraint failed: advertenties.doel_url
+[2026-06-22 12:04:58] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-22 12:05:01] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-22 12:05:06] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-22 12:05:07] INFO - Gebruiker 'admin' is uitgelogd
+[2026-06-22 12:06:27] INFO - Beheerder 'admin' is ingelogd
+[2026-06-22 12:06:27] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-22 12:06:33] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-22 12:06:35] INFO - Gebruiker 'admin' is uitgelogd
+[2026-06-22 12:10:32] INFO - Beheerder 'admin' is ingelogd
+[2026-06-22 12:10:32] INFO - Admin dashboard geopend door gebruiker 6
