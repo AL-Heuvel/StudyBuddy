@@ -11,12 +11,12 @@
 
   <div class="instellingen-sectie profiel-sectie">
     <div class="sectie-header-row">
-      <h2>account & Profiel</h2>
+      <h2>Profiel</h2>
       <img src="{{ url_for('static', filename='media/account.png') }}" alt="Instellingen">
     </div>
 
     <a href="{{ url_for('profiel') }}" class="profiel-edit-rij">
-      <span class="profiel-edit-tekst">Edit profiel</span>
+      <span class="profiel-edit-tekst">Profiel</span>
       {% if user and user['foto'] %}
       <img src="{{ url_for('static', filename='uploads/' + user['foto']) }}" class="avatar-foto-klein"
         alt="Profielfoto">
@@ -133,12 +133,12 @@
 
   <div class="instellingen-sectie verwijder-sectie">
     <div class="sectie-header-row">
-      <h2>Verwijder account</h2>
+      <h2>Account</h2>
       <img src="{{ url_for('static', filename='media/delete.png') }}" alt="Instellingen">
     </div>
     <a href="#" class="verwijder-rij" onclick="return confirm('Weet je zeker dat je je account wilt verwijderen?')">
-      <span>Verwijder account</span>
-      <span class="verwijder-waarde">ja</span>
+      <span>Account verwijderen</span>
+      <span class="verwijder-waarde">Verwijder account</span>
     </a>
   </div>
 
