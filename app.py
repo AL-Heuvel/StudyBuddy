@@ -232,7 +232,7 @@ def adverteren():
     afbeelding,
     user_id,
     status
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                         bedrijf_naam,
