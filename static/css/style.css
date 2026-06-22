@@ -398,7 +398,7 @@ body {
 
 /* 🔥 ACTIVE STATE */
 .nav-item.active {
-    background: #4CAF50;   /* 👈 HOOFD EFFECT */
+    background: #ff6bc4;   /* 👈 HOOFD EFFECT */
     color: white;
     transform: translateY(-4px);
 }

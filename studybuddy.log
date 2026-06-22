@@ -1,102 +1,19 @@
-[2026-06-15 12:30:49] INFO - Gebruiker 'test' is ingelogd (admin: False)
-[2026-06-15 12:30:49] INFO - Advertentieweergave geregistreerd voor campagne 2
-[2026-06-15 12:30:55] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7115097bfbc0>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
-[2026-06-15 12:30:56] INFO - Quote opgehaald voor gebruiker 3
-[2026-06-15 12:30:58] INFO - Quote opgehaald voor gebruiker 3
-[2026-06-15 12:31:01] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7115097d0bc0>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
-[2026-06-16 11:43:10] INFO - Gebruiker 'test' is ingelogd (admin: False)
-[2026-06-16 11:43:10] INFO - Advertentieweergave geregistreerd voor campagne 3
-[2026-06-16 11:43:14] INFO - Quote opgehaald voor gebruiker 3
-[2026-06-19 07:27:46] INFO - Gebruiker 'test' is ingelogd (admin: False)
-[2026-06-19 07:27:46] INFO - Advertentieweergave geregistreerd voor campagne 1
-[2026-06-19 07:27:54] INFO - Quote opgehaald voor gebruiker 3
-[2026-06-19 07:27:56] INFO - Quote opgehaald voor gebruiker 3
-[2026-06-19 07:30:37] INFO - Schema gegenereerd voor gebruiker 3
-[2026-06-19 07:30:42] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7c64be5ad220>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
-[2026-06-19 07:30:46] INFO - Quote opgehaald voor gebruiker 3
-[2026-06-19 07:30:49] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7c64be5f5130>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
-[2026-06-19 07:30:52] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7c64be5f7a10>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
-[2026-06-19 07:30:56] INFO - Schema gegenereerd voor gebruiker 3
-[2026-06-19 07:30:58] INFO - Takenoverzicht bekeken door gebruiker 3
-[2026-06-19 07:31:06] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7c64be5ebd40>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
-[2026-06-19 07:31:07] INFO - Quote opgehaald voor gebruiker 3
-[2026-06-19 07:31:10] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7c64be5f5ac0>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
-[2026-06-19 07:31:35] INFO - Takenoverzicht bekeken door gebruiker 3
-[2026-06-19 07:31:45] INFO - Nieuwe taak 'hig' aangemaakt door gebruiker 3
-[2026-06-19 07:31:45] INFO - Takenoverzicht bekeken door gebruiker 3
-[2026-06-19 07:31:50] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Read timed out. (read timeout=3)
-[2026-06-19 07:32:28] INFO - Schema gegenereerd voor gebruiker 3
-[2026-06-19 07:32:45] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7c64be5bbaa0>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
-[2026-06-19 07:32:48] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7c64c0676900>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
-[2026-06-19 07:32:51] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7c64be5bbdd0>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
-[2026-06-19 07:34:09] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Read timed out. (read timeout=3)
-[2026-06-19 07:34:13] INFO - Gebruiker 'test' is uitgelogd
-[2026-06-19 07:36:20] INFO - Beheerder 'admin' is ingelogd
-[2026-06-19 07:36:20] INFO - Admin dashboard geopend door gebruiker 6
-[2026-06-19 07:36:36] INFO - Gebruiker 'admin' is uitgelogd
-[2026-06-19 07:36:41] INFO - Gebruiker 'test' is ingelogd (admin: False)
-[2026-06-19 07:36:41] INFO - Advertentieweergave geregistreerd voor campagne 3
-[2026-06-19 07:36:43] INFO - Quote opgehaald voor gebruiker 3
-[2026-06-19 07:37:55] INFO - Gebruiker 'test' is ingelogd (admin: False)
-[2026-06-19 07:37:55] INFO - Advertentieweergave geregistreerd voor campagne 3
-[2026-06-19 07:37:57] INFO - Quote opgehaald voor gebruiker 3
-[2026-06-19 07:47:38] INFO - Takenoverzicht bekeken door gebruiker 3
-[2026-06-19 07:49:36] INFO - Takenoverzicht bekeken door gebruiker 3
-[2026-06-19 07:50:07] INFO - Schema gegenereerd voor gebruiker 3
-[2026-06-19 07:50:31] INFO - Schema gegenereerd voor gebruiker 3
-[2026-06-19 07:50:34] INFO - Takenoverzicht bekeken door gebruiker 3
-[2026-06-19 07:50:37] INFO - Quote opgehaald voor gebruiker 3
-[2026-06-19 07:50:44] INFO - Schema gegenereerd voor gebruiker 3
-[2026-06-19 07:50:45] INFO - Takenoverzicht bekeken door gebruiker 3
-[2026-06-19 08:00:43] INFO - Takenoverzicht bekeken door gebruiker 3
-[2026-06-19 08:00:46] INFO - Quote opgehaald voor gebruiker 3
-[2026-06-19 08:00:49] INFO - Schema gegenereerd voor gebruiker 3
-[2026-06-19 08:00:53] INFO - Schema gegenereerd voor gebruiker 3
-[2026-06-19 08:01:02] INFO - Schema gegenereerd voor gebruiker 3
-[2026-06-19 08:24:54] INFO - Gebruiker 'test' is ingelogd (admin: False)
-[2026-06-19 08:24:54] INFO - Advertentieweergave geregistreerd voor campagne 6
-[2026-06-19 08:24:59] INFO - Quote opgehaald voor gebruiker 3
-[2026-06-19 08:25:00] INFO - Schema gegenereerd voor gebruiker 3
-[2026-06-19 08:25:01] INFO - Takenoverzicht bekeken door gebruiker 3
-[2026-06-19 08:25:04] INFO - Quote opgehaald voor gebruiker 3
-[2026-06-19 08:25:05] INFO - Schema gegenereerd voor gebruiker 3
-[2026-06-19 08:25:06] INFO - Takenoverzicht bekeken door gebruiker 3
-[2026-06-19 08:26:50] INFO - Quote opgehaald voor gebruiker 3
-[2026-06-19 08:32:08] INFO - Gebruiker 'test' is uitgelogd
-[2026-06-19 09:11:30] INFO - Admin dashboard geopend door gebruiker 6
-[2026-06-19 09:11:52] INFO - Quote opgehaald voor gebruiker 6
-[2026-06-19 09:11:56] INFO - Schema gegenereerd voor gebruiker 6
-[2026-06-19 09:11:58] INFO - Quote opgehaald voor gebruiker 6
-[2026-06-19 09:12:02] INFO - Gebruiker 'admin' is uitgelogd
-[2026-06-19 09:12:46] INFO - Nieuwe advertentieaanvraag ontvangen van frederieke (anlei@glr.nl)
-[2026-06-19 09:12:56] WARNING - Mislukte inlogpoging voor gebruiker 'admin'
-[2026-06-19 09:13:03] INFO - Beheerder 'admin' is ingelogd
-[2026-06-19 09:13:03] INFO - Admin dashboard geopend door gebruiker 6
-[2026-06-19 09:13:33] INFO - Nieuwe advertentieaanvraag ontvangen van frederieke (frederieke@gmail.com)
-[2026-06-19 09:15:05] INFO - Admin dashboard geopend door gebruiker 6
-[2026-06-19 09:17:05] INFO - Gebruiker 'nyjah' is ingelogd (admin: False)
-[2026-06-19 09:17:05] INFO - Advertentieweergave geregistreerd voor campagne 8
-[2026-06-19 09:17:10] INFO - Quote opgehaald voor gebruiker 9
-[2026-06-19 09:17:13] INFO - Quote opgehaald voor gebruiker 9
-[2026-06-19 09:17:17] INFO - Quote opgehaald voor gebruiker 9
-[2026-06-19 09:17:19] INFO - Quote opgehaald voor gebruiker 9
-[2026-06-19 09:17:23] INFO - Quote opgehaald voor gebruiker 9
-[2026-06-19 09:17:25] INFO - Gebruiker 'nyjah' is uitgelogd
-[2026-06-19 09:17:30] INFO - Beheerder 'admin' is ingelogd
-[2026-06-19 09:17:30] INFO - Admin dashboard geopend door gebruiker 6
-[2026-06-19 09:17:58] INFO - Advertentieklik en weergave geregistreerd voor campagne 8
-[2026-06-19 09:17:59] INFO - Advertentieklik en weergave geregistreerd voor campagne 8
-[2026-06-19 09:22:29] INFO - Nieuwe advertentieaanvraag ontvangen van frederieke (frederieke@gmail.com)
-[2026-06-19 09:23:40] INFO - Admin dashboard geopend door gebruiker 6
-[2026-06-19 09:23:43] INFO - Admin dashboard geopend door gebruiker 6
-[2026-06-19 09:24:54] INFO - Beheerder 'admin' is ingelogd
-[2026-06-19 09:24:54] INFO - Admin dashboard geopend door gebruiker 1
-[2026-06-19 09:26:46] INFO - Gebruiker 'admin' is uitgelogd
-[2026-06-19 09:28:20] ERROR - Fout bij opslaan advertentieaanvraag: name 'tarieven' is not defined
-[2026-06-19 09:28:47] ERROR - Fout bij opslaan advertentieaanvraag: name 'tarieven' is not defined
-[2026-06-19 09:29:12] ERROR - Fout bij opslaan advertentieaanvraag: name 'tarieven' is not defined
-[2026-06-19 09:38:45] INFO - Nieuwe advertentieaanvraag ontvangen van kavish (kavish@glr.nl)
-[2026-06-22 11:18:23] INFO - Nieuwe advertentieaanvraag ontvangen van Kavish (kavish@glr.nl)
-[2026-06-22 11:18:38] WARNING - Mislukte inlogpoging voor gebruiker 'admin'
-[2026-06-22 11:18:46] INFO - Beheerder 'admin' is ingelogd
-[2026-06-22 11:18:46] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-22 11:40:47] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-22 11:48:49] ERROR - Fout bij registreren van 'test': UNIQUE constraint failed: users.username
+[2026-06-22 11:48:58] INFO - Gebruiker 'test' is ingelogd (admin: False)
+[2026-06-22 11:48:58] INFO - Advertentieweergave geregistreerd voor campagne 1
+[2026-06-22 11:49:03] INFO - Quote opgehaald voor gebruiker 3
+[2026-06-22 11:49:12] INFO - Quote opgehaald voor gebruiker 3
+[2026-06-22 11:49:44] INFO - Quote opgehaald voor gebruiker 3
+[2026-06-22 11:49:47] INFO - Gebruiker 'test' is uitgelogd
+[2026-06-22 11:55:05] INFO - Gebruiker 'test' is ingelogd (admin: False)
+[2026-06-22 11:55:05] INFO - Advertentieweergave geregistreerd voor campagne 4
+[2026-06-22 11:55:09] INFO - Quote opgehaald voor gebruiker 3
+[2026-06-22 11:55:10] INFO - Schema gegenereerd voor gebruiker 3
+[2026-06-22 11:55:13] INFO - Quote opgehaald voor gebruiker 3
+[2026-06-22 11:56:29] INFO - Schema gegenereerd voor gebruiker 3
+[2026-06-22 11:56:33] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Read timed out. (read timeout=3)
+[2026-06-22 11:56:35] INFO - Takenoverzicht bekeken door gebruiker 3
+[2026-06-22 11:56:35] INFO - Quote opgehaald voor gebruiker 3
+[2026-06-22 11:56:38] INFO - Quote opgehaald voor gebruiker 3
+[2026-06-22 11:56:41] INFO - Quote opgehaald voor gebruiker 3
