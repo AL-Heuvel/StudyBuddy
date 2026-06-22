@@ -8,3 +8,6 @@ instance/
 studybuddy.db
 *.log
 studybuddy.log*
+studybuddy.db-shm
+studybuddy.db-wal
+studybuddy.log
