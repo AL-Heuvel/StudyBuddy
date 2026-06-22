@@ -32,3 +32,9 @@
 [2026-06-22 12:06:35] INFO - Gebruiker 'admin' is uitgelogd
 [2026-06-22 12:10:32] INFO - Beheerder 'admin' is ingelogd
 [2026-06-22 12:10:32] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-22 12:25:11] INFO - Nieuw account aangemaakt: 'hoipoep47'
+[2026-06-22 12:25:17] INFO - Gebruiker 'hoipoep47' is ingelogd (admin: False)
+[2026-06-22 12:25:17] INFO - Advertentieweergave geregistreerd voor campagne 3
+[2026-06-22 12:25:22] ERROR - Fout bij ophalen quote: HTTPSConnectionPool(host='zenquotes.io', port=443): Max retries exceeded with url: /api/random (Caused by ConnectTimeoutError(<HTTPSConnection(host='zenquotes.io', port=443) at 0x70c6936963f0>, 'Connection to zenquotes.io timed out. (connect timeout=3)'))
+[2026-06-22 12:25:25] INFO - Schema gegenereerd voor gebruiker 20
+[2026-06-22 12:27:19] ERROR - Fout bij opslaan advertentieaanvraag: 12 values for 13 columns
