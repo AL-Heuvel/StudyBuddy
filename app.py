@@ -176,11 +176,12 @@ def adverteren():
         doel_advertentie = request.form.get("doel_advertentie", "").strip()
         views_pakket = request.form.get("views_pakket", "").strip().lower()
         startdatum = request.form.get("startdatum", "").strip()
+        doel_url = request.form.get("doel_url", "").strip()
         afbeelding_naam = None
 
         verplichte_velden = [
             bedrijf_naam, voornaam, achternaam, email, telefoon,
-            doel_advertentie, views_pakket, startdatum,
+            doel_advertentie, tarieven, views_pakket, startdatum,
         ]
 
         if not all(verplichte_velden):
@@ -218,14 +219,35 @@ def adverteren():
             db.execute(
                 """
                 INSERT INTO advertentie_aanvragen (
-                    bedrijf_naam, voornaam, achternaam, email, telefoon,
-                    doel_advertentie, tarieven, views_pakket, startdatum, afbeelding, user_id, status
+                        bedrijf_naam,
+    voornaam,
+    achternaam,
+    email,
+    telefoon,
+    doel_advertentie,
+    doel_url,
+    tarieven,
+    views_pakket,
+    startdatum,
+    afbeelding,
+    user_id,
+    status
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
-                    bedrijf_naam, voornaam, achternaam, email, telefoon,
-                    doel_advertentie, tarieven, views_pakket, startdatum,
-                    afbeelding_naam, session.get('user_id'), 'pending'
+                        bedrijf_naam,
+    voornaam,
+    achternaam,
+    email,
+    telefoon,
+    doel_advertentie,
+    doel_url,
+    tarieven,
+    views_pakket,
+    startdatum,
+    afbeelding_naam,
+    session.get("user_id"),
+    "pending"
                 ),
             )
             db.commit()
@@ -631,7 +653,7 @@ def admin_ad_approve(aanvraag_id):
         titel = aanvraag['bedrijf_naam']
         beschrijving = aanvraag['doel_advertentie']
         afbeelding = aanvraag['afbeelding']
-        doel_url = f"mailto:{aanvraag['email']}" if aanvraag['email'] else url_for('index', _external=True)
+        doel_url = aanvraag["doel_url"]
         cur2 = db.execute('INSERT INTO advertenties (bedrijf_id, titel, beschrijving, afbeelding, doel_url, actief) VALUES (?, ?, ?, ?, ?, 1)',
                          (bedrijf_id, titel, beschrijving, afbeelding, doel_url))
         advertentie_id = cur2.lastrowid
