@@ -35,14 +35,14 @@
         {% endif %}
         {% endwith %}
 
-        {% if toon_bevestiging_popup %}
+        {% if toon_factuur_knop %}
         <div class="popup-overlay" role="dialog" aria-modal="true" aria-labelledby="advertentie-popup-title">
             <div class="popup-card">
                 <div class="popup-badge">Aanvraag verstuurd</div>
                 <h2 id="advertentie-popup-title">Je advertentie-aanvraag is verzonden</h2>
                 <p>De aanvraag is naar de admin gestuurd. Download hier meteen je factuur.</p>
                 <div class="popup-actions">
-                    <a class="factuur-download-btn" href="{{ factuur_download_url }}">Download factuur (PDF)</a>
+                    <a class="factuur-download-btn" href="{{ url_for('advertentie_factuur') }}">Download factuur (PDF)</a>
                     <a class="popup-close-btn" href="{{ url_for('adverteren') }}">Sluiten</a>
                 </div>
             </div>
