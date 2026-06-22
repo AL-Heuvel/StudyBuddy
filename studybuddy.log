@@ -100,3 +100,41 @@
 [2026-06-22 11:18:38] WARNING - Mislukte inlogpoging voor gebruiker 'admin'
 [2026-06-22 11:18:46] INFO - Beheerder 'admin' is ingelogd
 [2026-06-22 11:18:46] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-16 11:16:28] INFO - Nieuw account aangemaakt: 'matthewcool1'
+[2026-06-16 11:16:31] INFO - Gebruiker 'matthewcool1' is ingelogd (admin: False)
+[2026-06-16 11:16:31] INFO - Advertentieweergave geregistreerd voor campagne 5
+[2026-06-16 11:16:38] INFO - Quote opgehaald voor gebruiker 15
+[2026-06-16 11:17:26] INFO - Beheerder 'admin' is ingelogd
+[2026-06-16 11:17:26] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-16 11:59:18] INFO - Nieuw account aangemaakt: 'matthewcool2'
+[2026-06-16 11:59:21] INFO - Gebruiker 'matthewcool2' is ingelogd (admin: False)
+[2026-06-16 11:59:21] INFO - Advertentieweergave geregistreerd voor campagne 1
+[2026-06-16 11:59:32] INFO - Quote opgehaald voor gebruiker 16
+[2026-06-16 11:59:49] INFO - Quote opgehaald voor gebruiker 16
+[2026-06-16 12:00:29] INFO - Nieuwe taak 'Natuurkunde toets' aangemaakt door gebruiker 16
+[2026-06-16 12:00:29] INFO - Takenoverzicht bekeken door gebruiker 16
+[2026-06-16 12:01:05] INFO - Quote opgehaald voor gebruiker 16
+[2026-06-16 12:01:08] INFO - Takenoverzicht bekeken door gebruiker 16
+[2026-06-16 12:01:36] INFO - Quote opgehaald voor gebruiker 16
+[2026-06-16 12:02:00] INFO - Takenoverzicht bekeken door gebruiker 16
+[2026-06-16 12:02:50] INFO - Instellingen bijgewerkt voor gebruiker 16
+[2026-06-16 12:02:51] INFO - Quote opgehaald voor gebruiker 16
+[2026-06-16 12:03:11] INFO - Takenoverzicht bekeken door gebruiker 16
+[2026-06-16 12:03:12] INFO - Quote opgehaald voor gebruiker 16
+[2026-06-16 12:04:49] INFO - Instellingen bijgewerkt voor gebruiker 16
+[2026-06-16 12:07:09] INFO - Schema gegenereerd voor gebruiker 16
+[2026-06-16 12:08:04] INFO - Quote opgehaald voor gebruiker 16
+[2026-06-16 12:08:15] INFO - Gebruiker 'matthewcool2' is uitgelogd
+[2026-06-16 12:12:08] INFO - Nieuwe advertentieaanvraag ontvangen van Meneer van Dijk B.V (neppe@gmail.com)
+[2026-06-16 12:12:48] INFO - Beheerder 'admin' is ingelogd
+[2026-06-16 12:12:48] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-16 12:13:11] INFO - Gebruiker 'matthewcool2' is ingelogd (admin: False)
+[2026-06-16 12:13:11] INFO - Advertentieweergave geregistreerd voor campagne 2
+[2026-06-16 12:13:14] INFO - Quote opgehaald voor gebruiker 16
+[2026-06-22 11:19:38] INFO - Beheerder 'admin' is ingelogd
+[2026-06-22 11:19:38] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-22 11:19:40] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-22 11:19:42] INFO - Admin dashboard geopend door gebruiker 6
+[2026-06-22 11:25:02] INFO - Nieuwe advertentieaanvraag ontvangen van Axe (axe@gmail.com)
+[2026-06-22 11:26:24] INFO - Beheerder 'admin' is ingelogd
+[2026-06-22 11:26:24] INFO - Admin dashboard geopend door gebruiker 6

@@ -9,7 +9,7 @@ import requests
 import os
 from io import BytesIO
 from werkzeug.utils import secure_filename
-from factuur import maak_advertentie_factuur
+from factuur import maak_advertentie_factuur, PAKKET_PRIJZEN
 from flask import send_from_directory
 
 app = Flask(__name__)
@@ -174,7 +174,6 @@ def adverteren():
         email = request.form.get("email", "").strip()
         telefoon = request.form.get("telefoon", "").strip()
         doel_advertentie = request.form.get("doel_advertentie", "").strip()
-        
         views_pakket = request.form.get("views_pakket", "").strip().lower()
         startdatum = request.form.get("startdatum", "").strip()
         afbeelding_naam = None
@@ -191,6 +190,11 @@ def adverteren():
         if views_pakket not in {"starter", "basis", "premium"}:
             flash("Kies een geldig views-pakket.", "error")
             return render_form()
+
+        pakket_beschrijving, pakket_prijs = PAKKET_PRIJZEN.get(
+            views_pakket, PAKKET_PRIJZEN["starter"]
+        )
+        tarieven = f"{pakket_beschrijving} · €{pakket_prijs:.2f} per maand"
 
         if 'afbeelding' not in request.files:
             flash("Upload een advertentie-afbeelding.", "error")
@@ -215,12 +219,12 @@ def adverteren():
                 """
                 INSERT INTO advertentie_aanvragen (
                     bedrijf_naam, voornaam, achternaam, email, telefoon,
-                    doel_advertentie, views_pakket, startdatum, afbeelding, user_id, status
+                    doel_advertentie, tarieven, views_pakket, startdatum, afbeelding, user_id, status
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     bedrijf_naam, voornaam, achternaam, email, telefoon,
-                    doel_advertentie, views_pakket, startdatum,
+                    doel_advertentie, tarieven, views_pakket, startdatum,
                     afbeelding_naam, session.get('user_id'), 'pending'
                 ),
             )
@@ -245,13 +249,16 @@ def adverteren():
 
 @app.route("/adverteren/download")
 def adverteren_download():
-    inhoud = (
-        "StudyBuddy Advertentie Pakketoverzicht\n\n"
-        "Starter\n- Tot 1.000 views per maand\n\n"
-        "Basis\n- Tot 5.000 views per maand\n\n"
-        "Premium\n- Tot 10.000 views per maand\n\n"
-        "Neem contact op via het formulier op de advertentiepagina.\n"
-    )
+    lijnen = [
+        "StudyBuddy Advertentie Pakketoverzicht",
+        "",
+    ]
+    for pakket, (beschrijving, prijs) in PAKKET_PRIJZEN.items():
+        lijnen.append(f"{pakket.capitalize()} - {beschrijving} - €{prijs:.2f} per maand")
+        lijnen.append("")
+    lijnen.append("Neem contact op via het formulier op de advertentiepagina.")
+
+    inhoud = "\n".join(lijnen)
     return send_file(
         BytesIO(inhoud.encode("utf-8")),
         mimetype="text/plain",
