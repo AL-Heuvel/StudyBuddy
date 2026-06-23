@@ -120,11 +120,18 @@ def init_db():
             start_datum DATE,
             eind_datum DATE,
             resterende_views INTEGER NOT NULL,
+            aantal_clicks INTEGER DEFAULT 0,
             status TEXT DEFAULT 'actief',
             FOREIGN KEY (advertentie_id) REFERENCES advertenties(id),
             FOREIGN KEY (tarief_id) REFERENCES tarieven(id)
         )
     """)
+
+    cursor.execute("PRAGMA table_info(campagnes)")
+    campagne_columns = [column[1] for column in cursor.fetchall()]
+
+    if "aantal_clicks" not in campagne_columns:
+        cursor.execute("ALTER TABLE campagnes ADD COLUMN aantal_clicks INTEGER DEFAULT 0")
 
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS advertentie_views (
