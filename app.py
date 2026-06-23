@@ -442,6 +442,31 @@ def logout():
     return redirect(url_for("login"))
 
 
+@app.route("/account/verwijderen", methods=["POST"])
+def account_verwijderen():
+    if not ingelogd():
+        return redirect(url_for("login"))
+
+    user_id = session["user_id"]
+    db = get_db()
+    try:
+        db.execute("DELETE FROM taken WHERE user_id = ?", (user_id,))
+        db.execute("DELETE FROM vakken WHERE user_id = ?", (user_id,))
+        db.execute("DELETE FROM instellingen WHERE user_id = ?", (user_id,))
+        db.execute("DELETE FROM favorieten WHERE user_id = ?", (user_id,))
+        db.execute("DELETE FROM advertentie_aanvragen WHERE user_id = ?", (user_id,))
+        db.execute("DELETE FROM users WHERE id = ?", (user_id,))
+        db.commit()
+        logger.info(f"Gebruiker {user_id} heeft eigen account verwijderd")
+        session.clear()
+        flash("Je account is verwijderd.", "success")
+        return redirect(url_for("login"))
+    except Exception as e:
+        logger.error(f"Fout bij verwijderen eigen account {user_id}: {e}")
+        flash("Er ging iets mis bij het verwijderen van je account.", "error")
+        return redirect(url_for("instellingen"))
+
+
 # ── ADMIN ──────────────────────────────────────────────────
 def is_admin():
     return bool(session.get("is_admin"))
