@@ -180,9 +180,15 @@ def adverteren():
         afbeelding_naam = None
 
         verplichte_velden = [
-            bedrijf_naam, voornaam, achternaam, email, telefoon,
-            doel_advertentie, tarieven, views_pakket, startdatum,
-        ]
+    bedrijf_naam,
+    voornaam,
+    achternaam,
+    email,
+    telefoon,
+    doel_advertentie,
+    views_pakket,
+    startdatum,
+]
 
         if not all(verplichte_velden):
             flash("Vul alle velden in.", "error")
@@ -583,54 +589,83 @@ def admin_user_delete(user_id):
 @admin_required
 def admin_ad_requests():
     db = get_db()
-    aanvragen_pending = db.execute(
-        "SELECT * FROM advertentie_aanvragen WHERE status = 'pending' ORDER BY aangemaakt_op DESC"
-    ).fetchall()
-    afgewezen = db.execute(
-    """
-    SELECT *
-    FROM advertentie_aanvragen
-    WHERE status = 'rejected'
-    ORDER BY aangemaakt_op DESC
-    """
-).fetchall()
-    lopende = db.execute(
-        """
-            SELECT c.id as campagne_id, a.id as advertentie_id, a.titel, a.beschrijving,
-           a.afbeelding, c.start_datum, c.eind_datum, c.resterende_views,
-           b.naam as bedrijf_naam
-    FROM campagnes c
-    JOIN advertenties a ON a.id = c.advertentie_id
-    JOIN bedrijven b ON b.id = a.bedrijf_id
-    WHERE c.status = 'actief'
-      AND date(c.start_datum) <= date('now')
-      AND date(c.eind_datum) >= date('now')
-      AND c.resterende_views > 0
-    ORDER BY c.start_datum DESC
-        """
-    ).fetchall()
-    verlopen = db.execute(
-        """
-           SELECT c.id as campagne_id, a.id as advertentie_id, a.titel, a.beschrijving,
-           a.afbeelding, c.start_datum, c.eind_datum, c.resterende_views,
-           b.naam as bedrijf_naam
-    FROM campagnes c
-    JOIN advertenties a ON a.id = c.advertentie_id
-    JOIN bedrijven b ON b.id = a.bedrijf_id
-    WHERE c.resterende_views <= 0
-       OR date(c.eind_datum) < date('now')
-       OR c.status != 'actief'
-    ORDER BY c.eind_datum DESC
-        """
-    ).fetchall()
 
-    return render_template(
-    "admin_ad_requests.html",
-    aanvragen=aanvragen_pending,
-    lopende=lopende,
-    verlopen=verlopen,
-    afgewezen=afgewezen
-)
+    try:
+        aanvragen_pending = db.execute(
+            """
+            SELECT *
+            FROM advertentie_aanvragen
+            WHERE status = 'pending'
+            ORDER BY aangemaakt_op DESC
+            """
+        ).fetchall()
+
+        afgewezen = db.execute(
+            """
+            SELECT *
+            FROM advertentie_aanvragen
+            WHERE status = 'rejected'
+            ORDER BY aangemaakt_op DESC
+            """
+        ).fetchall()
+
+        lopende = db.execute(
+            """
+            SELECT
+                c.id AS campagne_id,
+                a.id AS advertentie_id,
+                a.titel,
+                a.beschrijving,
+                a.afbeelding,
+                c.start_datum,
+                c.eind_datum,
+                c.resterende_views,
+                b.naam AS bedrijf_naam
+            FROM campagnes c
+            JOIN advertenties a ON a.id = c.advertentie_id
+            JOIN bedrijven b ON b.id = a.bedrijf_id
+            WHERE c.status = 'actief'
+              AND date(c.start_datum) <= date('now')
+              AND date(c.eind_datum) >= date('now')
+              AND c.resterende_views > 0
+            ORDER BY c.start_datum DESC
+            """
+        ).fetchall()
+
+        verlopen = db.execute(
+            """
+            SELECT
+                c.id AS campagne_id,
+                a.id AS advertentie_id,
+                a.titel,
+                a.beschrijving,
+                a.afbeelding,
+                c.start_datum,
+                c.eind_datum,
+                c.resterende_views,
+                b.naam AS bedrijf_naam
+            FROM campagnes c
+            JOIN advertenties a ON a.id = c.advertentie_id
+            JOIN bedrijven b ON b.id = a.bedrijf_id
+            WHERE c.resterende_views <= 0
+               OR date(c.eind_datum) < date('now')
+               OR c.status != 'actief'
+            ORDER BY c.eind_datum DESC
+            """
+        ).fetchall()
+
+        return render_template(
+            "admin_ad_requests.html",
+            aanvragen=aanvragen_pending,
+            lopende=lopende,
+            verlopen=verlopen,
+            afgewezen=afgewezen
+        )
+
+    except Exception as e:
+        logger.exception("Fout in admin_ad_requests")
+        flash(f"Databasefout: {e}", "error")
+        return redirect(url_for("admin_dashboard"))
 
 @app.route('/admin/advertentie/aanvraag/<int:aanvraag_id>/approve', methods=['POST'])
 @admin_required
