@@ -136,10 +136,12 @@
       <h2>Account</h2>
       <img src="{{ url_for('static', filename='media/delete.png') }}" alt="Instellingen">
     </div>
-    <a href="#" class="verwijder-rij" onclick="return confirm('Weet je zeker dat je je account wilt verwijderen?')">
-      <span>Account verwijderen</span>
-      <span class="verwijder-waarde">Verwijder account</span>
-    </a>
+    <form method="POST" action="{{ url_for('account_verwijderen') }}" onsubmit="return confirm('Weet je zeker dat je je account wilt verwijderen?')">
+      <button type="submit" class="verwijder-rij" style="border: none; background: none; width: 100%; text-align: left; cursor: pointer;">
+        <span>Account verwijderen</span>
+        <span class="verwijder-waarde">Verwijder account</span>
+      </button>
+    </form>
   </div>
 
 

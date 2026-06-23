@@ -180,15 +180,15 @@ def adverteren():
         afbeelding_naam = None
 
         verplichte_velden = [
-    bedrijf_naam,
-    voornaam,
-    achternaam,
-    email,
-    telefoon,
-    doel_advertentie,
-    views_pakket,
-    startdatum,
-]
+            bedrijf_naam,
+            voornaam,
+            achternaam,
+            email,
+            telefoon,
+            doel_advertentie,
+            views_pakket,
+            startdatum,
+        ]
 
         if not all(verplichte_velden):
             flash("Vul alle velden in.", "error")
@@ -238,7 +238,7 @@ def adverteren():
     afbeelding,
     user_id,
     status
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                         bedrijf_naam,
@@ -341,26 +341,24 @@ def advertentie_popup():
 @app.route("/advertentie/klik/<int:campagne_id>")
 def advertentie_click(campagne_id):
     db = get_db()
-    advertentie = db.execute(
-        """
+
+    # 1. klik +1 doen
+    db.execute("""
+        UPDATE campagnes
+        SET aantal_clicks = COALESCE(aantal_clicks, 0) + 1
+        WHERE id = ?
+    """, (campagne_id,))
+
+    db.commit()
+
+    # 2. url ophalen
+    advertentie = db.execute("""
         SELECT a.doel_url
         FROM advertenties a
         JOIN campagnes c ON c.advertentie_id = a.id
         WHERE c.id = ?
-          AND a.actief = 1
-          AND c.status = 'actief'
-        """,
-        (campagne_id,),
-    ).fetchone()
+    """, (campagne_id,)).fetchone()
 
-    if not advertentie:
-        return redirect(url_for("index"))
-
-    registreer_advertentie_view(db, campagne_id)
-    registreer_advertentie_click(db, campagne_id)
-    db.commit()
-
-    logger.info("Advertentieklik en weergave geregistreerd voor campagne %s", campagne_id)
     return redirect(advertentie["doel_url"])
 
 
@@ -446,6 +444,31 @@ def logout():
     logger.info(f"Gebruiker '{username}' is uitgelogd")
     session.clear()
     return redirect(url_for("login"))
+
+
+@app.route("/account/verwijderen", methods=["POST"])
+def account_verwijderen():
+    if not ingelogd():
+        return redirect(url_for("login"))
+
+    user_id = session["user_id"]
+    db = get_db()
+    try:
+        db.execute("DELETE FROM taken WHERE user_id = ?", (user_id,))
+        db.execute("DELETE FROM vakken WHERE user_id = ?", (user_id,))
+        db.execute("DELETE FROM instellingen WHERE user_id = ?", (user_id,))
+        db.execute("DELETE FROM favorieten WHERE user_id = ?", (user_id,))
+        db.execute("DELETE FROM advertentie_aanvragen WHERE user_id = ?", (user_id,))
+        db.execute("DELETE FROM users WHERE id = ?", (user_id,))
+        db.commit()
+        logger.info(f"Gebruiker {user_id} heeft eigen account verwijderd")
+        session.clear()
+        flash("Je account is verwijderd.", "success")
+        return redirect(url_for("login"))
+    except Exception as e:
+        logger.error(f"Fout bij verwijderen eigen account {user_id}: {e}")
+        flash("Er ging iets mis bij het verwijderen van je account.", "error")
+        return redirect(url_for("instellingen"))
 
 
 # ── ADMIN ──────────────────────────────────────────────────
@@ -589,28 +612,19 @@ def admin_user_delete(user_id):
 @admin_required
 def admin_ad_requests():
     db = get_db()
-
     try:
         aanvragen_pending = db.execute(
-            """
-            SELECT *
-            FROM advertentie_aanvragen
-            WHERE status = 'pending'
-            ORDER BY aangemaakt_op DESC
-            """
+            "SELECT * FROM advertentie_aanvragen WHERE status = 'pending' ORDER BY aangemaakt_op DESC"
         ).fetchall()
 
-        afgewezen = db.execute(
-            """
+        afgewezen = db.execute("""
             SELECT *
             FROM advertentie_aanvragen
             WHERE status = 'rejected'
             ORDER BY aangemaakt_op DESC
-            """
-        ).fetchall()
+        """).fetchall()
 
-        lopende = db.execute(
-            """
+        lopende = db.execute("""
             SELECT
                 c.id AS campagne_id,
                 a.id AS advertentie_id,
@@ -620,6 +634,7 @@ def admin_ad_requests():
                 c.start_datum,
                 c.eind_datum,
                 c.resterende_views,
+                c.aantal_clicks,
                 b.naam AS bedrijf_naam
             FROM campagnes c
             JOIN advertenties a ON a.id = c.advertentie_id
@@ -629,11 +644,9 @@ def admin_ad_requests():
               AND date(c.eind_datum) >= date('now')
               AND c.resterende_views > 0
             ORDER BY c.start_datum DESC
-            """
-        ).fetchall()
+        """).fetchall()
 
-        verlopen = db.execute(
-            """
+        verlopen = db.execute("""
             SELECT
                 c.id AS campagne_id,
                 a.id AS advertentie_id,
@@ -643,6 +656,7 @@ def admin_ad_requests():
                 c.start_datum,
                 c.eind_datum,
                 c.resterende_views,
+                c.aantal_clicks,
                 b.naam AS bedrijf_naam
             FROM campagnes c
             JOIN advertenties a ON a.id = c.advertentie_id
@@ -651,8 +665,7 @@ def admin_ad_requests():
                OR date(c.eind_datum) < date('now')
                OR c.status != 'actief'
             ORDER BY c.eind_datum DESC
-            """
-        ).fetchall()
+        """).fetchall()
 
         return render_template(
             "admin_ad_requests.html",
